@@ -4,6 +4,8 @@ public class Ship {
 
     private int Length;
     private ShipType Type;
+    private Orientation orientation;
+    private ShipStatus shipStatus;
 
     public Ship(ShipType type){
         Type = type;
@@ -28,13 +30,11 @@ public class Ship {
     }
 
     public Orientation getOrientation() {
-        // TODO - implement Boat.getOrientation
-        throw new UnsupportedOperationException();
+        return orientation;
     }
 
     public ShipStatus getStatus() {
-        // TODO - implement Boat.getStatus
-        throw new UnsupportedOperationException();
+        return shipStatus;
     }
 
 }

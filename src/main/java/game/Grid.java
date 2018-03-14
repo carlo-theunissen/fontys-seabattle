@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Collection;
+
 public class Grid {
 
 	public Player getPlayer() {
@@ -17,7 +19,7 @@ public class Grid {
 		throw new UnsupportedOperationException();
 	}
 
-	public collection getHits() {
+	public Collection getHits() {
 		// TODO - implement Grid.getHits
 		throw new UnsupportedOperationException();
 	}

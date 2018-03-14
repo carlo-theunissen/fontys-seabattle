@@ -1,20 +1,20 @@
 package game;
 
 public class Hit {
+	private int x;
+	private int y;
+	private HitType type;
 
 	public int getX() {
-		// TODO - implement Hit.getX
-		throw new UnsupportedOperationException();
+		return x;
 	}
 
 	public int getY() {
-		// TODO - implement Hit.getY
-		throw new UnsupportedOperationException();
+		return y;
 	}
 
 	public HitType getHitType() {
-		// TODO - implement Hit.getHitType
-		throw new UnsupportedOperationException();
+		return type;
 	}
 
 }

@@ -6,31 +6,27 @@ public class Player {
 	private int Id;
 
 	public String getName() {
-		// TODO - implement Player.getName
-		throw new UnsupportedOperationException();
+		return Name;
 	}
 
 	/**
 	 * 
-	 * @param Name
+	 * @param value
 	 */
-	public void setName(String Name) {
-		// TODO - implement Player.setName
-		throw new UnsupportedOperationException();
+	public void setName(String value) {
+		Name = value;
 	}
 
 	public int getId() {
-		// TODO - implement Player.getId
-		throw new UnsupportedOperationException();
+		return Id;
 	}
 
 	/**
 	 * 
-	 * @param Id
+	 * @param value
 	 */
-	public void setId(int Id) {
-		// TODO - implement Player.setId
-		throw new UnsupportedOperationException();
+	public void setId(int value) {
+		Id = value;
 	}
 
 }
