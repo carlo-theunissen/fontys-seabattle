@@ -55,4 +55,7 @@ public class Ship {
         return Y;
     }
 
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
 }
