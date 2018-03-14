@@ -33,7 +33,7 @@ public class GameManager {
 		Collection<Ship> ships = shipGrid.getShips();
 		CalculateBoatStatus();
 		Player player = grid.getPlayer();
-		uiExecutor.placeTempShip(player.getId());
+		//uiExecutor.placeTempShip(player.getId());
 	}
 
 	public void CalculateBoatStatus(){
