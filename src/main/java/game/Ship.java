@@ -5,7 +5,9 @@ public class Ship {
     private int Length;
     private ShipType Type;
     private Orientation orientation;
-    private ShipStatus shipStatus;
+    private ShipStatus ShipStatus;
+    private int X;
+    private int Y;
 
     public Ship(ShipType type){
         Type = type;
@@ -34,7 +36,23 @@ public class Ship {
     }
 
     public ShipStatus getStatus() {
-        return shipStatus;
+        return ShipStatus;
+    }
+
+    public void setX(int value){
+        X = value;
+    }
+
+    public int getX(){
+        return X;
+    }
+
+    public void setY(int value){
+        Y = value;
+    }
+
+    public int getY(){
+        return Y;
     }
 
 }

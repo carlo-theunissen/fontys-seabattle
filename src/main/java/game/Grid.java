@@ -4,24 +4,33 @@ import java.util.Collection;
 
 public class Grid {
 
+	private Player Player;
+	private int Width;
+	private int Height;
+	private Collection<Hit> Hits;
+
 	public Player getPlayer() {
-		// TODO - implement Grid.getPlayer
-		throw new UnsupportedOperationException();
+		return Player;
+	}
+
+	public void setWidth(int value) {
+		Width = value;
 	}
 
 	public int getWidth() {
-		// TODO - implement Grid.getWidth
-		throw new UnsupportedOperationException();
+		return Width;
+	}
+
+	public void setHeight(int value) {
+		Height = value;
 	}
 
 	public int getHeight() {
-		// TODO - implement Grid.getHeight
-		throw new UnsupportedOperationException();
+		return Height;
 	}
 
 	public Collection getHits() {
-		// TODO - implement Grid.getHits
-		throw new UnsupportedOperationException();
+		return Hits;
 	}
 
 	/**

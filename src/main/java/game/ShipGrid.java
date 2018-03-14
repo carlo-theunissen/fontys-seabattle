@@ -1,26 +1,21 @@
 package game;
 
+import java.util.Collection;
+
 public class ShipGrid extends Grid {
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public Ship getBoat(int x, int y) {
-		// TODO - implement BoatGrid.getBoat
-		throw new UnsupportedOperationException();
+	private Collection<Ship> ships;
+
+	public Collection<Ship> getShips() {
+		return ships;
 	}
 
 	/**
-	 * 
-	 * @param x
-	 * @param y
+	 *
 	 * @param ship
 	 */
-	public void setBoat(int x, int y, Ship ship) {
-		// TODO - implement BoatGrid.setBoat
-		throw new UnsupportedOperationException();
+	public void setShip(Ship ship) {
+		ships.add(ship);
 	}
 
 }

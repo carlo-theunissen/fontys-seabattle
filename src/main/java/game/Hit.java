@@ -1,20 +1,20 @@
 package game;
 
 public class Hit {
-	private int x;
-	private int y;
-	private HitType type;
+	private int X;
+	private int Y;
+	private HitType Type;
 
 	public int getX() {
-		return x;
+		return X;
 	}
 
 	public int getY() {
-		return y;
+		return Y;
 	}
 
 	public HitType getHitType() {
-		return type;
+		return Type;
 	}
 
 }
