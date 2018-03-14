@@ -1,13 +1,24 @@
 package game;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
 public class ShipGrid extends Grid {
 
 	private Collection<Ship> ships;
 
+	public ShipGrid(){
+		//we're using HashSet because the ships should be unique. It is not possible to add multiple of the same ship to the list
+		ships = new HashSet<Ship>();
+	}
+	public ShipGrid(Grid grid){
+		super(grid);
+		ships = new HashSet<Ship>();
+	}
 	public Collection<Ship> getShips() {
-		return ships;
+		//don't let "ships" escape otherwise we'll lose responsibility
+		return Collections.unmodifiableCollection( ships);
 	}
 
 	/**

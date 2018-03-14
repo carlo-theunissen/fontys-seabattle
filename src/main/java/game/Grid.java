@@ -9,6 +9,16 @@ public class Grid {
 	private int Height;
 	private Collection<Hit> Hits;
 
+	public Grid() {
+	}
+
+	public Grid(Grid copy){
+		Player = copy.Player;
+		Width = copy.Width;
+		Height = copy.Height;
+		Hits = copy.Hits;
+	}
+
 	public Player getPlayer() {
 		return Player;
 	}

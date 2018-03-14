@@ -5,8 +5,10 @@ public class GameExecutor {
 	private ShipGrid shipGrid = new ShipGrid();
 	private Grid grid;
 
+
 	public Grid GetLocalGrid() {
-		return grid;
+	    //prevent the grid being edited outside
+		return new ImmortalShipGrid(grid);
 	}
 
 	/**

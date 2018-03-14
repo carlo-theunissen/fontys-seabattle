@@ -3,7 +3,7 @@ package game;
 public class Ship {
 
     private int Length;
-    private ShipType Type;
+    private final ShipType Type;
     private Orientation orientation;
     private ShipStatus ShipStatus;
     private int X;
@@ -58,4 +58,14 @@ public class Ship {
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
+
+    /**
+     * used for hashset
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return this.Type.toString().hashCode();
+    }
+
 }
