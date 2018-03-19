@@ -1,6 +1,9 @@
 package game;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
+import models.Orientation;
+import models.Ship;
+import models.ShipType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;

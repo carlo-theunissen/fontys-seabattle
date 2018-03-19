@@ -1,4 +1,4 @@
-package game;
+package models;
 
 public enum ShipStatus {
 	Alive,

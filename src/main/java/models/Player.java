@@ -1,4 +1,4 @@
-package game;
+package models;
 
 public class Player {
 

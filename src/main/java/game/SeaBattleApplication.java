@@ -5,7 +5,8 @@
  */
 package game;
 
-import game.ISeaBattleGame;
+import userInterface.ISeaBattleGUI;
+import userInterface.ISeaBattleGame;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -26,7 +27,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import game.UIExecutor;
+import models.ShipType;
+import models.ShotType;
+import models.SquareState;
 
 /**
  * Main application of the sea battle game.

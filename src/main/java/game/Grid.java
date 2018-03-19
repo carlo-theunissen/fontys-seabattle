@@ -1,10 +1,13 @@
 package game;
 
+import models.Hit;
+import models.Player;
+
 import java.util.Collection;
 
 public class Grid {
 
-	private Player Player;
+	private models.Player Player;
 	private int Width;
 	private int Height;
 	private Collection<Hit> Hits;

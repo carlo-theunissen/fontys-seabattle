@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package userInterface;
 
+
+import models.ShipType;
+import models.ShotType;
 
 /**
  * Interface provided by the sea battle game to the graphical user interface.

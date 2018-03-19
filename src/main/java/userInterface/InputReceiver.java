@@ -1,8 +1,18 @@
-package game;
+package userInterface;
+
+import game.GameExecutor;
+import game.Grid;
+import game.ShipGrid;
+import game.UIExecutor;
+import models.Player;
+import models.Ship;
 
 import java.util.Collection;
 
-public class GameManager {
+/**
+ * The InputReceiver decides what to do with user input
+ */
+public class InputReceiver {
 
 	private GameExecutor gameExecutor = new GameExecutor();
 	private ShipGrid shipGrid = new ShipGrid();
@@ -12,7 +22,7 @@ public class GameManager {
 	 * @param userInput
 	 */
 	public void setInput(int userInput) {
-		// TODO - implement GameManager.setInput
+		// TODO - implement InputReceiver.setInput
 		throw new UnsupportedOperationException();
 	}
 
@@ -21,7 +31,7 @@ public class GameManager {
 	 * @param GameExecutor
 	 */
 	public void setGameGameExecutor(int GameExecutor) {
-		// TODO - implement GameManager.setGameGameExecutor
+		// TODO - implement InputReceiver.setGameGameExecutor
 		throw new UnsupportedOperationException();
 	}
 

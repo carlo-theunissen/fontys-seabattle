@@ -1,6 +1,6 @@
 package game;
 
-import java.util.Collection;
+import models.Ship;
 
 /**
  * This class prevents a grid for being edited.

@@ -1,4 +1,4 @@
-package game;
+package models;
 
 public enum HitType {
 	Miss,
