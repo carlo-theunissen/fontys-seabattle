@@ -12,9 +12,6 @@ public class ImmortalShipGrid extends ShipGrid {
         super(grid);
         ships = grid.ships;
     }
-    public ImmortalShipGrid(Grid grid) {
-        super(grid);
-    }
 
     @Override
     public void setShip(Ship ship) {

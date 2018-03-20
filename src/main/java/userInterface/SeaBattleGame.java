@@ -31,6 +31,8 @@ public class SeaBattleGame implements ISeaBattleGame {
         player1 = new GameExecutor(communication1);
 
         communication0.setOtherPlayer(player1);
+        player0.setGridSize(10,10);
+        player1.setGridSize(10,10);
     }
 
     public GameExecutor getPlayer(int playerNr){
