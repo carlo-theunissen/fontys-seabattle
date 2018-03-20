@@ -69,7 +69,10 @@ public class GameExecutor {
      */
 	public void FireShot(Fire fire) {
 		Ship ship = new CollideHelper().getShip(fire.getX(), fire.getY(), shipGrid);
-		communication.sendPackage(new HitPackage(new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided)));
+		Hit hit = new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided);
+
+		communication.sendPackage(new HitPackage(hit));
+        GUIExecutor.fireShotLocal(hit);
 	}
 
     /**
@@ -92,6 +95,7 @@ public class GameExecutor {
      */
 	public void FireResponse(Hit hit){
         opponentGrid.AddHit(hit);
+        GUIExecutor.fireShotOpponent(hit);
     }
 
 }
