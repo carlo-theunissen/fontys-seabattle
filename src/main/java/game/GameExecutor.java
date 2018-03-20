@@ -41,6 +41,7 @@ public class GameExecutor {
 	 */
 	public void PlaceBoat(Ship ship) {
 		shipGrid.setShip(ship);
+        GUIExecutor.placeShipLocal(ship);
 	}
 
     /**
