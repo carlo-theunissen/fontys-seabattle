@@ -32,6 +32,14 @@ public class GameExecutor {
 		return new ImmortalShipGrid(shipGrid);
 	}
 
+	public void setGridSize(int width, int height){
+        shipGrid.setWidth(width);
+        shipGrid.setHeight(height);
+
+        opponentGrid.setWidth(width);
+        opponentGrid.setHeight(height);
+    }
+
 
     /**
      * Removes a ship from the grid.
