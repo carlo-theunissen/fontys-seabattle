@@ -1,6 +1,9 @@
 package userInterface;
 
+import communication.ICommunication;
+import communication.SinglePlayerCommunication;
 import game.GameExecutor;
+import game.IUIExecutor;
 import game.ShipGrid;
 import helpers.CollideHelper;
 import models.Orientation;
@@ -12,8 +15,25 @@ import java.util.Collection;
 
 public class SeaBattleGame implements ISeaBattleGame {
 
-    private GameExecutor player0 = new GameExecutor();
-    private GameExecutor player1 = new GameExecutor();
+    private GameExecutor player0;
+    private GameExecutor player1;
+
+
+    public void setGUIExecutor(IUIExecutor GUIExecutor) {
+        player1.setGUIExecutor( GUIExecutor );
+        player0.setGUIExecutor( GUIExecutor );
+    }
+
+    public SeaBattleGame(){
+        SinglePlayerCommunication communication0 = new SinglePlayerCommunication();
+        player0 = new GameExecutor(communication0);
+
+        SinglePlayerCommunication communication1 = new SinglePlayerCommunication();
+        communication1.setOtherPlayer(player0);
+        player1 = new GameExecutor(communication1);
+
+        communication0.setOtherPlayer(player1);
+    }
 
     public GameExecutor getPlayer(int playerNr){
         GameExecutor player;

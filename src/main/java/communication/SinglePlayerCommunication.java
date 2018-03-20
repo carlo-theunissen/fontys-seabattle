@@ -5,10 +5,12 @@ import models.Fire;
 import models.Hit;
 
 public class SinglePlayerCommunication extends BaseCommunication implements ICommunication {
-    private final GameExecutor otherPlayer;
-    public SinglePlayerCommunication(GameExecutor opponent){
-        otherPlayer = opponent;
+    private GameExecutor otherPlayer;
+
+    public void setOtherPlayer(GameExecutor otherPlayer) {
+        this.otherPlayer = otherPlayer;
     }
+
     public void sendPackage(CommunicationPackage communicationPackage) {
         if(communicationPackage.getAction() == CommunicationAction.HitResponse){
             Hit hit = HitPackage.unserialize(communicationPackage.getData());

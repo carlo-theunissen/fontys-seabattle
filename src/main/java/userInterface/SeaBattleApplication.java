@@ -471,7 +471,12 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         // When invoking methods of class SeaBattleGame an
         // UnsupportedOperationException will be thrown
         // TODO: IMPLEMENT CLASS UIExecutor.
-        game = new SeaBattleGame();
+        SeaBattleGame game_t = new SeaBattleGame();
+        game = game_t;
+
+        SeaBattleGUI gui = new SeaBattleGUI(this);
+        game_t.setGUIExecutor(gui);
+
     }
 
     /**

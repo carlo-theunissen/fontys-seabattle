@@ -14,6 +14,7 @@ import models.Ship;
  */
 public class GameExecutor {
 
+    private IUIExecutor GUIExecutor;
     private ICommunication communication;
     public GameExecutor(ICommunication communication){
         this.communication = communication;
@@ -25,7 +26,11 @@ public class GameExecutor {
 	private ShipGrid shipGrid;
     private Grid opponentGrid;
 
-	public ShipGrid GetLocalGrid() {
+    public void setGUIExecutor(IUIExecutor GUIExecutor) {
+        this.GUIExecutor = GUIExecutor;
+    }
+
+    public ShipGrid GetLocalGrid() {
 	    //prevent the grid being edited outside
 		return new ImmortalShipGrid(shipGrid);
 	}
