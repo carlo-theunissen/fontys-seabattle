@@ -1,10 +1,7 @@
 package userInterface;
 
 import game.IUIExecutor;
-import models.Hit;
-import models.Ship;
-import models.ShipType;
-import models.SquareState;
+import models.*;
 
 public class SeaBattleGUI implements IUIExecutor {
 
@@ -21,14 +18,19 @@ public class SeaBattleGUI implements IUIExecutor {
     @Override
     public void placeShipLocal(Ship ship) {
         ship.getLength();
-        ship.getOrientation();
-        for (int i = 0; i < ship.getLength(); i++)
-        battleGUI.showSquarePlayer(0, ship.getX(), ship.getY(), SquareState.SHIP);
+
+        for (int i = 0; i < ship.getLength(); i++) {
+            if(ship.getOrientation() == Orientation.Horizontal) {
+                battleGUI.showSquarePlayer(0, ship.getX() + i, ship.getY(), SquareState.SHIP);
+            } else {
+                battleGUI.showSquarePlayer(0, ship.getX(), ship.getY() + i, SquareState.SHIP);
+            }
+        }
     }
 
     @Override
     public void fireShotLocal(Hit hit) {
-        battleGUI.opponentFiresShot(hit);
+        //battleGUI.opponentFiresShot(1);
     }
 
     @Override

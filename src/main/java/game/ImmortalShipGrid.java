@@ -1,5 +1,6 @@
 package game;
 
+import models.Hit;
 import models.Ship;
 
 /**
@@ -27,8 +28,7 @@ public class ImmortalShipGrid extends ShipGrid {
     }
 
     @Override
-    public void FireShot(int x, int y) {
+    public void AddHit(Hit hit) {
         throw new IllegalStateException();
     }
-
 }
