@@ -35,11 +35,29 @@ public class GameExecutor {
 		return new ImmortalShipGrid(shipGrid);
 	}
 
+
+    /**
+     * Removes a ship from the grid.
+     * TODO: let communication know about this
+     * @param ship
+     */
+	public void RemoveShip(Ship ship){
+        if(shipGrid.removeShip(ship)){
+            GUIExecutor.removeShipLocal(ship);
+        }
+    }
+
 	/**
 	 *
 	 * @param ship
 	 */
 	public void PlaceBoat(Ship ship) {
+	    for(Ship temp : shipGrid.getShips()){
+	        if(temp.hashCode() == ship.hashCode()){
+	            RemoveShip(ship);
+	            break;
+            }
+        }
 		shipGrid.setShip(ship);
         GUIExecutor.placeShipLocal(ship);
 	}

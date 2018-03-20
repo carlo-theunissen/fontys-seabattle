@@ -9,6 +9,7 @@ public interface IUIExecutor {
 
 	void placeTempShipLocal(ShipType shipType, int bowX, int bowY, boolean horizontal);
 	void placeShipLocal(Ship ship);
+	void removeShipLocal(Ship ship);
 
 	void fireShotLocal(Hit hit);
 	void fireShotOpponent(Hit hit);
