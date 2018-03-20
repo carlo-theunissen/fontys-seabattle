@@ -54,7 +54,7 @@ public class GameExecutor {
 	public void PlaceBoat(Ship ship) {
 	    for(Ship temp : shipGrid.getShips()){
 	        if(temp.hashCode() == ship.hashCode()){
-	            RemoveShip(ship);
+	            RemoveShip(temp);
 	            break;
             }
         }

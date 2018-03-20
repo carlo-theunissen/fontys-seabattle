@@ -6,12 +6,10 @@ import game.GameExecutor;
 import game.IUIExecutor;
 import game.ShipGrid;
 import helpers.CollideHelper;
-import models.Orientation;
-import models.Ship;
-import models.ShipType;
-import models.ShotType;
+import models.*;
 
 import java.util.Collection;
+import java.util.Random;
 
 public class SeaBattleGame implements ISeaBattleGame {
 
@@ -93,11 +91,13 @@ public class SeaBattleGame implements ISeaBattleGame {
     }
 
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        return null;
+        player0.FireOpponent(new Fire(posX, posY));
+        return ShotType.MISSED;
     }
 
     public ShotType fireShotOpponent(int playerNr) {
-        return null;
+        player1.FireOpponent(new Fire(new Random(10).nextInt(), new Random(10).nextInt()));
+        return ShotType.MISSED;
     }
 
     public boolean startNewGame(int playerNr) {

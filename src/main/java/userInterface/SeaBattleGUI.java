@@ -3,6 +3,9 @@ package userInterface;
 import game.IUIExecutor;
 import models.*;
 
+import static models.HitType.Collided;
+import static models.HitType.Miss;
+
 public class SeaBattleGUI implements IUIExecutor {
 
     private ISeaBattleGUI battleGUI;
@@ -17,8 +20,6 @@ public class SeaBattleGUI implements IUIExecutor {
 
     @Override
     public void placeShipLocal(Ship ship) {
-        ship.getLength();
-
         for (int i = 0; i < ship.getLength(); i++) {
             if(ship.getOrientation() == Orientation.Horizontal) {
                 battleGUI.showSquarePlayer(0, ship.getX() + i, ship.getY(), SquareState.SHIP);
@@ -29,13 +30,36 @@ public class SeaBattleGUI implements IUIExecutor {
     }
 
     @Override
+    public void removeShipLocal(Ship ship) {
+        for (int i = 0; i < ship.getLength(); i++) {
+            if(ship.getOrientation() == Orientation.Horizontal) {
+                battleGUI.showSquarePlayer(0, ship.getX() + i, ship.getY(), SquareState.WATER);
+            } else {
+                battleGUI.showSquarePlayer(0, ship.getX(), ship.getY() + i, SquareState.WATER);
+            }
+        }
+    }
+
+    @Override
     public void fireShotLocal(Hit hit) {
-        //battleGUI.opponentFiresShot(1);
+        HitType hitType = hit.getHitType();
+        if (hitType == Miss) {
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
+        }
+        else if (hitType == Collided) {
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+        }
     }
 
     @Override
     public void fireShotOpponent(Hit hit) {
-
+        HitType hitType = hit.getHitType();
+        if (hitType == Miss) {
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
+        }
+        else if (hitType == Collided) {
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+        }
     }
 
     @Override
