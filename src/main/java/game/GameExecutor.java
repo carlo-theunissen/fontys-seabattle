@@ -12,7 +12,7 @@ public class GameExecutor {
 	private Grid grid;
 
 
-	public Grid GetLocalGrid() {
+	public ShipGrid GetLocalGrid() {
 	    //prevent the grid being edited outside
 		return new ImmortalShipGrid(grid);
 	}

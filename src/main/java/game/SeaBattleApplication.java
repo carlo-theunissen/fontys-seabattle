@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import models.ShipType;
 import models.ShotType;
 import models.SquareState;
+import userInterface.SeaBattleGame;
 
 /**
  * Main application of the sea battle game.
@@ -136,7 +137,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         grid = new GridPane();
         grid.setHgap(BORDERSIZE);
         grid.setVgap(BORDERSIZE);
-        grid.setPadding(new Insets(BORDERSIZE,BORDERSIZE,BORDERSIZE,BORDERSIZE));
+        grid.setPadding(new Insets(BORDERSIZE, BORDERSIZE, BORDERSIZE, BORDERSIZE));
 
         // For debug purposes
         // Make de grid lines visible
@@ -144,17 +145,17 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
 
         // Create the scene and add the grid pane
         Group root = new Group();
-        Scene scene = new Scene(root, AREAWIDTH+BUTTONWIDTH+3*BORDERSIZE, 2*AREAHEIGHT+2*BORDERSIZE+65);
+        Scene scene = new Scene(root, AREAWIDTH + BUTTONWIDTH + 3 * BORDERSIZE, 2 * AREAHEIGHT + 2 * BORDERSIZE + 65);
         root.getChildren().add(grid);
 
         // Label for opponent's name
         opponentName = "Opponent";
         labelOpponentName = new Label(opponentName + "\'s grid");
         labelOpponentName.setMinWidth(AREAWIDTH);
-        grid.add(labelOpponentName,0,0,1,2);
+        grid.add(labelOpponentName, 0, 0, 1, 2);
 
         // Target area, a 10 x 10 grid where the opponent's ships are placed
-        targetArea = new Rectangle(BORDERSIZE,3*BORDERSIZE,AREAWIDTH,AREAHEIGHT);
+        targetArea = new Rectangle(BORDERSIZE, 3 * BORDERSIZE, AREAWIDTH, AREAHEIGHT);
         targetArea.setFill(Color.WHITE);
         root.getChildren().add(targetArea);
 
@@ -162,9 +163,9 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         squaresTargetArea = new Rectangle[NRSQUARESHORIZONTAL][NRSQUARESVERTICAL];
         for (int i = 0; i < NRSQUARESHORIZONTAL; i++) {
             for (int j = 0; j < NRSQUARESVERTICAL; j++) {
-                double x = targetArea.getX() + i * (AREAWIDTH/NRSQUARESHORIZONTAL) + 2;
-                double y = targetArea.getY() + j * (AREAHEIGHT/NRSQUARESVERTICAL) + 2;
-                Rectangle rectangle = new Rectangle(x,y,SQUAREWIDTH,SQUAREHEIGHT);
+                double x = targetArea.getX() + i * (AREAWIDTH / NRSQUARESHORIZONTAL) + 2;
+                double y = targetArea.getY() + j * (AREAHEIGHT / NRSQUARESVERTICAL) + 2;
+                Rectangle rectangle = new Rectangle(x, y, SQUAREWIDTH, SQUAREHEIGHT);
                 rectangle.setArcWidth(10.0);
                 rectangle.setArcHeight(10.0);
                 rectangle.setStroke(Color.BLACK);
@@ -176,7 +177,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
                         new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
-                                rectangleTargetAreaMousePressed(event,xpos,ypos);
+                                rectangleTargetAreaMousePressed(event, xpos, ypos);
                             }
                         });
                 squaresTargetArea[i][j] = rectangle;
@@ -188,10 +189,10 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         playerName = "";
         labelPlayerName = new Label("Your grid");
         labelPlayerName.setMinWidth(AREAWIDTH);
-        grid.add(labelPlayerName,0,35,1,2);
+        grid.add(labelPlayerName, 0, 35, 1, 2);
 
         // Ocean area, a 10 x 10 grid where the player's ships are placed
-        oceanArea = new Rectangle(BORDERSIZE,46*BORDERSIZE,AREAWIDTH,AREAHEIGHT);
+        oceanArea = new Rectangle(BORDERSIZE, 46 * BORDERSIZE, AREAWIDTH, AREAHEIGHT);
         oceanArea.setFill(Color.WHITE);
         root.getChildren().add(oceanArea);
 
@@ -199,9 +200,9 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         squaresOceanArea = new Rectangle[NRSQUARESHORIZONTAL][NRSQUARESVERTICAL];
         for (int i = 0; i < NRSQUARESHORIZONTAL; i++) {
             for (int j = 0; j < NRSQUARESVERTICAL; j++) {
-                double x = oceanArea.getX() + i * (AREAWIDTH/NRSQUARESHORIZONTAL) + 2;
-                double y = oceanArea.getY() + j * (AREAHEIGHT/NRSQUARESVERTICAL) + 2;
-                Rectangle rectangle = new Rectangle(x,y,SQUAREWIDTH,SQUAREHEIGHT);
+                double x = oceanArea.getX() + i * (AREAWIDTH / NRSQUARESHORIZONTAL) + 2;
+                double y = oceanArea.getY() + j * (AREAHEIGHT / NRSQUARESVERTICAL) + 2;
+                Rectangle rectangle = new Rectangle(x, y, SQUAREWIDTH, SQUAREHEIGHT);
                 rectangle.setArcWidth(10.0);
                 rectangle.setArcHeight(10.0);
                 rectangle.setStroke(Color.BLACK);
@@ -213,7 +214,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
                         new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
-                                rectangleOceanAreaMousePressed(event,xpos,ypos);
+                                rectangleOceanAreaMousePressed(event, xpos, ypos);
                             }
                         });
                 squaresOceanArea[i][j] = rectangle;
@@ -223,8 +224,8 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
 
         // Text field to set the player's name
         labelYourName = new Label("Your name:");
-        grid.add(labelYourName,1,2,1,2);
-        textFieldPlayerName = new TextField ();
+        grid.add(labelYourName, 1, 2, 1, 2);
+        textFieldPlayerName = new TextField();
         textFieldPlayerName.setMinWidth(BUTTONWIDTH);
         textFieldPlayerName.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -233,7 +234,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
                 labelPlayerName.setText(playerName + "\'s grid");
             }
         });
-        grid.add(textFieldPlayerName,1,4,1,2);
+        grid.add(textFieldPlayerName, 1, 4, 1, 2);
 
         // Radio buttons to choose between single-player and multi-player mode
         labelSingleMultiPlayer = new Label("Play game in: ");
@@ -259,9 +260,9 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         radioSinglePlayer.setToggleGroup(tgSingleMultiPlayer);
         radioMultiPlayer.setToggleGroup(tgSingleMultiPlayer);
         radioSinglePlayer.setSelected(true);
-        grid.add(labelSingleMultiPlayer,1,6,1,2);
-        grid.add(radioSinglePlayer,1,8,1,2);
-        grid.add(radioMultiPlayer,1,10,1,2);
+        grid.add(labelSingleMultiPlayer, 1, 6, 1, 2);
+        grid.add(radioSinglePlayer, 1, 8, 1, 2);
+        grid.add(radioMultiPlayer, 1, 10, 1, 2);
 
         // Button to register the player
         buttonRegisterPlayer = new Button("Register");
@@ -275,7 +276,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
                 registerPlayer();
             }
         });
-        grid.add(buttonRegisterPlayer,1,14,1,3);
+        grid.add(buttonRegisterPlayer, 1, 14, 1, 3);
 
         // Button to place the player's ships automatically
         buttonPlaceAllShips = new Button("Place ships for me");
@@ -290,7 +291,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             }
         });
         buttonPlaceAllShips.setDisable(true);
-        grid.add(buttonPlaceAllShips,1,18,1,3);
+        grid.add(buttonPlaceAllShips, 1, 18, 1, 3);
 
         // Button to remove the player's ships that are already placed
         buttonRemoveAllShips = new Button("Remove all my ships");
@@ -305,7 +306,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             }
         });
         buttonRemoveAllShips.setDisable(true);
-        grid.add(buttonRemoveAllShips,1,22,1,3);
+        grid.add(buttonRemoveAllShips, 1, 22, 1, 3);
 
         // Button to notify that the player is ready to start playing
         buttonReadyToPlay = new Button("Ready to play");
@@ -320,7 +321,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             }
         });
         buttonReadyToPlay.setDisable(true);
-        grid.add(buttonReadyToPlay,1,26,1,3);
+        grid.add(buttonReadyToPlay, 1, 26, 1, 3);
 
         // Button to start a new game
         buttonStartNewGame = new Button("Start new game");
@@ -335,7 +336,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             }
         });
         buttonStartNewGame.setDisable(true);
-        grid.add(buttonStartNewGame,1,30,1,3);
+        grid.add(buttonStartNewGame, 1, 30, 1, 3);
 
         // Radio buttons to place ships horizontally or vertically
         labelHorizontalVertical = new Label("Place next ship: ");
@@ -364,9 +365,9 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         labelHorizontalVertical.setDisable(true);
         radioHorizontal.setDisable(true);
         radioVertical.setDisable(true);
-        grid.add(labelHorizontalVertical,1,40,1,2);
-        grid.add(radioHorizontal,1,42,1,2);
-        grid.add(radioVertical,1,44,1,2);
+        grid.add(labelHorizontalVertical, 1, 40, 1, 2);
+        grid.add(radioHorizontal, 1, 42, 1, 2);
+        grid.add(radioVertical, 1, 44, 1, 2);
 
         // Button to place aircraft carrier on selected square
         buttonPlaceAircraftCarrier = new Button("Place aircraft carrier (5)");
@@ -377,11 +378,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         buttonPlaceAircraftCarrier.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                placeShipAtSelectedSquare(ShipType.AIRCRAFTCARRIER,horizontal);
+                placeShipAtSelectedSquare(ShipType.AIRCRAFTCARRIER, horizontal);
             }
         });
         buttonPlaceAircraftCarrier.setDisable(true);
-        grid.add(buttonPlaceAircraftCarrier,1,48,1,3);
+        grid.add(buttonPlaceAircraftCarrier, 1, 48, 1, 3);
 
         // Button to place battle ship on selected square
         buttonPlaceBattleShip = new Button("Place battle ship (4)");
@@ -392,11 +393,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         buttonPlaceBattleShip.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                placeShipAtSelectedSquare(ShipType.BATTLESHIP,horizontal);
+                placeShipAtSelectedSquare(ShipType.BATTLESHIP, horizontal);
             }
         });
         buttonPlaceBattleShip.setDisable(true);
-        grid.add(buttonPlaceBattleShip,1,52,1,3);
+        grid.add(buttonPlaceBattleShip, 1, 52, 1, 3);
 
         // Button to place battle ship on selected square
         buttonPlaceCruiser = new Button("Place cruiser (3)");
@@ -407,11 +408,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         buttonPlaceCruiser.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                placeShipAtSelectedSquare(ShipType.CRUISER,horizontal);
+                placeShipAtSelectedSquare(ShipType.CRUISER, horizontal);
             }
         });
         buttonPlaceCruiser.setDisable(true);
-        grid.add(buttonPlaceCruiser,1,56,1,3);
+        grid.add(buttonPlaceCruiser, 1, 56, 1, 3);
 
         // Button to place mine sweeper on selected square
         buttonPlaceSubmarine = new Button("Place submarine (3)");
@@ -422,11 +423,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         buttonPlaceSubmarine.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                placeShipAtSelectedSquare(ShipType.SUBMARINE,horizontal);
+                placeShipAtSelectedSquare(ShipType.SUBMARINE, horizontal);
             }
         });
         buttonPlaceSubmarine.setDisable(true);
-        grid.add(buttonPlaceSubmarine,1,60,1,3);
+        grid.add(buttonPlaceSubmarine, 1, 60, 1, 3);
 
         // Button to place mine sweeper on selected square
         buttonPlaceMineSweeper = new Button("Place mine sweeper (2)");
@@ -437,11 +438,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         buttonPlaceMineSweeper.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                placeShipAtSelectedSquare(ShipType.MINESWEEPER,horizontal);
+                placeShipAtSelectedSquare(ShipType.MINESWEEPER, horizontal);
             }
         });
         buttonPlaceMineSweeper.setDisable(true);
-        grid.add(buttonPlaceMineSweeper,1,64,1,3);
+        grid.add(buttonPlaceMineSweeper, 1, 64, 1, 3);
 
         // Button to remove ship that is positioned at selected square
         buttonRemoveShip = new Button("Remove ship");
@@ -457,7 +458,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             }
         });
         buttonRemoveShip.setDisable(true);
-        grid.add(buttonRemoveShip,1,68,1,3);
+        grid.add(buttonRemoveShip, 1, 68, 1, 3);
 
         // Define title and assign the scene for main window
         primaryStage.setTitle("Sea battle: the game");
@@ -470,7 +471,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         // When invoking methods of class SeaBattleGame an
         // UnsupportedOperationException will be thrown
         // TODO: IMPLEMENT CLASS UIExecutor.
-        game = new UIExecutor();
+        game = new SeaBattleGame();
     }
 
     /**
