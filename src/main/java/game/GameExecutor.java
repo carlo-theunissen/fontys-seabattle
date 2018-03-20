@@ -1,5 +1,7 @@
 package game;
 
+import communication.ICommunication;
+import models.Fire;
 import models.Hit;
 import models.Ship;
 
@@ -8,11 +10,18 @@ import models.Ship;
  */
 public class GameExecutor {
 
-	private ShipGrid shipGrid = new ShipGrid();
+    private ICommunication communication;
+    public GameExecutor(ICommunication communication){
+        this.communication = communication;
+        this.communication.setLocalExecutor(this);
+
+        shipGrid = new ShipGrid();
+    }
+	private ShipGrid shipGrid;
 	private Grid grid;
 
 
-	public Grid GetLocalGrid() {
+	public ShipGrid GetLocalGrid() {
 	    //prevent the grid being edited outside
 		return new ImmortalShipGrid(grid);
 	}
@@ -25,9 +34,30 @@ public class GameExecutor {
 		shipGrid.setShip(ship);
 	}
 
-	public void FireShot(Hit shot) {
+    /**
+     * Fire a shot on the local grid.
+     * We should response with a hit
+     * @param fire
+     */
+	public void FireShot(Fire fire) {
 		// TODO - implement GameExcutor.FireShot
 		throw new UnsupportedOperationException();
 	}
+
+    /**
+     * Fire on the grid of the opponent
+     * @param fire
+     */
+	public void FireOpponent(Fire fire){
+
+    }
+
+    /**
+     * The response of the opponent
+     * @param hit
+     */
+	public void FireResponse(Hit hit){
+
+    }
 
 }

@@ -1,11 +1,15 @@
 package userInterface;
 
+import game.GameExecutor;
+import game.ImmortalShipGrid;
 import models.ShipType;
 import models.ShotType;
 
 public class SeeBattleGame implements ISeaBattleGame {
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
+        GameExecutor executor = new GameExecutor(null);
         return 0;
+
     }
 
     public boolean placeShipsAutomatically(int playerNr) {
