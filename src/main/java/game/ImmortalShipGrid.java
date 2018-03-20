@@ -8,6 +8,10 @@ import models.Ship;
  */
 public class ImmortalShipGrid extends ShipGrid {
 
+    public ImmortalShipGrid(ShipGrid grid){
+        super(grid);
+        ships = grid.ships;
+    }
     public ImmortalShipGrid(Grid grid) {
         super(grid);
     }

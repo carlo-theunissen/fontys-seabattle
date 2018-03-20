@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class ShipGrid extends Grid {
 
-	private Collection<Ship> ships;
+	protected Collection<Ship> ships;
 
 	public ShipGrid(){
 		//we're using HashSet because the ships should be unique. It is not possible to add multiple of the same ship to the list
