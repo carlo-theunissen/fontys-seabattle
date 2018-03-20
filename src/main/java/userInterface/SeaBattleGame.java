@@ -2,6 +2,7 @@ package userInterface;
 
 import game.GameExecutor;
 import game.ShipGrid;
+import helpers.CollideHelper;
 import models.Orientation;
 import models.Ship;
 import models.ShipType;
@@ -52,22 +53,12 @@ public class SeaBattleGame implements ISeaBattleGame {
     public boolean removeShip(int playerNr, int posX, int posY) {
         GameExecutor player = getPlayer(playerNr);
 
-        Collection<Ship> ships = player.GetLocalGrid().getShips();
-            for (Ship ship : ships) {
-                for (int i = 0; i < ship.getLength(); i++) {
-                    if (ship.getOrientation() == Orientation.Horizontal) {
-                        if ((ship.getX() + i) == posX && ship.getY() == posY) {
-                            player.GetLocalGrid().removeShip(ship);
-                        }
-                    } else {
-                        if (ship.getX() == posX && (ship.getY() + 1 == posY)) {
-                            player.GetLocalGrid().removeShip(ship);
-                        }
-                    }
-                }
-            }
+        Ship ship = (new CollideHelper()).getShip(posX, posY, player.GetLocalGrid());
+        if(ship != null){
+            player.GetLocalGrid().removeShip(ship);
+        }
 
-        return true;
+        return ship != null;
     }
 
     public boolean removeAllShips(int playerNr) {

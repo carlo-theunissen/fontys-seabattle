@@ -1,20 +1,26 @@
 package models;
 
 public class Hit {
-	private int X;
-	private int Y;
-	private HitType Type;
+	private int x;
+	private int y;
+	private HitType type;
 
 	public int getX() {
-		return X;
+		return x;
 	}
 
 	public int getY() {
-		return Y;
+		return y;
 	}
 
 	public HitType getHitType() {
-		return Type;
+		return type;
 	}
 
+	public Hit(int x, int y, HitType type){
+		this.x = x;
+		this.y = y;
+		this.type = type;
+
+	}
 }

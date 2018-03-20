@@ -4,6 +4,7 @@ import models.Hit;
 import models.Player;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class Grid {
 
@@ -42,16 +43,11 @@ public class Grid {
 		return Height;
 	}
 
-	public Collection getHits() {
-		return Hits;
+	public Collection<Hit> getHits() {
+		return Collections.unmodifiableCollection(Hits);
 	}
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public void FireShot(int x, int y) {
+	public void AddHit(Hit hit) {
 		// TODO - implement Grid.FireShot
 		throw new UnsupportedOperationException();
 	}
