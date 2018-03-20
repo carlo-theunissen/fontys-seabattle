@@ -31,4 +31,11 @@ public class ShipGrid extends Grid {
 		ships.add(ship);
 	}
 
+	public void removeShip(Ship ship){
+		ships.remove(ship);
+	}
+
+	public void removeAllShips(){
+		ships.clear();
+	}
 }
