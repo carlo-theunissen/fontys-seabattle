@@ -4,10 +4,7 @@ import communication.FirePackage;
 import communication.HitPackage;
 import communication.ICommunication;
 import helpers.CollideHelper;
-import models.Fire;
-import models.Hit;
-import models.HitType;
-import models.Ship;
+import models.*;
 
 /**
  * GameExecutor keeps track of the state of the game, all actions done in here are final
@@ -52,6 +49,12 @@ public class GameExecutor {
 	 * @param ship
 	 */
 	public void PlaceBoat(Ship ship) {
+
+	    for(int i = 0; i < ship.getLength(); i++) {
+            if(new CollideHelper().getShip(ship.getX() + i * (ship.getOrientation() == Orientation.Horizontal ? 1 : 0), ship.getY() + i * (ship.getOrientation() == Orientation.Horizontal ? 0 : 1), shipGrid) != null){
+                return;
+            }
+        }
 	    for(Ship temp : shipGrid.getShips()){
 	        if(temp.hashCode() == ship.hashCode()){
 	            RemoveShip(ship);
