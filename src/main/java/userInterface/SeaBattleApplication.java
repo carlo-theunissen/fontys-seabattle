@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package userInterface;
 
 import userInterface.ISeaBattleGUI;
 import userInterface.ISeaBattleGame;
@@ -747,6 +747,14 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             boolean success = game.placeShip(playerNr, shipType, bowX, bowY, horizontal);
             if (!success) {
                 showMessage("Cannot place ship");
+            } else {
+                showMessage("Success");
+                System.out.println(playerNr);
+                System.out.println(shipType);
+                System.out.println(bowX);
+                System.out.println(bowY);
+                System.out.println(horizontal);
+
             }
         }
         else {
