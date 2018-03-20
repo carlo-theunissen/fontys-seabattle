@@ -87,11 +87,18 @@ public class SeaBattleGame implements ISeaBattleGame {
     }
 
     public boolean notifyWhenReady(int playerNr) {
-        return false;
+        GameExecutor player = getPlayer(playerNr);
+        Collection<Ship> ships = player.GetLocalGrid().getShips();
+        if (ships.size() == 5){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        player0.FireOpponent(new Fire(posX, posY));
+        GameExecutor player = getPlayer(playerNr);
+        player.FireOpponent(new Fire(posX, posY));
         return ShotType.MISSED;
     }
 
