@@ -7,6 +7,8 @@ import helpers.CollideHelper;
 import models.*;
 
 import java.util.Collection;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SeaBattleGame implements ISeaBattleGame {
 
@@ -46,7 +48,16 @@ public class SeaBattleGame implements ISeaBattleGame {
     }
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
+        PlaceShipsAI();
         return 0;
+    }
+
+    public void PlaceShipsAI(){
+        placeShip(1, ShipType.AIRCRAFTCARRIER, 0,0, true);
+        placeShip(1, ShipType.BATTLESHIP, 0,1, true);
+        placeShip(1, ShipType.CRUISER, 0,2, true);
+        placeShip(1, ShipType.MINESWEEPER, 0,3, true);
+        placeShip(1, ShipType.SUBMARINE, 0,4, true);
     }
 
     public boolean placeShipsAutomatically(int playerNr) {
@@ -127,7 +138,7 @@ public class SeaBattleGame implements ISeaBattleGame {
         if(playerNr != 0){
             return ShotType.MISSED;
         }
-        //aiPlayer.FireOpponent(new Fire(new Random(10).nextInt(), new Random(10).nextInt()));
+        aiPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
         return ShotType.MISSED;
     }
 

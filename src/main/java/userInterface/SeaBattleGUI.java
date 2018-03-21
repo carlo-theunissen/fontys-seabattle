@@ -58,10 +58,13 @@ public class SeaBattleGUI implements IUIExecutor {
         HitType hitType = hit.getHitType();
         if (hitType == Miss) {
             battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
+            battleGUI.opponentFiresShot(0, ShotType.MISSED);
         }
         else if (hitType == Collided) {
             battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+            battleGUI.opponentFiresShot(0, ShotType.HIT);
         }
+
     }
 
     @Override

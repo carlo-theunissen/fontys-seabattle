@@ -88,7 +88,7 @@ public class GameExecutor {
 		Hit hit = new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided);
 
 		communication.sendPackage(new HitPackage(hit));
-        GUIExecutor.fireShotOpponent(hit);
+        GUIExecutor.fireShotLocal(hit);
 	}
 
     /**
@@ -111,7 +111,7 @@ public class GameExecutor {
      */
 	public void FireResponse(Hit hit){
         opponentGrid.AddHit(hit);
-        GUIExecutor.fireShotLocal(hit);
+        GUIExecutor.fireShotOpponent(hit);
     }
 
 }
