@@ -3,6 +3,7 @@ package game;
 import models.Hit;
 import models.Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -14,13 +15,14 @@ public class Grid {
 	private Collection<Hit> Hits;
 
 	public Grid() {
+		Hits = new ArrayList<Hit>();
 	}
 
 	public Grid(Grid copy){
 		Player = copy.Player;
 		Width = copy.Width;
 		Height = copy.Height;
-		Hits = copy.Hits;
+		Hits = copy.Hits != null ? copy.Hits : new ArrayList<Hit>();
 	}
 
 	public Player getPlayer() {
@@ -48,8 +50,7 @@ public class Grid {
 	}
 
 	public void AddHit(Hit hit) {
-		// TODO - implement Grid.FireShot
-		throw new UnsupportedOperationException();
+		Hits.add(hit);
 	}
 
 }

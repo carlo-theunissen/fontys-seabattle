@@ -44,10 +44,10 @@ public class SeaBattleGUI implements IUIExecutor {
     public void fireShotLocal(Hit hit) {
         HitType hitType = hit.getHitType();
         if (hitType == Miss) {
-            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
+            battleGUI.showSquarePlayer(1, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
         }
         else if (hitType == Collided) {
-            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+            battleGUI.showSquarePlayer(1, hit.getX(), hit.getY(), SquareState.SHOTHIT);
         }
     }
 
@@ -55,10 +55,10 @@ public class SeaBattleGUI implements IUIExecutor {
     public void fireShotOpponent(Hit hit) {
         HitType hitType = hit.getHitType();
         if (hitType == Miss) {
-            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
+            battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
         }
         else if (hitType == Collided) {
-            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+            battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
         }
     }
 

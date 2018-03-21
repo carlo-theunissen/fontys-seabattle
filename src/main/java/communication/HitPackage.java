@@ -5,7 +5,7 @@ import models.HitType;
 
 public class HitPackage extends CommunicationPackage {
     public HitPackage(Hit hit) {
-        super(CommunicationAction.PlaceBoat, serialize(hit));
+        super(CommunicationAction.HitResponse, serialize(hit));
     }
     private static String serialize(Hit hit){
         return hit.getX() +":"+ hit.getY() + ":" + (hit.getHitType() == HitType.Collided ? "C" : "S");

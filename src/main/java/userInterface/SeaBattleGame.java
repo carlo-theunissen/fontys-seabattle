@@ -1,10 +1,8 @@
 package userInterface;
 
-import communication.ICommunication;
 import communication.SinglePlayerCommunication;
 import game.GameExecutor;
 import game.IUIExecutor;
-import game.ShipGrid;
 import helpers.CollideHelper;
 import models.*;
 
@@ -13,34 +11,34 @@ import java.util.Random;
 
 public class SeaBattleGame implements ISeaBattleGame {
 
-    private GameExecutor player0;
-    private GameExecutor player1;
+    private GameExecutor localPlayer;
+    private GameExecutor aiPlayer;
 
 
     public void setGUIExecutor(IUIExecutor GUIExecutor) {
-        player1.setGUIExecutor( GUIExecutor );
-        player0.setGUIExecutor( GUIExecutor );
+        aiPlayer.setGUIExecutor( new EmptySeaBattleGUI() );
+        localPlayer.setGUIExecutor( GUIExecutor );
     }
 
     public SeaBattleGame(){
         SinglePlayerCommunication communication0 = new SinglePlayerCommunication();
-        player0 = new GameExecutor(communication0);
+        localPlayer = new GameExecutor(communication0);
 
         SinglePlayerCommunication communication1 = new SinglePlayerCommunication();
-        communication1.setOtherPlayer(player0);
-        player1 = new GameExecutor(communication1);
+        communication1.setOtherPlayer(localPlayer);
+        aiPlayer = new GameExecutor(communication1);
 
-        communication0.setOtherPlayer(player1);
-        player0.setGridSize(10,10);
-        player1.setGridSize(10,10);
+        communication0.setOtherPlayer(aiPlayer);
+        localPlayer.setGridSize(10,10);
+        aiPlayer.setGridSize(10,10);
     }
 
     public GameExecutor getPlayer(int playerNr){
         GameExecutor player;
         if (playerNr == 0) {
-            player = player0;
+            player = localPlayer;
         } else if(playerNr == 1){
-            player = player1;
+            player = aiPlayer;
         } else {
             throw new IllegalArgumentException("Playernumber cannot be more then 1 or be negative");
         }
@@ -52,6 +50,7 @@ public class SeaBattleGame implements ISeaBattleGame {
     }
 
     public boolean placeShipsAutomatically(int playerNr) {
+        removeAllShips(playerNr);
         return false;
     }
 
@@ -104,8 +103,21 @@ public class SeaBattleGame implements ISeaBattleGame {
         return ShotType.MISSED;
     }
 
+    /**
+     * Let the opponent fire a shot at the player's square.
+     * This method is used in the single-player mode.
+     * A shot is fired by the opponent using some AI strategy.
+     * The result of the shot will be one of the following:
+     * MISSED  - No ship was hit
+     * HIT     - A ship was hit
+     * SUNK    - A ship was sunk
+     * ALLSUNK - All ships are sunk
+     * @param playerNr identification of the player for which the opponent
+     *                 will fire a shot
+     * @return result of the shot
+     */
     public ShotType fireShotOpponent(int playerNr) {
-        player1.FireOpponent(new Fire(new Random(10).nextInt(), new Random(10).nextInt()));
+        aiPlayer.FireOpponent(new Fire(new Random(10).nextInt(), new Random(10).nextInt()));
         return ShotType.MISSED;
     }
 

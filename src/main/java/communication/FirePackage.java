@@ -6,7 +6,7 @@ import models.HitType;
 
 public class FirePackage extends CommunicationPackage {
     public FirePackage(Fire fire) {
-        super(CommunicationAction.PlaceBoat, serialize(fire));
+        super(CommunicationAction.Fire, serialize(fire));
     }
     private static String serialize(Fire fire){
         return fire.getX() +":"+ fire.getY();
