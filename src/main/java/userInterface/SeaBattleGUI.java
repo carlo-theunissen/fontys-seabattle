@@ -42,17 +42,19 @@ public class SeaBattleGUI implements IUIExecutor {
 
     @Override
     public void fireShotLocal(Hit hit) {
+        System.out.println("LOCAL");
         HitType hitType = hit.getHitType();
         if (hitType == Miss) {
-            battleGUI.showSquarePlayer(1, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
         }
         else if (hitType == Collided) {
-            battleGUI.showSquarePlayer(1, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
         }
     }
 
     @Override
     public void fireShotOpponent(Hit hit) {
+        System.out.println("OPPONENT");
         HitType hitType = hit.getHitType();
         if (hitType == Miss) {
             battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);

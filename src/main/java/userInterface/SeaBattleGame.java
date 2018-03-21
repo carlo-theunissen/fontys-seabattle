@@ -104,6 +104,7 @@ public class SeaBattleGame implements ISeaBattleGame {
     }
 
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
+        System.out.println("hopelijk niet dubbel");
         GameExecutor player = getPlayer(playerNr);
         player.FireOpponent(new Fire(posX, posY));
         return ShotType.MISSED;
@@ -123,7 +124,10 @@ public class SeaBattleGame implements ISeaBattleGame {
      * @return result of the shot
      */
     public ShotType fireShotOpponent(int playerNr) {
-        aiPlayer.FireOpponent(new Fire(new Random(10).nextInt(), new Random(10).nextInt()));
+        if(playerNr != 0){
+            return ShotType.MISSED;
+        }
+        //aiPlayer.FireOpponent(new Fire(new Random(10).nextInt(), new Random(10).nextInt()));
         return ShotType.MISSED;
     }
 

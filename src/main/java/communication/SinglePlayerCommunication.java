@@ -14,7 +14,9 @@ public class SinglePlayerCommunication extends BaseCommunication implements ICom
     public void sendPackage(CommunicationPackage communicationPackage) {
         if(communicationPackage.getAction() == CommunicationAction.HitResponse){
             Hit hit = HitPackage.unserialize(communicationPackage.getData());
-            getLocalExecutor().FireResponse(hit);
+
+            otherPlayer.FireResponse(hit);
+
         } else if(communicationPackage.getAction() == CommunicationAction.Fire){
             Fire fire = FirePackage.unserialize(communicationPackage.getData());
             getLocalExecutor().FireShot(fire);
