@@ -31,6 +31,9 @@ public class GameExecutor {
 	    //prevent the grid being edited outside
 		return new ImmortalShipGrid(shipGrid);
 	}
+	public Grid GetopponentGrid(){
+        return opponentGrid;
+    }
 
 	public void setGridSize(int width, int height){
         shipGrid.setWidth(width);

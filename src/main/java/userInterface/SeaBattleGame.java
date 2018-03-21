@@ -6,6 +6,7 @@ import game.IUIExecutor;
 import helpers.CollideHelper;
 import models.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -142,6 +143,9 @@ public class SeaBattleGame implements ISeaBattleGame {
         return ShotType.MISSED;
     }
 
+    public void SuperSecretAI(){
+        Collection<Hit> hits = aiPlayer.GetopponentGrid().getHits();
+    }
     public boolean startNewGame(int playerNr) {
         return false;
     }
