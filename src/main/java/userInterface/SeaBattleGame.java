@@ -7,7 +7,6 @@ import helpers.CollideHelper;
 import models.*;
 
 import java.util.Collection;
-import java.util.Random;
 
 public class SeaBattleGame implements ISeaBattleGame {
 
@@ -21,14 +20,15 @@ public class SeaBattleGame implements ISeaBattleGame {
     }
 
     public SeaBattleGame(){
-        SinglePlayerCommunication communication0 = new SinglePlayerCommunication();
-        localPlayer = new GameExecutor(communication0);
+        SinglePlayerCommunication communcationFromPlayerToAI = new SinglePlayerCommunication();
+        localPlayer = new GameExecutor(communcationFromPlayerToAI);
 
-        SinglePlayerCommunication communication1 = new SinglePlayerCommunication();
-        communication1.setOtherPlayer(localPlayer);
-        aiPlayer = new GameExecutor(communication1);
+        SinglePlayerCommunication communicationFromAIToPlayer = new SinglePlayerCommunication();
+        communicationFromAIToPlayer.setOtherPlayer(localPlayer);
 
-        communication0.setOtherPlayer(aiPlayer);
+        aiPlayer = new GameExecutor(communicationFromAIToPlayer);
+
+        communcationFromPlayerToAI.setOtherPlayer(aiPlayer);
         localPlayer.setGridSize(10,10);
         aiPlayer.setGridSize(10,10);
     }
