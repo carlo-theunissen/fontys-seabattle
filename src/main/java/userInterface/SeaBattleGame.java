@@ -51,7 +51,13 @@ public class SeaBattleGame implements ISeaBattleGame {
 
     public boolean placeShipsAutomatically(int playerNr) {
         removeAllShips(playerNr);
-        return false;
+        placeShip(playerNr, ShipType.AIRCRAFTCARRIER, 0,0, true);
+        placeShip(playerNr, ShipType.BATTLESHIP, 0,1, true);
+        placeShip(playerNr, ShipType.CRUISER, 0,2, true);
+        placeShip(playerNr, ShipType.MINESWEEPER, 0,3, true);
+        placeShip(playerNr, ShipType.SUBMARINE, 0,4, true);
+
+        return true;
     }
 
     public boolean placeShip(int playerNr, ShipType shipType, int bowX, int bowY, boolean horizontal) {
