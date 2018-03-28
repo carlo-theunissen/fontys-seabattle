@@ -5,6 +5,7 @@ import game.GameExecutor;
 import game.IUIExecutor;
 import helpers.CollideHelper;
 import models.*;
+import java.lang.Integer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -139,13 +140,12 @@ public class SeaBattleGame implements ISeaBattleGame {
         if(playerNr != 0){
             return ShotType.MISSED;
         }
-       /*
-        TODO implement better AI
+
         Fire temp = SuperSecretAI();
         aiPlayer.FireOpponent(temp);
-        System.out.println("Fire X: " + temp.getX() + " Fire Y: " + temp.getY()); */
+        System.out.println("Fire X: " + temp.getX() + " Fire Y: " + temp.getY());
 
-        aiPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
+       // aiPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
         return ShotType.MISSED;
     }
 
@@ -154,13 +154,13 @@ public class SeaBattleGame implements ISeaBattleGame {
         for (Hit hit : hits){
             if (hit.getHitType() == HitType.Collided){
                 for (Hit checkhit : hits) {
-                    if (hit.getX() + 1 != checkhit.getX() && hit.getY() != checkhit.getY() && hit.getX() + 1 <= 10) {
+                    if (hit.getX() + 1 != checkhit.getX() || hit.getY() != checkhit.getY() || hit.getX() + 1 <= 10) {
                         return new Fire(hit.getX() + 1, hit.getY());
-                    } else if (hit.getX() - 1 != checkhit.getX() && hit.getY() != checkhit.getY() && hit.getX() - 1 >= 0){
+                    } else if (hit.getX() - 1 != checkhit.getX() || hit.getY() != checkhit.getY() || hit.getX() - 1 >= 0){
                         return new Fire(hit.getX() - 1, hit.getY());
-                    } else if (hit.getX() != checkhit.getX() && hit.getY() + 1 != checkhit.getY() && hit.getY() + 1 <= 10 ){
+                    } else if (hit.getX() != checkhit.getX() || hit.getY() + 1 != checkhit.getY() || hit.getY() + 1 <= 10 ){
                         return new Fire(hit.getX(), hit.getY() + 1);
-                    } else if (hit.getX() != checkhit.getX() && hit.getY() - 1 != checkhit.getY() && hit.getY() - 1 >= 0){
+                    } else if (hit.getX() != checkhit.getX() || hit.getY() - 1 != checkhit.getY() || hit.getY() - 1 >= 0){
                         return new Fire(hit.getX(), hit.getY() - 1);
                     }
                 }
