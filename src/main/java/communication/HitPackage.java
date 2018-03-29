@@ -8,10 +8,9 @@ public class HitPackage extends CommunicationPackage {
         super(CommunicationAction.HitResponse, serialize(hit));
     }
     private static String serialize(Hit hit){
-        return hit.getX() +":"+ hit.getY() + ":" + (hit.getHitType() == HitType.Collided ? "C" : "S");
+        return Hit.serialize(hit);
     }
     public static Hit unserialize(String data){
-        String[] split = data.split(":");
-        return new Hit(Integer.parseInt(split[0]), Integer.parseInt(split[1]), split[2].equals("C") ? HitType.Collided : HitType.Miss);
+        return Hit.unserialize(data);
     }
 }

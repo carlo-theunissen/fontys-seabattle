@@ -7,8 +7,6 @@ import helpers.CollideHelper;
 import models.*;
 
 import java.util.Collection;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class SinglePlayerGame implements ISeaBattleGame {
 

@@ -2,19 +2,18 @@ package models;
 
 public class Ship {
 
-    private int Length;
-    private final ShipType Type;
+    private final ShipType type;
     private Orientation orientation;
-    private ShipStatus ShipStatus;
+    private ShipStatus shipStatus;
     private int X;
     private int Y;
 
     public Ship(ShipType type){
-        Type = type;
+        this.type = type;
     }
 
     public int getLength() {
-        switch (Type){
+        switch (type){
             case CRUISER:
                 return 3;
             case SUBMARINE:
@@ -36,7 +35,7 @@ public class Ship {
     }
 
     public ShipStatus getStatus() {
-        return ShipStatus;
+        return shipStatus;
     }
 
     public void setX(int value){
@@ -65,7 +64,52 @@ public class Ship {
      */
     @Override
     public int hashCode() {
-        return this.Type.toString().hashCode();
+        return this.type.toString().hashCode();
     }
 
+    public static String serialize(Ship ship){
+        return ship.getX() +":"+ ship.getY() + ":" + ship.shipStatus.toString()+":"+ship.type.toString()+":"+(ship.orientation == Orientation.Vertical? 1 : 0);
+    }
+    public static Ship unserialize(String data) throws Exception {
+        String[] split = data.split(":");
+        Ship ship;
+        if ("CRUISER".equals(split[3])) {
+            ship = new Ship(ShipType.CRUISER);
+
+        } else if ("SUBMARINE".equals(split[3])) {
+            ship = new Ship(ShipType.SUBMARINE);
+
+        } else if ("BATTLESHIP".equals(split[3])) {
+            ship = new Ship(ShipType.BATTLESHIP);
+
+        } else if ("MINESWEEPER".equals(split[3])) {
+            ship = new Ship(ShipType.MINESWEEPER);
+
+        } else if ("AIRCRAFTCARRIER".equals(split[3])) {
+            ship = new Ship(ShipType.AIRCRAFTCARRIER);
+        } else {
+            throw new Exception("Type not found");
+        }
+        //	return new Hit(Integer.parseInt(split[0]), Integer.parseInt(split[1]), split[2].equals("C") ? HitType.Collided : HitType.Miss);
+        //
+
+        ship.setX(Integer.parseInt(split[0]));
+        ship.setY(Integer.parseInt(split[1]));
+
+        if(split[2].equals("Alive")){
+            ship.shipStatus = ShipStatus.Alive;
+        } else if(split[2].equals("Dead")) {
+            ship.shipStatus = ShipStatus.Dead;
+        } else {
+            ship.shipStatus = ShipStatus.Invalid;
+        }
+
+        ship.orientation = Orientation.values()[Integer.parseInt(split[4])];
+
+        return ship;
+    }
+
+    public void setStatus(ShipStatus status) {
+        this.shipStatus = status;
+    }
 }

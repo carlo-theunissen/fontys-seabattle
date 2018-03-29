@@ -48,7 +48,7 @@ public class SeaBattleGUI implements IUIExecutor {
             battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTMISSED);
         }
         else if (hitType == Collided) {
-            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+            battleGUI.showSquarePlayer(0, hit.getX(), hit.getY(), hit.getSunk()? SquareState.SHIPSUNK : SquareState.SHOTHIT);
         }
     }
 
@@ -61,7 +61,7 @@ public class SeaBattleGUI implements IUIExecutor {
             battleGUI.opponentFiresShot(0, ShotType.MISSED);
         }
         else if (hitType == Collided) {
-            battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), SquareState.SHOTHIT);
+            battleGUI.showSquareOpponent(0, hit.getX(), hit.getY(), hit.getSunk()? SquareState.SHIPSUNK : SquareState.SHOTHIT);
             battleGUI.opponentFiresShot(0, ShotType.HIT);
         }
 

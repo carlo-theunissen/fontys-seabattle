@@ -87,12 +87,33 @@ public class GameExecutor {
      * @param fire
      */
 	public void FireShot(Fire fire) {
+
 		Ship ship = new CollideHelper().getShip(fire.getX(), fire.getY(), shipGrid);
 		Hit hit = new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided);
+        shipGrid.AddHit(hit);
+
+        if(ship != null) {
+            UpdateShipStatus(ship);
+            hit.setSunk(ship.getStatus() == ShipStatus.Dead);
+        }
 
 		communication.sendPackage(new HitPackage(hit));
         GUIExecutor.fireShotLocal(hit);
 	}
+
+	private void UpdateShipStatus(Ship ship){
+	    int amountHit = 0;
+	    CollideHelper helper = new CollideHelper();
+        for(Hit hit : shipGrid.getHits()){
+            if(helper.getShip(hit.getX(), hit.getY(), shipGrid) == ship){
+                amountHit++;
+            }
+            if(amountHit == ship.getLength()){
+                ship.setStatus(ShipStatus.Dead);
+                return;
+            }
+        }
+    }
 
     /**
      * Fire on the grid of the opponent

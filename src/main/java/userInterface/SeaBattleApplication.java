@@ -23,6 +23,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import models.ShipType;
@@ -601,7 +602,6 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
      * Set the color of the square according to position type.
      * Setting the color will be performed by the JavaFX Application Thread.
      * @param square the square of which the color should be changed.
-     * @param type position type to determine the color.
      */
     private void setSquareColor(final Rectangle square, final SquareState squareState) {
         // Ensure that changing the color of the square is performed by
@@ -811,7 +811,8 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
     private void rectangleTargetAreaMousePressed(MouseEvent event, int x, int y) {
         if (playingMode && !gameEnded) {
             // Game is in playing mode
-            squaresTargetArea[x][y].setFill(Color.YELLOW);
+           // Paint temp = squaresTargetArea[x][y].getFill();
+         //   squaresTargetArea[x][y].setFill(Color.YELLOW);
             if (playersTurn()) {
                 // It is this player's turn
                 // Player fires a shot at the selected target area
@@ -829,6 +830,8 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
                 if (singlePlayerMode) {
                     ShotType resultOpponent = game.fireShotOpponent(playerNr);
                 }
+
+
             }
             else {
                 // It is not this player's turn yet

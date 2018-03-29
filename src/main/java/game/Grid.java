@@ -6,6 +6,7 @@ import models.Player;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class Grid {
 
@@ -15,14 +16,14 @@ public class Grid {
 	private Collection<Hit> Hits;
 
 	public Grid() {
-		Hits = new ArrayList<Hit>();
+		Hits = new HashSet<Hit>();
 	}
 
 	public Grid(Grid copy){
 		Player = copy.Player;
 		Width = copy.Width;
 		Height = copy.Height;
-		Hits = copy.Hits != null ? copy.Hits : new ArrayList<Hit>();
+		Hits = copy.Hits != null ? copy.Hits : new HashSet<Hit>();
 	}
 
 	public Player getPlayer() {
