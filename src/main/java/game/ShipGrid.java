@@ -34,8 +34,4 @@ public class ShipGrid extends Grid {
 	public boolean removeShip(Ship ship){
 		return ships.remove(ship);
 	}
-
-	public void removeAllShips(){
-		ships.clear();
-	}
 }

@@ -32,4 +32,9 @@ public class ImmortalShipGrid extends ShipGrid {
     public void AddHit(Hit hit) {
         throw new IllegalStateException();
     }
+
+    @Override
+    public boolean removeShip(Ship ship) {
+        throw new IllegalStateException(); //sorry
+    }
 }

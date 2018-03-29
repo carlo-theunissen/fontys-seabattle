@@ -5,8 +5,6 @@
  */
 package userInterface;
 
-import userInterface.ISeaBattleGUI;
-import userInterface.ISeaBattleGame;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,7 +28,6 @@ import javafx.stage.Stage;
 import models.ShipType;
 import models.ShotType;
 import models.SquareState;
-import userInterface.SeaBattleGame;
 
 /**
  * Main application of the sea battle game.
@@ -467,11 +464,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
 
 
         // Create instance of class that implements java interface ISeaBattleGame.
-        // The class SeaBattleGame is not implemented yet.
-        // When invoking methods of class SeaBattleGame an
+        // The class SinglePlayerGame is not implemented yet.
+        // When invoking methods of class SinglePlayerGame an
         // UnsupportedOperationException will be thrown
         // TODO: IMPLEMENT CLASS UIExecutor.
-        SeaBattleGame game_t = new SeaBattleGame();
+        SinglePlayerGame game_t = new SinglePlayerGame();
         game = game_t;
 
         SeaBattleGUI gui = new SeaBattleGUI(this);
