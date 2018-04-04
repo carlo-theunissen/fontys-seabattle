@@ -1,4 +1,4 @@
-package userInterface;
+package client.userInterface;
 
 import communication.SinglePlayerCommunication;
 import game.GameExecutor;

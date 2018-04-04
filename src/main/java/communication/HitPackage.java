@@ -1,7 +1,6 @@
 package communication;
 
 import models.Hit;
-import models.HitType;
 
 public class HitPackage extends CommunicationPackage {
     public HitPackage(Hit hit) {

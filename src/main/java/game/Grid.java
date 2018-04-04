@@ -3,7 +3,6 @@ package game;
 import models.Hit;
 import models.Player;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
