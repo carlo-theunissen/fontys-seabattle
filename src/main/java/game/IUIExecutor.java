@@ -19,6 +19,7 @@ public interface IUIExecutor {
 
 	void removeTempShipLocal(int posX, int posY);
 
+	void gameReady(String opponentName);
 
 
 }

@@ -81,4 +81,10 @@ public class SeaBattleGUI implements IUIExecutor {
     public void removeTempShipLocal(int posX, int posY) {
 
     }
+
+    //implement this method alex!!
+    @Override
+    public void gameReady(String opponentName) {
+
+    }
 }

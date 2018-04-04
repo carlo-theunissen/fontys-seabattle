@@ -3,6 +3,7 @@ package game;
 import communication.FirePackage;
 import communication.HitPackage;
 import communication.ICommunication;
+import communication.StartPackage;
 import helpers.CollideHelper;
 import models.*;
 
@@ -140,7 +141,14 @@ public class GameExecutor {
 
 
     public void GameReady(String opponentName){
+        GUIExecutor.gameReady(opponentName);
+    }
 
+    /**
+     * Call this method when the player is ready to start
+     */
+    public void PlayerStart(String playerName){
+        communication.sendPackage(new StartPackage(playerName));
     }
 
 }

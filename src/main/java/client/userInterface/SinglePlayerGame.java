@@ -21,12 +21,17 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         opponentPlayer = new GameExecutor(communicationFromAIToPlayer);
 
         communcationFromPlayerToAI.setOtherPlayer(opponentPlayer);
+
+
         localPlayer.setGridSize(10,10);
         opponentPlayer.setGridSize(10,10);
     }
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
         PlaceShipsAI();
+        opponentPlayer.PlayerStart("AI");
+        localPlayer.PlayerStart(name);
+
         return 0;
     }
 
