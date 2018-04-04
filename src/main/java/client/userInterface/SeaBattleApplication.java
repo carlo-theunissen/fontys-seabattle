@@ -468,12 +468,18 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
         // When invoking methods of class SinglePlayerGame an
         // UnsupportedOperationException will be thrown
         // TODO: IMPLEMENT CLASS UIExecutor.
-        SinglePlayerGame game_t = new SinglePlayerGame();
-        game = game_t;
+
+        BaseGame game_t  = new SinglePlayerGame();
+        singlePlayerMode = true;
+
+        if (radioMultiPlayer.isFocused()){
+            game_t = new MultiplayerGame();
+            singlePlayerMode = false;
+        }
 
         SeaBattleGUI gui = new SeaBattleGUI(this);
         game_t.setGUIExecutor(gui);
-
+        game = game_t;
     }
 
     /**

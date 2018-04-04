@@ -59,15 +59,15 @@ public class GameExecutor {
 	 *
 	 * @param ship
 	 */
-	public void PlaceBoat(Ship ship) {
+	public void PlaceShip(Ship ship) throws Exception {
 
 	    if(ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength() ) > shipGrid.getHeight() ){
-	        return;
+	        throw new Exception("Valt buiten het grid");
         }
 
 	    for(int i = 0; i < ship.getLength(); i++) {
             if(new CollideHelper().getShip(ship.getX() +(ship.getOrientation() == Orientation.Horizontal ? i : 0), ship.getY() + i * (ship.getOrientation() == Orientation.Horizontal ? 0 : 1), shipGrid) != null){
-                return;
+                throw new Exception("Botst met iets");
             }
         }
 

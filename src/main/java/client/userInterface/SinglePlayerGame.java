@@ -8,16 +8,8 @@ import models.*;
 
 import java.util.Collection;
 
-public class SinglePlayerGame implements ISeaBattleGame {
+public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
-    private GameExecutor localPlayer;
-    private GameExecutor aiPlayer;
-
-
-    public void setGUIExecutor(IUIExecutor GUIExecutor) {
-        aiPlayer.setGUIExecutor( new EmptySeaBattleGUI() );
-        localPlayer.setGUIExecutor( GUIExecutor );
-    }
 
     public SinglePlayerGame(){
         SinglePlayerCommunication communcationFromPlayerToAI = new SinglePlayerCommunication();
@@ -26,23 +18,11 @@ public class SinglePlayerGame implements ISeaBattleGame {
         SinglePlayerCommunication communicationFromAIToPlayer = new SinglePlayerCommunication();
         communicationFromAIToPlayer.setOtherPlayer(localPlayer);
 
-        aiPlayer = new GameExecutor(communicationFromAIToPlayer);
+        opponentPlayer = new GameExecutor(communicationFromAIToPlayer);
 
-        communcationFromPlayerToAI.setOtherPlayer(aiPlayer);
+        communcationFromPlayerToAI.setOtherPlayer(opponentPlayer);
         localPlayer.setGridSize(10,10);
-        aiPlayer.setGridSize(10,10);
-    }
-
-    public GameExecutor getPlayer(int playerNr){
-        GameExecutor player;
-        if (playerNr == 0) {
-            player = localPlayer;
-        } else if(playerNr == 1){
-            player = aiPlayer;
-        } else {
-            throw new IllegalArgumentException("Playernumber cannot be more then 1 or be negative");
-        }
-        return player;
+        opponentPlayer.setGridSize(10,10);
     }
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
@@ -56,62 +36,6 @@ public class SinglePlayerGame implements ISeaBattleGame {
         placeShip(1, ShipType.CRUISER, 0,2, true);
         placeShip(1, ShipType.MINESWEEPER, 0,3, true);
         placeShip(1, ShipType.SUBMARINE, 0,4, true);
-    }
-
-    public boolean placeShipsAutomatically(int playerNr) {
-        removeAllShips(playerNr);
-        placeShip(playerNr, ShipType.AIRCRAFTCARRIER, 0,0, true);
-        placeShip(playerNr, ShipType.BATTLESHIP, 0,1, true);
-        placeShip(playerNr, ShipType.CRUISER, 0,2, true);
-        placeShip(playerNr, ShipType.MINESWEEPER, 0,3, true);
-        placeShip(playerNr, ShipType.SUBMARINE, 0,4, true);
-
-        return true;
-    }
-
-    public boolean placeShip(int playerNr, ShipType shipType, int bowX, int bowY, boolean horizontal) {
-        GameExecutor player = getPlayer(playerNr);
-        Ship ship = new Ship(shipType);
-        ship.setX(bowX);
-        ship.setY(bowY);
-        if (horizontal) {
-            ship.setOrientation(Orientation.Horizontal);
-        } else {
-            ship.setOrientation(Orientation.Vertical);
-        }
-        player.PlaceBoat(ship);
-
-        return true;
-    }
-
-    public boolean removeShip(int playerNr, int posX, int posY) {
-        GameExecutor player = getPlayer(playerNr);
-        return removeShip(playerNr, (new CollideHelper()).getShip(posX, posY, player.GetLocalGrid()));
-    }
-
-    private boolean removeShip(int playerNr, Ship ship) {
-        GameExecutor player = getPlayer(playerNr);
-        if(ship != null){
-            player.RemoveShip(ship);
-        }
-
-        return ship != null;
-    }
-
-    public boolean removeAllShips(int playerNr) {
-        GameExecutor player = getPlayer(playerNr);
-
-        Ship[] array = new Ship[player.GetLocalGrid().getShips().size()];
-        int i = 0;
-        for (Ship ship:  player.GetLocalGrid().getShips()) {
-            array[i++] = ship;
-        }
-
-        for(Ship ship: array){
-            removeShip(playerNr,ship);
-        }
-
-        return true;
     }
 
     public boolean notifyWhenReady(int playerNr) {
@@ -148,7 +72,7 @@ public class SinglePlayerGame implements ISeaBattleGame {
         if(playerNr != 0){
             return ShotType.MISSED;
         }
-        aiPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
+        opponentPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
         return ShotType.MISSED;
     }
 
