@@ -4,8 +4,6 @@ import game.ShipGrid;
 import models.Orientation;
 import models.Ship;
 
-import java.util.Collection;
-
 public class CollideHelper {
     public Ship getShip(int x, int y, ShipGrid grid){
         for (Ship ship : grid.getShips()) {

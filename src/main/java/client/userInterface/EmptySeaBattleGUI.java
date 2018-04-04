@@ -1,4 +1,4 @@
-package userInterface;
+package client.userInterface;
 
 import game.IUIExecutor;
 import models.Hit;

@@ -1,8 +1,6 @@
 package communication;
 
 import models.Fire;
-import models.Hit;
-import models.HitType;
 
 public class FirePackage extends CommunicationPackage {
     public FirePackage(Fire fire) {

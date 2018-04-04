@@ -14,7 +14,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.8.3</version>
                 <configuration>
-                    <mainClass>userInterface.SeaBattleApplication.Main</mainClass>
+                    <mainClass>client.userInterface.SeaBattleApplication.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
