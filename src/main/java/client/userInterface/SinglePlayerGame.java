@@ -52,7 +52,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         PlaceShipsAI();
         opponentPlayer.PlayerStart("AI");
         localPlayer.PlayerStart(name);
-        
+
         return 0;
     }
 
@@ -101,8 +101,9 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         opponentPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
         return ShotType.MISSED;
     }
-
+// -TODO Alex implemnteren
     public boolean startNewGame(int playerNr) {
-        return false;
+        return true;
     }
+
 }
