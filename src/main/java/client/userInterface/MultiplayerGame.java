@@ -10,6 +10,10 @@ import models.ShotType;
 
 public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
 
+    public void setGUIExecutor(IUIExecutor GUIExecutor) {
+        localPlayer.setGUIExecutor( GUIExecutor );
+    }
+
     public MultiplayerGame(){
         SinglePlayerCommunication communcationFromPlayerToOpponent = new SinglePlayerCommunication();
         localPlayer = new GameExecutor(communcationFromPlayerToOpponent);
@@ -17,27 +21,17 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
         SinglePlayerCommunication communicationFromOpponentToPlayer = new SinglePlayerCommunication();
         communicationFromOpponentToPlayer.setOtherPlayer(localPlayer);
 
-        opponentPlayer = new GameExecutor(communicationFromOpponentToPlayer);
-
-        communcationFromPlayerToOpponent.setOtherPlayer(opponentPlayer);
         localPlayer.setGridSize(10,10);
-        opponentPlayer.setGridSize(10,10);
     }
 
-    public GameExecutor getPlayer(int playerNr){
-        GameExecutor player;
-        if (playerNr == 0) {
-            player = localPlayer;
-        } else if(playerNr == 1){
-            player = opponentPlayer;
-        } else {
-            throw new IllegalArgumentException("Playernumber cannot be more then 1 or be negative");
-        }
-        return player;
+    @Override
+    public GameExecutor getPlayer(int playerNr) {
+    return localPlayer;
     }
 
     @Override
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
+        localPlayer.PlayerStart(name);
 
         return 2;
     }

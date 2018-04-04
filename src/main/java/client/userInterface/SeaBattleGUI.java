@@ -82,9 +82,14 @@ public class SeaBattleGUI implements IUIExecutor {
 
     }
 
-    //implement this method alex!!
+    //tegenstander is geregristeerd, plaats nu al je boten
     @Override
     public void gameReady(String opponentName) {
+
+    }
+
+    //tegenstander en jij zijn klaar met boten plaatsen, begin met vuren
+    public void fireReady(){
 
     }
 }

@@ -45,4 +45,9 @@ public class EmptySeaBattleGUI implements IUIExecutor {
     public void removeTempShipLocal(int posX, int posY) {
 
     }
+
+    @Override
+    public void gameReady(String opponentName) {
+
+    }
 }

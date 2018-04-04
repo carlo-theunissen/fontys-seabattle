@@ -11,6 +11,14 @@ import java.util.Collection;
 public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
 
+
+    private GameExecutor opponentPlayer;
+
+    public void setGUIExecutor(IUIExecutor GUIExecutor) {
+        opponentPlayer.setGUIExecutor( new EmptySeaBattleGUI() );
+        localPlayer.setGUIExecutor( GUIExecutor );
+    }
+
     public SinglePlayerGame(){
         SinglePlayerCommunication communcationFromPlayerToAI = new SinglePlayerCommunication();
         localPlayer = new GameExecutor(communcationFromPlayerToAI);
@@ -27,11 +35,24 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         opponentPlayer.setGridSize(10,10);
     }
 
+    @Override
+    public GameExecutor getPlayer(int playerNr){
+        GameExecutor player;
+        if (playerNr == 0) {
+            player = localPlayer;
+        } else if(playerNr == 1){
+            player = opponentPlayer;
+        } else {
+            throw new IllegalArgumentException("Playernumber cannot be more then 1 or be negative");
+        }
+        return player;
+    }
+
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
         PlaceShipsAI();
         opponentPlayer.PlayerStart("AI");
         localPlayer.PlayerStart(name);
-
+        
         return 0;
     }
 

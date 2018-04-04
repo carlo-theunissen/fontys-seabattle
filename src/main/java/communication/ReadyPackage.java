@@ -2,7 +2,7 @@ package communication;
 
 public class ReadyPackage extends CommunicationPackage {
     public ReadyPackage(String playerName) {
-        super(CommunicationAction.Fire, serialize(playerName));
+        super(CommunicationAction.Ready, serialize(playerName));
     }
     private static String serialize(String playerName){
         return playerName;

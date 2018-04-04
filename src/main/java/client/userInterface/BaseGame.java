@@ -8,31 +8,17 @@ import models.Ship;
 import models.ShipType;
 import models.ShotType;
 
-public class BaseGame implements ISeaBattleGame{
+public abstract class BaseGame implements ISeaBattleGame{
 
     protected GameExecutor localPlayer;
-    protected GameExecutor opponentPlayer;
 
-    public void setGUIExecutor(IUIExecutor GUIExecutor) {
-        opponentPlayer.setGUIExecutor( new EmptySeaBattleGUI() );
-        localPlayer.setGUIExecutor( GUIExecutor );
-    }
+    public abstract void setGUIExecutor(IUIExecutor GUIExecutor);
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
         return 0;
     }
 
-    public GameExecutor getPlayer(int playerNr){
-        GameExecutor player;
-        if (playerNr == 0) {
-            player = localPlayer;
-        } else if(playerNr == 1){
-            player = opponentPlayer;
-        } else {
-            throw new IllegalArgumentException("Playernumber cannot be more then 1 or be negative");
-        }
-        return player;
-    }
+    public abstract GameExecutor getPlayer(int playerNr);
 
     @Override
     public boolean placeShipsAutomatically(int playerNr) {
@@ -57,7 +43,11 @@ public class BaseGame implements ISeaBattleGame{
         } else {
             ship.setOrientation(Orientation.Vertical);
         }
-        player.PlaceShip(ship);
+        try {
+            player.PlaceShip(ship);
+        } catch (Exception e){
+
+        }
 
         return true;
     }
