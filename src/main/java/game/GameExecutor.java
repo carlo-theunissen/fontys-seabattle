@@ -138,4 +138,9 @@ public class GameExecutor {
         GUIExecutor.fireShotOpponent(hit);
     }
 
+
+    public void GameReady(String opponentName){
+
+    }
+
 }
