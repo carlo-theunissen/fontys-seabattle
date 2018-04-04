@@ -57,7 +57,7 @@ public class BaseGame implements ISeaBattleGame{
         } else {
             ship.setOrientation(Orientation.Vertical);
         }
-        player.PlaceBoat(ship);
+        player.PlaceShip(ship);
 
         return true;
     }
