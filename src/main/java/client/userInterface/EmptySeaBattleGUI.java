@@ -50,4 +50,9 @@ public class EmptySeaBattleGUI implements IUIExecutor {
     public void gameReady(String opponentName) {
 
     }
+
+    @Override
+    public void fireReady() {
+        
+    }
 }
