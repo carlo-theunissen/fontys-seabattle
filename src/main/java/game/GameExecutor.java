@@ -1,9 +1,6 @@
 package game;
 
-import communication.FirePackage;
-import communication.HitPackage;
-import communication.ICommunication;
-import communication.StartPackage;
+import communication.*;
 import helpers.CollideHelper;
 import models.*;
 
@@ -142,6 +139,14 @@ public class GameExecutor {
 
     public void GameReady(String opponentName){
         GUIExecutor.gameReady(opponentName);
+    }
+
+    public void FireReady(){
+        GUIExecutor.fireReady();
+    }
+
+    public void RequestFireReady(){
+	    communication.sendPackage(new RequestFireReady());
     }
 
     /**

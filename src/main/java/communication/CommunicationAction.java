@@ -5,5 +5,5 @@ public enum CommunicationAction {
     Start,
     Fire,
     HitResponse,
-    PlaceBoat
+    FireReadyRespone, RequestFireReady, PlaceBoat
 }

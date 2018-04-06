@@ -68,6 +68,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         GameExecutor player = getPlayer(playerNr);
         Collection<Ship> ships = player.GetLocalGrid().getShips();
         if (ships.size() == 5){
+            player.RequestFireReady();
             return true;
         } else {
             return false;

@@ -21,5 +21,7 @@ public interface IUIExecutor {
 
 	void gameReady(String opponentName);
 
+	void fireReady();
+
 
 }
