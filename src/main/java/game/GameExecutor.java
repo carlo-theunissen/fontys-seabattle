@@ -45,6 +45,7 @@ public class GameExecutor {
     /**
      * Removes a ship from the grid.
      * TODO: let communication know about this
+     * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
      * @param ship
      */
 	public void RemoveShip(Ship ship){
@@ -54,7 +55,7 @@ public class GameExecutor {
     }
 
 	/**
-	 *
+	 * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
 	 * @param ship
 	 */
 	public void PlaceShip(Ship ship) throws Exception {
@@ -115,6 +116,10 @@ public class GameExecutor {
 
     /**
      * Fire on the grid of the opponent
+     * TODO: Check als je wel aan de beurt bent. Aka: de tegenstander heeft ook geschoten, of het is je eerste schot.
+     * TODO: Het is trouwens niet nodig om een persoon te kiezen die mag beginnen, ik denk dat we beiden spelers
+     * TODO: gewoon kunnen laten schieten de eerste keer, en daarna moet je wachten todat de tegenstander heeft geschoten
+     * TODO: zo ben je verekerd dat ze om en om schieten
      * @param fire
      */
 	public boolean FireOpponent(Fire fire){
@@ -145,12 +150,16 @@ public class GameExecutor {
         GUIExecutor.fireReady();
     }
 
+    /**
+     * TODO: Check als je wel eerst "PlayerStart" heb aangeroepen en dat al de schepen wel geplaatst zijn
+     */
     public void RequestFireReady(){
 	    communication.sendPackage(new RequestFireReady());
     }
 
     /**
      * Call this method when the player is ready to start
+     * TODO: Check als de playernaam wel geldig is en als je niet eerder "PlayerStart" hebt aangeroepen
      */
     public void PlayerStart(String playerName){
         communication.sendPackage(new StartPackage(playerName));

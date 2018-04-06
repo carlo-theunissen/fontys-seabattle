@@ -49,8 +49,10 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
-        PlaceShipsAI();
         opponentPlayer.PlayerStart("AI");
+        PlaceShipsAI();
+        opponentPlayer.RequestFireReady();
+
         localPlayer.PlayerStart(name);
 
         return 0;
@@ -67,6 +69,10 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     public boolean notifyWhenReady(int playerNr) {
         GameExecutor player = getPlayer(playerNr);
         Collection<Ship> ships = player.GetLocalGrid().getShips();
+
+
+        //todo Zet de check als alle ships wel geplaats zijn, in GameExecutor
+
         if (ships.size() == 5){
             player.RequestFireReady();
             return true;
@@ -76,7 +82,6 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        System.out.println("hopelijk niet dubbel");
         GameExecutor player = getPlayer(playerNr);
         player.FireOpponent(new Fire(posX, posY));
         return ShotType.MISSED;
@@ -99,6 +104,9 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         if(playerNr != 0){
             return ShotType.MISSED;
         }
+
+         // TODO: Check de return waarden van opponentPlayer.FireOpponent  als die "FALSE" is, kan je daar niet meer schieten
+         // TODO: dus moet je een nieuwe x,y waarden pakken
         opponentPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
         return ShotType.MISSED;
     }
