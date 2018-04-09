@@ -1,19 +1,20 @@
 package communication;
 
 import game.GameExecutor;
+import game.GameManager;
 import models.Fire;
 import models.Hit;
 
 public class SinglePlayerCommunication extends BaseCommunication implements ICommunication {
     private GameExecutor otherPlayer;
-    private LocalSinglePlayerManager playerServer;
+    private GameManager gameManager;
 
     public void setOtherPlayer(GameExecutor otherPlayer) {
         this.otherPlayer = otherPlayer;
     }
 
-    public void setPlayerServer(LocalSinglePlayerManager playerServer) {
-        this.playerServer = playerServer;
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     public void sendPackage(CommunicationPackage communicationPackage) {
@@ -28,10 +29,10 @@ public class SinglePlayerCommunication extends BaseCommunication implements ICom
                     getLocalExecutor().GameReady(StartPackage.unserialize( communicationPackage.getData()));
                 break;
             case Ready:
-                playerServer.registerPlayer(this, ReadyPackage.unserialize( communicationPackage.getData()));
+                gameManager.registerPlayer(this, ReadyPackage.unserialize( communicationPackage.getData()));
                 break;
             case RequestFireReady:
-                playerServer.requestFireReady();
+                gameManager.requestFireReady();
                 break;
             case FireReadyRespone:
                 otherPlayer.FireReady();

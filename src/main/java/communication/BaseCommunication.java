@@ -5,7 +5,7 @@ import game.GameExecutor;
 abstract public class BaseCommunication {
     private GameExecutor localExecutor;
 
-    protected GameExecutor getLocalExecutor() {
+    GameExecutor getLocalExecutor() {
         return localExecutor;
     }
 

@@ -18,7 +18,12 @@ public class GameExecutor {
         shipGrid = new ShipGrid();
         opponentGrid = new Grid();
     }
-	private ShipGrid shipGrid;
+
+    public ICommunication getCommunication() {
+        return communication;
+    }
+
+    private ShipGrid shipGrid;
     private Grid opponentGrid;
 
     public void setGUIExecutor(IUIExecutor GUIExecutor) {

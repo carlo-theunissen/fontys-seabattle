@@ -53,6 +53,6 @@ public class EmptySeaBattleGUI implements IUIExecutor {
 
     @Override
     public void fireReady() {
-        
+
     }
 }

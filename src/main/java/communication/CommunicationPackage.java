@@ -1,6 +1,6 @@
 package communication;
 
-abstract class CommunicationPackage {
+public class CommunicationPackage {
     private final CommunicationAction action;
     private final String data;
     protected CommunicationPackage(CommunicationAction action, String data){
