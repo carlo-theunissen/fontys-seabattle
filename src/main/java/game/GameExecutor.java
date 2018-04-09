@@ -1,6 +1,8 @@
 package game;
 
 import communication.*;
+import game.exceptions.BoatInvalidException;
+import game.exceptions.GameException;
 import helpers.CollideHelper;
 import models.*;
 
@@ -63,15 +65,15 @@ public class GameExecutor {
 	 * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
 	 * @param ship
 	 */
-	public void PlaceShip(Ship ship) throws Exception {
+	public void PlaceShip(Ship ship) throws BoatInvalidException {
 
 	    if(ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength() ) > shipGrid.getHeight() ){
-	        throw new Exception("Valt buiten het grid");
+	        throw new BoatInvalidException("Valt buiten het grid");
         }
 
 	    for(int i = 0; i < ship.getLength(); i++) {
             if(new CollideHelper().getShip(ship.getX() +(ship.getOrientation() == Orientation.Horizontal ? i : 0), ship.getY() + i * (ship.getOrientation() == Orientation.Horizontal ? 0 : 1), shipGrid) != null){
-                throw new Exception("Botst met iets");
+                throw new BoatInvalidException("Botst met iets");
             }
         }
 
@@ -170,4 +172,8 @@ public class GameExecutor {
         communication.sendPackage(new StartPackage(playerName));
     }
 
+    //todo: afhandlen
+    public void ServerException(GameException exception){
+        exception.getMessage();
+    }
 }
