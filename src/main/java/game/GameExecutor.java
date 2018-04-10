@@ -162,11 +162,12 @@ public class GameExecutor {
 
     /**
      * TODO: Check als je wel eerst "PlayerStart" heb aangeroepen en dat al de schepen wel geplaatst zijn
+     * -- IS DONE --
      */
     public void RequestFireReady() throws FireInvalidException {
-        if (playerStartAccessed = true && shipGrid.getShips().size() == 5) {
+        if (playerStartAccessed && shipGrid.getShips().size() == 5) {
             communication.sendPackage(new RequestFireReady());
-        } else if (playerStartAccessed = false){
+        } else if (!playerStartAccessed){
             throw new FireInvalidException("Playerstart is nog niet aangeroepen");
         } else {
             throw new FireInvalidException("Niet alle schepen zijn geplaatst");
@@ -179,10 +180,10 @@ public class GameExecutor {
      * -- IS DONE --
      */
     public void PlayerStart(String playerName) throws PlayerStartException {
-        if (playerStartAccessed = false && !playerName.isEmpty()) {
+        if (!playerStartAccessed && !playerName.isEmpty()) {
             communication.sendPackage(new StartPackage(playerName));
             playerStartAccessed = true;
-        } else if (playerStartAccessed = true){
+        } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else if (playerName.isEmpty()){
             throw new PlayerStartException("Playername is empty");
