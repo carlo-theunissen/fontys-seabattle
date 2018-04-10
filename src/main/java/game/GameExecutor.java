@@ -2,7 +2,9 @@ package game;
 
 import communication.*;
 import game.exceptions.BoatInvalidException;
+import game.exceptions.FireInvalidException;
 import game.exceptions.GameException;
+import game.exceptions.PlayerStartException;
 import helpers.CollideHelper;
 import models.*;
 
@@ -13,6 +15,7 @@ public class GameExecutor {
 
     private IUIExecutor GUIExecutor;
     private ICommunication communication;
+    private boolean playerStartAccessed = false;
     public GameExecutor(ICommunication communication){
         this.communication = communication;
         this.communication.setLocalExecutor(this);
@@ -126,7 +129,7 @@ public class GameExecutor {
      * TODO: Check als je wel aan de beurt bent. Aka: de tegenstander heeft ook geschoten, of het is je eerste schot.
      * TODO: Het is trouwens niet nodig om een persoon te kiezen die mag beginnen, ik denk dat we beiden spelers
      * TODO: gewoon kunnen laten schieten de eerste keer, en daarna moet je wachten todat de tegenstander heeft geschoten
-     * TODO: zo ben je verekerd dat ze om en om schieten
+     * TODO: zo ben je verzekerd dat ze om en om schieten
      * @param fire
      */
 	public boolean FireOpponent(Fire fire){
@@ -160,16 +163,30 @@ public class GameExecutor {
     /**
      * TODO: Check als je wel eerst "PlayerStart" heb aangeroepen en dat al de schepen wel geplaatst zijn
      */
-    public void RequestFireReady(){
-	    communication.sendPackage(new RequestFireReady());
+    public void RequestFireReady() throws FireInvalidException {
+        if (playerStartAccessed = true && shipGrid.getShips().size() == 5) {
+            communication.sendPackage(new RequestFireReady());
+        } else if (playerStartAccessed = false){
+            throw new FireInvalidException("Playerstart is nog niet aangeroepen");
+        } else {
+            throw new FireInvalidException("Niet alle schepen zijn geplaatst");
+        }
     }
 
     /**
      * Call this method when the player is ready to start
      * TODO: Check als de playernaam wel geldig is en als je niet eerder "PlayerStart" hebt aangeroepen
+     * -- IS DONE --
      */
-    public void PlayerStart(String playerName){
-        communication.sendPackage(new StartPackage(playerName));
+    public void PlayerStart(String playerName) throws PlayerStartException {
+        if (playerStartAccessed = false && !playerName.isEmpty()) {
+            communication.sendPackage(new StartPackage(playerName));
+            playerStartAccessed = true;
+        } else if (playerStartAccessed = true){
+            throw new PlayerStartException("Playerstart is al een keer aangeroepen");
+        } else if (playerName.isEmpty()){
+            throw new PlayerStartException("Playername is empty");
+        }
     }
 
     //todo: afhandlen
