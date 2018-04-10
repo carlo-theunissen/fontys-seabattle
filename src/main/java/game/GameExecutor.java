@@ -13,6 +13,7 @@ public class GameExecutor {
     private IUIExecutor GUIExecutor;
     private ICommunication communication;
     private boolean playerStartAccessed = false;
+    private boolean shipsReady = false;
     private boolean isPlayerTurn = true;
 
     public GameExecutor(ICommunication communication){
@@ -55,9 +56,17 @@ public class GameExecutor {
      * Removes a ship from the grid.
      * TODO: let communication know about this
      * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
+     * -- IS DONE (Alex) --
      * @param ship
      */
-	public void RemoveShip(Ship ship){
+	public void RemoveShip(Ship ship) throws PlayerStartException, BoatInvalidException {
+	    if(!playerStartAccessed){
+	        throw new PlayerStartException("Player is nog niet geregistreerd");
+        }
+        if (!shipsReady){
+            throw new BoatInvalidException("Speler heeft nog niet alle schepen op de grid geplaatst");
+        }
+
         if(shipGrid.removeShip(ship)){
             GUIExecutor.removeShipLocal(ship);
         }
@@ -65,14 +74,18 @@ public class GameExecutor {
 
 	/**
 	 * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
+     * -- IS DONE --
 	 * @param ship
 	 */
-	public void PlaceShip(Ship ship) throws BoatInvalidException, PlayerNotStartedException {
+	public void PlaceShip(Ship ship) throws BoatInvalidException, PlayerStartException {
 
         if(!playerStartAccessed) {
-            throw new PlayerNotStartedException();
+            throw new PlayerStartException("Player is nog niet geregistreerd");
         }
-        //todo maak het verder af
+
+        if (!shipsReady){
+            throw new BoatInvalidException("Speler heeft nog niet alle schepen op de grid geplaatst");
+        }
 
 	    if(ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength() ) > shipGrid.getHeight() ){
 	        throw new BoatInvalidException("Valt buiten het grid");
@@ -132,9 +145,9 @@ public class GameExecutor {
      * Fire on the grid of the opponent
      * @param fire
      */
-	public boolean FireOpponent(Fire fire) throws PlayerNotStartedException, PlayerNotTurnException {
+	public boolean FireOpponent(Fire fire) throws PlayerStartException, PlayerNotTurnException {
 	    if(!playerStartAccessed) {
-	        throw new PlayerNotStartedException();
+	        throw new PlayerStartException("Player is nog niet geregistreerd");
         }
         if(!isPlayerTurn){
             throw new PlayerNotTurnException();
@@ -173,11 +186,12 @@ public class GameExecutor {
      * TODO: Check als je wel eerst "PlayerStart" heb aangeroepen en dat al de schepen wel geplaatst zijn
      * -- IS DONE --
      */
-    public void RequestFireReady() throws FireInvalidException, PlayerNotStartedException {
+    public void RequestFireReady() throws FireInvalidException, PlayerStartException {
         if (playerStartAccessed && shipGrid.getShips().size() == 5) {
+            shipsReady = true;
             communication.sendPackage(new RequestFireReady());
         } else if (!playerStartAccessed){
-            throw new PlayerNotStartedException();
+            throw new PlayerStartException("Player is nog niet geregistreerd");
         } else {
             throw new FireInvalidException("Niet alle schepen zijn geplaatst");
         }
@@ -190,12 +204,12 @@ public class GameExecutor {
      */
     public void PlayerStart(String playerName) throws PlayerStartException {
         if (!playerStartAccessed && !playerName.isEmpty()) {
-            communication.sendPackage(new StartPackage(playerName));
             playerStartAccessed = true;
+            communication.sendPackage(new StartPackage(playerName));
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else {
-            throw new PlayerStartException("Playername is empty");
+            throw new PlayerStartException("Player is nog niet geregistreerd");
         }
     }
 

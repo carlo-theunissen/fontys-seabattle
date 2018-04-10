@@ -82,7 +82,7 @@ public class SeaBattleGUI implements IUIExecutor {
 
     }
 
-    //tegenstander is geregristeerd, plaats nu al je boten
+    //tegenstander is geregistreerd, plaats nu al je boten
     @Override
     public void gameReady(String opponentName) {
 
