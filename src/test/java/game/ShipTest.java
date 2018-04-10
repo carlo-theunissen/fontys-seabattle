@@ -61,7 +61,6 @@ public class ShipTest {
                 Assert.assertEquals(3, ship.getLength());
                 break;
             case MINESWEEPER:
-
         }
 
     }

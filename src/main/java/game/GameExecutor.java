@@ -1,10 +1,7 @@
 package game;
 
 import communication.*;
-import game.exceptions.BoatInvalidException;
-import game.exceptions.FireInvalidException;
-import game.exceptions.GameException;
-import game.exceptions.PlayerStartException;
+import game.exceptions.*;
 import helpers.CollideHelper;
 import models.*;
 
@@ -16,6 +13,8 @@ public class GameExecutor {
     private IUIExecutor GUIExecutor;
     private ICommunication communication;
     private boolean playerStartAccessed = false;
+    private boolean isPlayerTurn = true;
+
     public GameExecutor(ICommunication communication){
         this.communication = communication;
         this.communication.setLocalExecutor(this);
@@ -68,7 +67,12 @@ public class GameExecutor {
 	 * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
 	 * @param ship
 	 */
-	public void PlaceShip(Ship ship) throws BoatInvalidException {
+	public void PlaceShip(Ship ship) throws BoatInvalidException, PlayerNotStartedException {
+
+        if(!playerStartAccessed) {
+            throw new PlayerNotStartedException();
+        }
+        //todo maak het verder af
 
 	    if(ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength() ) > shipGrid.getHeight() ){
 	        throw new BoatInvalidException("Valt buiten het grid");
@@ -126,19 +130,23 @@ public class GameExecutor {
 
     /**
      * Fire on the grid of the opponent
-     * TODO: Check als je wel aan de beurt bent. Aka: de tegenstander heeft ook geschoten, of het is je eerste schot.
-     * TODO: Het is trouwens niet nodig om een persoon te kiezen die mag beginnen, ik denk dat we beiden spelers
-     * TODO: gewoon kunnen laten schieten de eerste keer, en daarna moet je wachten todat de tegenstander heeft geschoten
-     * TODO: zo ben je verzekerd dat ze om en om schieten
      * @param fire
      */
-	public boolean FireOpponent(Fire fire){
-        for(Hit hit : opponentGrid.getHits()){
-            if(hit.getX() == fire.getX() && hit.getY() == fire.getY()){
+	public boolean FireOpponent(Fire fire) throws PlayerNotStartedException, PlayerNotTurnException {
+	    if(!playerStartAccessed) {
+	        throw new PlayerNotStartedException();
+        }
+        if(!isPlayerTurn){
+            throw new PlayerNotTurnException();
+        }
+        for (Hit hit : opponentGrid.getHits()) {
+            if (hit.getX() == fire.getX() && hit.getY() == fire.getY()) {
                 return false;
             }
         }
         communication.sendPackage(new FirePackage(fire));
+        isPlayerTurn = false;
+
         return true;
     }
 
@@ -149,6 +157,7 @@ public class GameExecutor {
 	public void FireResponse(Hit hit){
         opponentGrid.AddHit(hit);
         GUIExecutor.fireShotOpponent(hit);
+        isPlayerTurn = true;
     }
 
 
@@ -164,11 +173,11 @@ public class GameExecutor {
      * TODO: Check als je wel eerst "PlayerStart" heb aangeroepen en dat al de schepen wel geplaatst zijn
      * -- IS DONE --
      */
-    public void RequestFireReady() throws FireInvalidException {
+    public void RequestFireReady() throws FireInvalidException, PlayerNotStartedException {
         if (playerStartAccessed && shipGrid.getShips().size() == 5) {
             communication.sendPackage(new RequestFireReady());
         } else if (!playerStartAccessed){
-            throw new FireInvalidException("Playerstart is nog niet aangeroepen");
+            throw new PlayerNotStartedException();
         } else {
             throw new FireInvalidException("Niet alle schepen zijn geplaatst");
         }
@@ -185,7 +194,7 @@ public class GameExecutor {
             playerStartAccessed = true;
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
-        } else if (playerName.isEmpty()){
+        } else {
             throw new PlayerStartException("Playername is empty");
         }
     }
