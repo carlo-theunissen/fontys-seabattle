@@ -1,5 +1,8 @@
 package communication;
 
+/**
+ * een speler is gereed om te spelen
+ */
 public class ReadyPackage extends CommunicationPackage {
     public ReadyPackage(String playerName) {
         super(CommunicationAction.Ready, serialize(playerName));

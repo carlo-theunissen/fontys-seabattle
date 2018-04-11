@@ -2,6 +2,7 @@ package game;
 
 import communication.FireReady;
 import communication.ICommunication;
+import communication.PackageCommunication;
 import communication.StartPackage;
 
 import java.util.*;
@@ -11,13 +12,13 @@ import java.util.*;
  * For
  */
 public class GameManager {
-    private LinkedHashMap<ICommunication, String> playerCommunications;
+    private LinkedHashMap<PackageCommunication, String> playerCommunications;
     private int fireReady;
     GameManager(){
         playerCommunications = new LinkedHashMap<>();
     }
 
-    public void registerPlayer(ICommunication player, String name){
+    public void registerPlayer(PackageCommunication player, String name){
         if(playerCommunications.size() < 2) {
             playerCommunications.put(player, name);
         }
@@ -34,13 +35,13 @@ public class GameManager {
     }
 
     private void broadcastFireReady(){
-        ArrayList<ICommunication> players =  new ArrayList<>( playerCommunications.keySet());
+        ArrayList<PackageCommunication> players =  new ArrayList<>( playerCommunications.keySet());
         players.get(1).sendPackage(new FireReady());
         players.get(0).sendPackage(new FireReady());
     }
 
     private void broadcastGameStart(){
-        ArrayList<ICommunication> players =  new ArrayList<>( playerCommunications.keySet());
+        ArrayList<PackageCommunication> players =  new ArrayList<>( playerCommunications.keySet());
         ArrayList<String> playerName =  new ArrayList<>( playerCommunications.values());
         players.get(1).sendPackage(new StartPackage( playerName.get(0)));
         players.get(0).sendPackage(new StartPackage( playerName.get(1)));

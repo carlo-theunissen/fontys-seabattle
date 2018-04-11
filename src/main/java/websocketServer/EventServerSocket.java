@@ -1,9 +1,10 @@
 package websocketServer;
 
+import game.GameExecutor;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.*;
 
 // https://github.com/jetty-project/embedded-jetty-websocket-examples/tree/master/javax.websocket-example/src/main/java/org/eclipse/jetty/demo
 
@@ -17,23 +18,36 @@ import java.util.*;
 
 @ServerEndpoint(value = "/wstest/")
 public class EventServerSocket {
-    static HashSet<Session> sessions = new HashSet<Session>();
+
+
+    private final GameExecutorCollection collection;
+    private final ServerIntroLayer serverIntro;
+    
+    public EventServerSocket() {
+        collection = new GameExecutorCollection();
+        serverIntro = new ServerIntroLayer();
+    }
+
     @OnOpen
     public void onConnect(Session session) {
-        System.out.println("[Connected] SessionID:"+session.getId());
-        String message = String.format("[New client with client side session ID]: %s", session.getId());
-        broadcast(message);
-        sessions.add(session);
-        System.out.println("[#sessions]: " + sessions.size());
-      }
+        try {
+            collection.createNewExecutor(session);
+        } catch (Exception e) {
+            try {
+                session.close();
+            } catch (IOException ignored) {}
+        }
+    }
     @OnMessage
     public void onText(String message,Session session) {
-        System.out.println("[Session ID] : " + session.getId() + " [Received] : " + message);
+        GameExecutor executor = collection.getExecutor(session);
+        serverIntro.postNewMessage(executor, message);
     }
+
     @OnClose
     public void onClose(CloseReason reason, Session session) {
         System.out.println("[Session ID] : " + session.getId() + "[Socket Closed: " + reason);
-        sessions.remove(session);
+        //sessions.remove(session);
     }
     @OnError
     public void onError(Throwable cause, Session session) {
@@ -41,6 +55,7 @@ public class EventServerSocket {
         cause.printStackTrace(System.err);
     }
     public void broadcast(String s) {
+
         System.out.println("[Broadcast] { " + s + " } to:");
         for(Session session : sessions) {
             try {
@@ -51,5 +66,6 @@ public class EventServerSocket {
             }
         }
         System.out.println("[End of Broadcast]");
+
     }
 }

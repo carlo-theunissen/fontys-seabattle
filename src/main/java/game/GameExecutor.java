@@ -11,19 +11,26 @@ import models.*;
 public class GameExecutor {
 
     private IUIExecutor GUIExecutor;
-    private ICommunication communication;
+    private PackageCommunication communication;
     private boolean playerStartAccessed = false;
     private boolean isPlayerTurn = true;
 
+
     public GameExecutor(ICommunication communication){
         this.communication = communication;
-        this.communication.setLocalExecutor(this);
+        communication.setLocalExecutor(this);
 
         shipGrid = new ShipGrid();
         opponentGrid = new Grid();
     }
 
-    public ICommunication getCommunication() {
+    public GameExecutor(PackageCommunication communication){
+        this.communication = communication;
+
+        shipGrid = new ShipGrid();
+        opponentGrid = new Grid();
+    }
+    public PackageCommunication getCommunication() {
         return communication;
     }
 
@@ -190,7 +197,7 @@ public class GameExecutor {
      */
     public void PlayerStart(String playerName) throws PlayerStartException {
         if (!playerStartAccessed && !playerName.isEmpty()) {
-            communication.sendPackage(new StartPackage(playerName));
+            communication.sendPackage(new ReadyPackage(playerName));
             playerStartAccessed = true;
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");

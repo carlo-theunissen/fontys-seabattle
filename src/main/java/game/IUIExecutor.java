@@ -11,7 +11,16 @@ public interface IUIExecutor {
 	void placeShipLocal(Ship ship);
 	void removeShipLocal(Ship ship);
 
+	/**
+	 * Jij hebt dit geschoten op de tegenstander
+	 * @param hit
+	 */
 	void fireShotLocal(Hit hit);
+
+	/**
+	 * De tegenstander schiet op jou
+	 * @param hit
+	 */
 	void fireShotOpponent(Hit hit);
 
 	void fireTempShotOpponent(int posX, int posY);

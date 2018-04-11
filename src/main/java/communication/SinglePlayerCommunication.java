@@ -26,7 +26,7 @@ public class SinglePlayerCommunication extends BaseCommunication implements ICom
                     otherPlayer.FireShot(fire);
                 break;
             case Start:
-                    getLocalExecutor().GameReady(StartPackage.unserialize( communicationPackage.getData()));
+                    //it is weird if the player sends us that the game is ready
                 break;
             case Ready:
                 gameManager.registerPlayer(this, ReadyPackage.unserialize( communicationPackage.getData()));
