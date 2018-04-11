@@ -3,6 +3,7 @@ package client.userInterface;
 import communication.SinglePlayerCommunication;
 import game.GameExecutor;
 import game.IUIExecutor;
+import game.exceptions.PlayerStartException;
 import models.Orientation;
 import models.Ship;
 import models.ShipType;
@@ -31,7 +32,11 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
 
     @Override
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
-        localPlayer.PlayerStart(name);
+        try {
+            localPlayer.PlayerStart(name);
+        } catch (PlayerStartException e) {
+            e.printStackTrace();
+        }
 
         return 2;
     }

@@ -5,6 +5,9 @@ import game.exceptions.*;
 import helpers.CollideHelper;
 import models.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * GameExecutor keeps track of the state of the game, all actions done in here are final
  */
@@ -83,8 +86,8 @@ public class GameExecutor {
             throw new PlayerStartException("Player is nog niet geregistreerd");
         }
 
-        if (!shipsReady){
-            throw new BoatInvalidException("Speler heeft nog niet alle schepen op de grid geplaatst");
+        if (shipsReady){
+            throw new BoatInvalidException("speler heeft al al de schepen geplaatst");
         }
 
 	    if(ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength() ) > shipGrid.getHeight() ){
@@ -125,6 +128,7 @@ public class GameExecutor {
 
 		communication.sendPackage(new HitPackage(hit));
         GUIExecutor.fireShotLocal(hit);
+        isPlayerTurn = true;
 	}
 
 	private void UpdateShipStatus(Ship ship){
@@ -158,7 +162,6 @@ public class GameExecutor {
             }
         }
         communication.sendPackage(new FirePackage(fire));
-        isPlayerTurn = false;
 
         return true;
     }
@@ -170,7 +173,7 @@ public class GameExecutor {
 	public void FireResponse(Hit hit){
         opponentGrid.AddHit(hit);
         GUIExecutor.fireShotOpponent(hit);
-        isPlayerTurn = true;
+
     }
 
 
@@ -193,7 +196,7 @@ public class GameExecutor {
         } else if (!playerStartAccessed){
             throw new PlayerStartException("Player is nog niet geregistreerd");
         } else {
-            throw new FireInvalidException("Niet alle schepen zijn geplaatst");
+           throw new FireInvalidException("Niet alle schepen zijn geplaatst");
         }
     }
 
@@ -205,7 +208,7 @@ public class GameExecutor {
     public void PlayerStart(String playerName) throws PlayerStartException {
         if (!playerStartAccessed && !playerName.isEmpty()) {
             playerStartAccessed = true;
-            communication.sendPackage(new StartPackage(playerName));
+            communication.sendPackage(new ReadyPackage(playerName));
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else {

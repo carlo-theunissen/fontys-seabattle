@@ -33,7 +33,7 @@ import models.SquareState;
  * Main application of the sea battle game.
  * @author Nico Kuijpers
  */
-public class SeaBattleApplication extends Application implements ISeaBattleGUI {
+public class SeaBattleApplication extends Application implements ISeaBattleEnhancedGUI {
 
     // Constants to define size of GUI elements
     private final int BORDERSIZE = 10; // Size of borders in pixels
@@ -477,7 +477,9 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
             singlePlayerMode = false;
         }
 
+
         SeaBattleGUI gui = new SeaBattleGUI(this);
+        game_t.setEnhancedGUI(this);
         game_t.setGUIExecutor(gui);
         game = game_t;
     }
@@ -790,7 +792,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleGUI {
      * Show an alert message.
      * The message will disappear when the user presses ok.
      */
-    private void showMessage(final String message) {
+    public void showMessage(final String message) {
         // Use Platform.runLater() to ensure that code concerning
         // the Alert message is executed by the JavaFX Application Thread
         Platform.runLater(new Runnable() {

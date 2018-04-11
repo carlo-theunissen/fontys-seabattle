@@ -2,15 +2,17 @@ package client.userInterface;
 
 import communication.SinglePlayerCommunication;
 import game.GameExecutor;
+import game.GameManager;
 import game.IUIExecutor;
+import game.exceptions.FireInvalidException;
+import game.exceptions.PlayerNotTurnException;
+import game.exceptions.PlayerStartException;
 import helpers.CollideHelper;
 import models.*;
 
 import java.util.Collection;
 
 public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
-
-
 
     private GameExecutor opponentPlayer;
 
@@ -20,15 +22,18 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     public SinglePlayerGame(){
+        GameManager game = new GameManager();
         SinglePlayerCommunication communcationFromPlayerToAI = new SinglePlayerCommunication();
         localPlayer = new GameExecutor(communcationFromPlayerToAI);
 
         SinglePlayerCommunication communicationFromAIToPlayer = new SinglePlayerCommunication();
         communicationFromAIToPlayer.setOtherPlayer(localPlayer);
+        communicationFromAIToPlayer.setGameManager(game);
 
         opponentPlayer = new GameExecutor(communicationFromAIToPlayer);
 
         communcationFromPlayerToAI.setOtherPlayer(opponentPlayer);
+        communcationFromPlayerToAI.setGameManager(game);
 
 
         localPlayer.setGridSize(10,10);
@@ -49,11 +54,26 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
-        opponentPlayer.PlayerStart("AI");
+        try {
+            opponentPlayer.PlayerStart("AI");
+        } catch (PlayerStartException e) {
+            enhancedGUI.showMessage(e.getMessage());
+        }
         PlaceShipsAI();
-        opponentPlayer.RequestFireReady();
+        try {
+            opponentPlayer.RequestFireReady();
+        } catch (FireInvalidException e) {
+            String test = e.getMessage();
+            enhancedGUI.showMessage(test);
+        } catch (PlayerStartException e) {
+            e.printStackTrace();
+        }
 
-        localPlayer.PlayerStart(name);
+        try {
+            localPlayer.PlayerStart(name);
+        } catch (PlayerStartException e) {
+            e.printStackTrace();
+        }
 
         return 0;
     }
@@ -74,7 +94,13 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         //todo Zet de check als alle ships wel geplaats zijn, in GameExecutor
 
         if (ships.size() == 5){
-            player.RequestFireReady();
+            try {
+                player.RequestFireReady();
+            } catch (FireInvalidException e) {
+                e.printStackTrace();
+            } catch (PlayerStartException e) {
+                e.printStackTrace();
+            }
             return true;
         } else {
             return false;
@@ -83,7 +109,13 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
         GameExecutor player = getPlayer(playerNr);
-        player.FireOpponent(new Fire(posX, posY));
+        try {
+            player.FireOpponent(new Fire(posX, posY));
+        } catch (PlayerStartException e) {
+            e.printStackTrace();
+        } catch (PlayerNotTurnException e) {
+            e.printStackTrace();
+        }
         return ShotType.MISSED;
     }
 
@@ -107,7 +139,13 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
          // TODO: Check de return waarden van opponentPlayer.FireOpponent  als die "FALSE" is, kan je daar niet meer schieten
          // TODO: dus moet je een nieuwe x,y waarden pakken
-        opponentPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
+        try {
+            opponentPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
+        } catch (PlayerStartException e) {
+            e.printStackTrace();
+        } catch (PlayerNotTurnException e) {
+            e.printStackTrace();
+        }
         return ShotType.MISSED;
     }
 // -TODO Alex implemnteren

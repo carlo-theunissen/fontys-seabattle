@@ -13,7 +13,7 @@ import java.util.*;
 public class GameManager {
     private LinkedHashMap<ICommunication, String> playerCommunications;
     private int fireReady;
-    GameManager(){
+    public GameManager(){
         playerCommunications = new LinkedHashMap<>();
     }
 
