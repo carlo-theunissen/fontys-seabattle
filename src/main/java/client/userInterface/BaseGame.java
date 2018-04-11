@@ -2,6 +2,8 @@ package client.userInterface;
 
 import game.GameExecutor;
 import game.IUIExecutor;
+import game.exceptions.BoatInvalidException;
+import game.exceptions.PlayerStartException;
 import helpers.CollideHelper;
 import models.Orientation;
 import models.Ship;
@@ -11,6 +13,11 @@ import models.ShotType;
 public abstract class BaseGame implements ISeaBattleGame{
 
     protected GameExecutor localPlayer;
+    protected ISeaBattleEnhancedGUI enhancedGUI;
+
+    public void setEnhancedGUI(ISeaBattleEnhancedGUI enhancedGUI) {
+        this.enhancedGUI = enhancedGUI;
+    }
 
     public abstract void setGUIExecutor(IUIExecutor GUIExecutor);
 
@@ -46,7 +53,7 @@ public abstract class BaseGame implements ISeaBattleGame{
         try {
             player.PlaceShip(ship);
         } catch (Exception e){
-
+            System.out.println(e.getMessage());
         }
 
         return true;
@@ -61,7 +68,13 @@ public abstract class BaseGame implements ISeaBattleGame{
     private boolean removeShip(int playerNr, Ship ship) {
         GameExecutor player = getPlayer(playerNr);
         if(ship != null){
-            player.RemoveShip(ship);
+            try {
+                player.RemoveShip(ship);
+            } catch (PlayerStartException e) {
+                e.printStackTrace();
+            } catch (BoatInvalidException e) {
+                e.printStackTrace();
+            }
         }
 
         return true;

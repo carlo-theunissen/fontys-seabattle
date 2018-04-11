@@ -14,7 +14,7 @@ import java.util.*;
 public class GameManager {
     private LinkedHashMap<PackageCommunication, String> playerCommunications;
     private int fireReady;
-    GameManager(){
+    public GameManager(){
         playerCommunications = new LinkedHashMap<>();
     }
 

@@ -20,7 +20,7 @@ public class ShipGrid extends Grid {
 	}
 	public Collection<Ship> getShips() {
 		//don't let "ships" escape otherwise we'll lose responsibility
-		return Collections.unmodifiableCollection( ships);
+		return Collections.unmodifiableCollection(ships);
 	}
 
 	/**
