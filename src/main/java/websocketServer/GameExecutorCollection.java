@@ -22,6 +22,9 @@ public class GameExecutorCollection {
         return executors.get(session);
     }
     public GameExecutor getOpponent(Session currentPlayer){
+        if(executors.size() < 2){
+            return null;
+        }
         ArrayList<Session> sessions =  new ArrayList<>( executors.keySet());
         ArrayList<GameExecutor> games =  new ArrayList<>( executors.values());
         if(sessions.get(0) == currentPlayer){
