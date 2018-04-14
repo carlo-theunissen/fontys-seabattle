@@ -5,9 +5,6 @@ import game.exceptions.*;
 import helpers.CollideHelper;
 import models.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 /**
  * GameExecutor keeps track of the state of the game, all actions done in here are final
  */
@@ -78,6 +75,7 @@ public class GameExecutor {
         }
 
         if(shipGrid.removeShip(ship)){
+	        communication.sendPackage(new RemoveShipPackage(ship));
             GUIExecutor.removeShipLocal(ship);
         }
     }
@@ -113,6 +111,9 @@ public class GameExecutor {
 	            break;
             }
         }
+
+        communication.sendPackage(new PlaceShipPackage(ship));
+
 		shipGrid.setShip(ship);
         GUIExecutor.placeShipLocal(ship);
 	}
@@ -215,7 +216,7 @@ public class GameExecutor {
     public void PlayerStart(String playerName) throws PlayerStartException {
         if (!playerStartAccessed && !playerName.isEmpty()) {
             playerStartAccessed = true;
-            communication.sendPackage(new ReadyPackage(playerName));
+            communication.sendPackage(new StartPackage(playerName));
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else {

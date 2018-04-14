@@ -25,7 +25,7 @@ public class EventServer {
     public static void main(String[] args) {
         Server server = new Server();
         ServerConnector connector = new ServerConnector(server);
-        connector.setPort(8095);
+        connector.setPort(8080);
         server.addConnector(connector);
 
         // Setup the basic application "context" for this application at "/"
@@ -42,7 +42,7 @@ public class EventServer {
             wscontainer.addEndpoint(EventServerSocket.class);
 
             server.start();
-            //server.dump(System.err);
+            server.dump(System.out);
 
             server.join();
         } catch (Throwable t) {

@@ -469,12 +469,21 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         // UnsupportedOperationException will be thrown
         // TODO: IMPLEMENT CLASS UIExecutor.
 
-        BaseGame game_t  = new SinglePlayerGame();
+
+        //TODO: ALEX, deze code wordt al aangeroepen voordat de player op "register" drukt.
+        //TODO: radioMultiPlayer.isFocused() is daarom altijd false.
+        //TODO: fix dit!
+
+        BaseGame game_t;
         singlePlayerMode = true;
 
-        if (radioMultiPlayer.isFocused()){
+        boolean alex_waarom = radioMultiPlayer.isFocused();
+
+        if (true || radioMultiPlayer.isFocused()){ //exclusive middle
             game_t = new MultiplayerGame();
             singlePlayerMode = false;
+        } else {
+             game_t = new SinglePlayerGame();
         }
 
 
@@ -547,7 +556,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
     @Override
     public void opponentFiresShot(int playerNr, ShotType shotType) {
         if (shotType.equals(ShotType.SUNK)) {
-            showMessage("Ship of " + playerName + " is sunk");
+            showMessage("PlaceShip of " + playerName + " is sunk");
         }
         if (shotType.equals(ShotType.ALLSUNK)) {
             showMessage("Winner: " + opponentName + ".\nPress Start new game to continue");
@@ -825,7 +834,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
                 // Player fires a shot at the selected target area
                 ShotType resultPlayer = game.fireShotPlayer(playerNr,x,y);
                 if (resultPlayer.equals(ShotType.SUNK)) {
-                    showMessage("Ship of " + opponentName + " is sunk");
+                    showMessage("PlaceShip of " + opponentName + " is sunk");
                 }
                 if (resultPlayer.equals(ShotType.ALLSUNK)) {
                     showMessage("Winner: " + playerName + ".\nPress Start new game to continue");

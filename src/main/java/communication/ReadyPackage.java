@@ -1,7 +1,7 @@
 package communication;
 
 /**
- * een speler is gereed om te spelen
+ * start het spel
  */
 public class ReadyPackage extends CommunicationPackage {
     public ReadyPackage(String playerName) {

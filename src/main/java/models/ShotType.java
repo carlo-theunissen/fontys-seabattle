@@ -12,6 +12,6 @@ package models;
 public enum ShotType {
     MISSED,   // Shot missed
     HIT,      // Shot hit
-    SUNK,     // Ship sunk
+    SUNK,     // PlaceShip sunk
     ALLSUNK;  // All ships sunk
 }

@@ -29,8 +29,7 @@ public class MultiplayerServerToLocalCommunication implements PackageCommunicati
                     playerEndpoint.sendText(helper.serializePackage(communicationPackage));
                     break;
                 case Fire:
-                    //verstuur de fire naar de eigen speler
-                    playerEndpoint.sendText(helper.serializePackage(communicationPackage));
+                    //de client stuurt naar ons een fire, wij niet naar hem
                     break;
                 case HitResponse:
                     //verstuur de hitresponse naar de tegenstander
@@ -43,7 +42,11 @@ public class MultiplayerServerToLocalCommunication implements PackageCommunicati
                 case RequestFireReady:
                     //request fire ready is sent to the client to us. We don't have to respond
                     break;
-                case PlaceBoat:
+                case PlaceShip:
+                    //client handelt dit zelf af
+                    break;
+                case RemoveShip:
+                    //client handelt dit zelf af
                     break;
             }
 

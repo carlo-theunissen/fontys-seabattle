@@ -1,5 +1,6 @@
 package websocketServer;
 
+import client.userInterface.EmptySeaBattleGUI;
 import communication.MultiplayerServerToLocalCommunication;
 import communication.PackageCommunication;
 import game.GameExecutor;
@@ -20,8 +21,16 @@ public class GameExecutorCollection {
     public GameExecutor getExecutor(Session session){
         return executors.get(session);
     }
+    public GameExecutor getOpponent(Session currentPlayer){
+        ArrayList<Session> sessions =  new ArrayList<>( executors.keySet());
+        ArrayList<GameExecutor> games =  new ArrayList<>( executors.values());
+        if(sessions.get(0) == currentPlayer){
+            return games.get(1);
+        }
+        return games.get(0);
+    }
 
-    public void setOpponents(){
+    private void setOpponents(){
         ArrayList<GameExecutor> games =  new ArrayList<>( executors.values());
         ArrayList<Session> sessions =  new ArrayList<>( executors.keySet());
         ((MultiplayerServerToLocalCommunication) games.get(0).getCommunication()).setOpponentEndpoint(sessions.get(1).getBasicRemote());
@@ -34,6 +43,7 @@ public class GameExecutorCollection {
         }
         if(!executors.containsKey(session)){
             GameExecutor executor = new GameExecutor(new MultiplayerServerToLocalCommunication(session.getBasicRemote()));
+            executor.setGUIExecutor(new EmptySeaBattleGUI());
             executors.put(session, executor);
         }
         if(executors.size() == 2){

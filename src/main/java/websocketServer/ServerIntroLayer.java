@@ -9,7 +9,6 @@ import models.Hit;
 
 public class ServerIntroLayer {
     private MultiplayerSerialHelper helper;
-    private GameExecutor opponnentExecutor;
     private GameManager gameManager;
 
     public void setGameManager(GameManager gameManager) {
@@ -18,23 +17,22 @@ public class ServerIntroLayer {
     ServerIntroLayer(){
         helper = new MultiplayerSerialHelper();
     }
-    public void postNewMessage(GameExecutor executor, String data){
+
+
+    public void postNewMessage(GameExecutor executor, GameExecutor opponnentExecutor, String data){
         CommunicationPackage communcation = helper.unserializePackage(data);
         try {
-            handleNewPackage(communcation, executor);
+            handleNewPackage(communcation, executor, opponnentExecutor);
         } catch (GameException e) {
             handleGameException(e);
         }
     }
 
-    public void setOpponnentExecutor(GameExecutor opponnentExecutor) {
-        this.opponnentExecutor = opponnentExecutor;
-    }
 
-    private void handleNewPackage(CommunicationPackage communicationPackage, GameExecutor executor) throws GameException {
+    private void handleNewPackage(CommunicationPackage communicationPackage, GameExecutor executor, GameExecutor opponnentExecutor) throws GameException {
         switch (communicationPackage.getAction()){
-            case PlaceBoat:
-                executor.PlaceShip(BoatPackage.unserialize(communicationPackage.getData()));
+            case PlaceShip:
+                executor.PlaceShip(PlaceShipPackage.unserialize(communicationPackage.getData()));
                 break;
             case Fire:
                 //vuur dit op de tegenstander

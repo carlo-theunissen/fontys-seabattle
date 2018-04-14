@@ -1,5 +1,6 @@
 package client.userInterface;
 
+import communication.MultiplayerLocalToServerCommunication;
 import communication.SinglePlayerCommunication;
 import game.GameExecutor;
 import game.IUIExecutor;
@@ -9,6 +10,9 @@ import models.Ship;
 import models.ShipType;
 import models.ShotType;
 
+import javax.websocket.DeploymentException;
+import java.io.IOException;
+
 public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
 
     public void setGUIExecutor(IUIExecutor GUIExecutor) {
@@ -16,12 +20,15 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     public MultiplayerGame(){
-        SinglePlayerCommunication communcationFromPlayerToOpponent = new SinglePlayerCommunication();
+
+        MultiplayerLocalToServerCommunication communcationFromPlayerToOpponent = null;
+        try {
+            communcationFromPlayerToOpponent = new MultiplayerLocalToServerCommunication();
+        } catch (IOException | DeploymentException e) {
+            e.printStackTrace();
+        }
+
         localPlayer = new GameExecutor(communcationFromPlayerToOpponent);
-
-        SinglePlayerCommunication communicationFromOpponentToPlayer = new SinglePlayerCommunication();
-        communicationFromOpponentToPlayer.setOtherPlayer(localPlayer);
-
         localPlayer.setGridSize(10,10);
     }
 
@@ -37,27 +44,6 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
         } catch (PlayerStartException e) {
             e.printStackTrace();
         }
-
         return 2;
-    }
-
-    @Override
-    public boolean notifyWhenReady(int playerNr) {
-        return false;
-    }
-
-    @Override
-    public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        return null;
-    }
-
-    @Override
-    public ShotType fireShotOpponent(int playerNr) {
-        return null;
-    }
-
-    @Override
-    public boolean startNewGame(int playerNr) {
-        return false;
     }
 }

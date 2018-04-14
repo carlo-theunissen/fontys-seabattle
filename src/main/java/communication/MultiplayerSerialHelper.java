@@ -16,8 +16,10 @@ public class MultiplayerSerialHelper  {
                 return  createPackage(CommunicationAction.FireReadyRespone, split[1]);
             case "requestFire":
                 return  createPackage(CommunicationAction.RequestFireReady, split[1]);
-            case "boat":
-                return  createPackage(CommunicationAction.PlaceBoat, split[1]);
+            case "placeShip":
+                return  createPackage(CommunicationAction.PlaceShip, split[1]);
+            case "removeShip":
+                return  createPackage(CommunicationAction.RemoveShip, split[1]);
         }
         return null;
     }
@@ -40,8 +42,10 @@ public class MultiplayerSerialHelper  {
                 return ("fireReady]" + communication.getData());
             case RequestFireReady:
                 return ("requestFire]" + communication.getData());
-            case PlaceBoat:
-                return ("boat," + communication.getData());
+            case PlaceShip:
+                return ("placeShip]," + communication.getData());
+            case RemoveShip:
+                return ("removeShip]," + communication.getData());
         }
         return "";
     }
