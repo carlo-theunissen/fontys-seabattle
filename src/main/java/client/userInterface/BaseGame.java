@@ -53,7 +53,7 @@ public abstract class BaseGame implements ISeaBattleGame{
         try {
             player.PlaceShip(ship);
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            enhancedGUI.showMessage(e.getMessage());
         }
 
         return true;

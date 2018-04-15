@@ -112,6 +112,10 @@ public class GameExecutor {
             }
         }
 
+
+        /* TODO: Hier gooit hij een java.lang.nullpointerexception wanneer ik de communication weghaal gaat hij wel
+        / gewoon door maar dan heb ik natuurlijk communicatie problemen.
+        */
         communication.sendPackage(new PlaceShipPackage(ship));
 
 		shipGrid.setShip(ship);
