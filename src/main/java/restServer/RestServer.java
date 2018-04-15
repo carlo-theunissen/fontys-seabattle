@@ -5,7 +5,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-public class Service {
+public class RestServer {
     public static void main(String[] args) throws Exception {
         ServletContextHandler context = new
                 ServletContextHandler(ServletContextHandler.SESSIONS);
