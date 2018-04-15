@@ -1,4 +1,4 @@
-package game;
+package models;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import models.Orientation;
