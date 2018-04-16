@@ -1,8 +1,5 @@
 package models;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import models.Fire;
-import models.Player;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;

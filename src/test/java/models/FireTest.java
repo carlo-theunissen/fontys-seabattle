@@ -1,10 +1,5 @@
 package models;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import models.Fire;
-import models.Orientation;
-import models.Ship;
-import models.ShipType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -24,7 +19,7 @@ public class FireTest {
         Assert.assertNotNull(fire);
     }
 
-    @Test(expected = InvalidArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void InValidConstructorTest(){
         Fire fire = new Fire(-1,-1);
     }

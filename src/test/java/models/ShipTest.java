@@ -1,9 +1,6 @@
 package models;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import models.Orientation;
-import models.Ship;
-import models.ShipType;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -28,7 +25,7 @@ public class ShipTest {
         Assert.assertNotNull(ship);
     }
 
-    @Test(expected = InvalidArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void InValidConstructorTest(){
         Ship ship = new Ship(null);
     }
@@ -40,7 +37,7 @@ public class ShipTest {
         Assert.assertEquals(Orientation.Horizontal, ship.getOrientation());
     }
 
-    @Test(expected = InvalidArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void InvalidOrientationTest(){
         Ship ship = new Ship(ShipType.AIRCRAFTCARRIER);
         ship.setOrientation(null);

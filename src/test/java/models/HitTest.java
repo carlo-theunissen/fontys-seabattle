@@ -1,9 +1,5 @@
 package models;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import models.Fire;
-import models.Hit;
-import models.HitType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -23,7 +19,7 @@ public class HitTest {
         Assert.assertNotNull(hit);
     }
 
-    @Test(expected = InvalidArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void InValidConstructorTest(){
         Hit hit = new Hit(-1,-1,null);
     }
