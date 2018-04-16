@@ -1,5 +1,6 @@
 package communication;
 
+import models.Fire;
 import models.Hit;
 
 import javax.websocket.*;
@@ -63,7 +64,8 @@ public class MultiplayerLocalToServerCommunication extends BaseCommunication imp
                 getLocalExecutor().GameStart(communicationPackage.getData());
                 break;
             case Fire:
-                //server does not send us a fire
+                Fire fire = FirePackage.unserialize(communicationPackage.getData());
+                getLocalExecutor().FireShot(fire);
                 break;
             case HitResponse:
                 Hit hit = HitPackage.unserialize(communicationPackage.getData());

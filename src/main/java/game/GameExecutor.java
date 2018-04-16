@@ -130,7 +130,7 @@ public class GameExecutor {
      * @param fire
      */
 	public void FireShot(Fire fire) {
-
+        isPlayerTurn = true;
 		Ship ship = new CollideHelper().getShip(fire.getX(), fire.getY(), shipGrid);
 		Hit hit = new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided);
         shipGrid.AddHit(hit);
@@ -142,7 +142,7 @@ public class GameExecutor {
 
 		communication.sendPackage(new HitPackage(hit));
         GUIExecutor.fireShotLocal(hit);
-        isPlayerTurn = true;
+
 	}
 
 	private void UpdateShipStatus(Ship ship){
@@ -176,7 +176,7 @@ public class GameExecutor {
             }
         }
         communication.sendPackage(new FirePackage(fire));
-
+        isPlayerTurn = false;
         return true;
     }
 

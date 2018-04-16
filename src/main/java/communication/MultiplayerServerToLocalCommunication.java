@@ -29,7 +29,8 @@ public class MultiplayerServerToLocalCommunication implements PackageCommunicati
                     playerEndpoint.sendText(helper.serializePackage(communicationPackage));
                     break;
                 case Fire:
-                    //de client stuurt naar ons een fire, wij niet naar hem
+                    //een fire moet doorgestuurd worden naar de opponent, zodat hij kan aangeven dat er geraakt is
+                    opponentEndpoint.sendText(helper.serializePackage(communicationPackage));
                     break;
                 case HitResponse:
                     //verstuur de hitresponse naar de tegenstander

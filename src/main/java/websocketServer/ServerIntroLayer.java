@@ -65,7 +65,7 @@ public class ServerIntroLayer {
      * @param exception
      */
     private void handleGameException(GameException exception){
-        System.out.println(exception.getMessage());
+        exception.printStackTrace(System.err);
     }
 
 
