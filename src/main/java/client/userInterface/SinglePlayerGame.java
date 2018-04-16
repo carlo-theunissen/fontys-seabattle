@@ -85,39 +85,6 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         placeShip(1, ShipType.SUBMARINE, 0,4, true);
     }
 
-    public boolean notifyWhenReady(int playerNr) {
-        GameExecutor player = getPlayer(playerNr);
-        Collection<Ship> ships = player.GetLocalGrid().getShips();
-
-
-        //todo Zet de check als alle ships wel geplaats zijn, in GameExecutor
-
-        if (ships.size() == 5){
-            try {
-                player.RequestFireReady();
-            } catch (FireInvalidException e) {
-                e.printStackTrace();
-            } catch (PlayerStartException e) {
-                e.printStackTrace();
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        GameExecutor player = getPlayer(playerNr);
-        try {
-            player.FireOpponent(new Fire(posX, posY));
-        } catch (PlayerStartException e) {
-            e.printStackTrace();
-        } catch (PlayerNotTurnException e) {
-            e.printStackTrace();
-        }
-        return ShotType.MISSED;
-    }
-
     /**
      * Let the opponent fire a shot at the player's square.
      * This method is used in the single-player mode.
@@ -147,7 +114,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         }
         return ShotType.MISSED;
     }
-// -TODO Alex implemnteren
+// -TODO Alex implementeren
     public boolean startNewGame(int playerNr) {
         return true;
     }

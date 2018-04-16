@@ -474,23 +474,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         //TODO: radioMultiPlayer.isFocused() is daarom altijd false.
         //TODO: fix dit!
 
-        BaseGame game_t;
-        singlePlayerMode = true;
 
-        boolean alex_waarom = radioMultiPlayer.isFocused();
-
-        if (true || radioMultiPlayer.isFocused()){ //exclusive middle
-            game_t = new MultiplayerGame();
-            singlePlayerMode = false;
-        } else {
-             game_t = new SinglePlayerGame();
-        }
-
-
-        SeaBattleGUI gui = new SeaBattleGUI(this);
-        game_t.setEnhancedGUI(this);
-        game_t.setGUIExecutor(gui);
-        game = game_t;
     }
 
     /**
@@ -653,6 +637,21 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
      * Register the name of the player.
      */
     private void registerPlayer() {
+        BaseGame game_t;
+        singlePlayerMode = true;
+
+        if (radioMultiPlayer.isSelected()){ //exclusive middle
+            game_t = new MultiplayerGame();
+            singlePlayerMode = false;
+        } else {
+            game_t = new SinglePlayerGame();
+        }
+
+
+        SeaBattleGUI gui = new SeaBattleGUI(this);
+        game_t.setEnhancedGUI(this);
+        game_t.setGUIExecutor(gui);
+        game = game_t;
         playerName = textFieldPlayerName.getText();
         if ("".equals(playerName) || playerName == null) {
             showMessage("Enter your name before registering");

@@ -4,6 +4,7 @@ import communication.MultiplayerLocalToServerCommunication;
 import game.GameExecutor;
 import game.IUIExecutor;
 import game.exceptions.PlayerStartException;
+import models.ShotType;
 
 import javax.websocket.DeploymentException;
 import java.io.IOException;
@@ -39,6 +40,11 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
         } catch (PlayerStartException e) {
             e.printStackTrace();
         }
-        return 2;
+        return 0;
+    }
+// TODO Implementeren
+    @Override
+    public boolean startNewGame(int playerNr) {
+        return false;
     }
 }

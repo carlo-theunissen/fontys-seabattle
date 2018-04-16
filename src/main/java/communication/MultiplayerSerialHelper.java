@@ -13,9 +13,9 @@ public class MultiplayerSerialHelper  {
             case "hit":
                 return  createPackage(CommunicationAction.HitResponse, split[1]);
             case "fireReady":
-                return  createPackage(CommunicationAction.FireReadyRespone, split[1]);
+                return  createPackage(CommunicationAction.FireReadyRespone, "");
             case "requestFire":
-                return  createPackage(CommunicationAction.RequestFireReady, split[1]);
+                return  createPackage(CommunicationAction.RequestFireReady, "");
             case "placeShip":
                 return  createPackage(CommunicationAction.PlaceShip, split[1]);
             case "removeShip":

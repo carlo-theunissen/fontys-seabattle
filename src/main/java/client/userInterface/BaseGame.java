@@ -3,12 +3,13 @@ package client.userInterface;
 import game.GameExecutor;
 import game.IUIExecutor;
 import game.exceptions.BoatInvalidException;
+import game.exceptions.FireInvalidException;
+import game.exceptions.PlayerNotTurnException;
 import game.exceptions.PlayerStartException;
 import helpers.CollideHelper;
-import models.Orientation;
-import models.Ship;
-import models.ShipType;
-import models.ShotType;
+import models.*;
+
+import java.util.Collection;
 
 public abstract class BaseGame implements ISeaBattleGame{
 
@@ -99,12 +100,37 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public boolean notifyWhenReady(int playerNr) {
-        return false;
+        GameExecutor player = getPlayer(playerNr);
+        Collection<Ship> ships = player.GetLocalGrid().getShips();
+
+
+        //todo Zet de check als alle ships wel geplaats zijn, in GameExecutor
+
+        if (ships.size() == 5){
+            try {
+                player.RequestFireReady();
+            } catch (FireInvalidException e) {
+                e.printStackTrace();
+            } catch (PlayerStartException e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        return null;
+        GameExecutor player = getPlayer(playerNr);
+        try {
+            player.FireOpponent(new Fire(posX, posY));
+        } catch (PlayerStartException e) {
+            e.printStackTrace();
+        } catch (PlayerNotTurnException e) {
+            e.printStackTrace();
+        }
+        return ShotType.MISSED;
     }
 
     @Override
