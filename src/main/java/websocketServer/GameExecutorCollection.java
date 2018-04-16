@@ -46,6 +46,7 @@ public class GameExecutorCollection {
         }
         if(!executors.containsKey(session)){
             GameExecutor executor = new GameExecutor(new MultiplayerServerToLocalCommunication(session.getBasicRemote()));
+            executor.setGridSize(10,10);
             executor.setGUIExecutor(new EmptySeaBattleGUI());
             executors.put(session, executor);
         }

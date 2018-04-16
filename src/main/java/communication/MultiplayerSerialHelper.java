@@ -43,9 +43,9 @@ public class MultiplayerSerialHelper  {
             case RequestFireReady:
                 return ("requestFire]" + communication.getData());
             case PlaceShip:
-                return ("placeShip]," + communication.getData());
+                return ("placeShip]" + communication.getData());
             case RemoveShip:
-                return ("removeShip]," + communication.getData());
+                return ("removeShip]" + communication.getData());
         }
         return "";
     }

@@ -1,6 +1,7 @@
 package websocketServer;
 
 import game.GameExecutor;
+import game.GameManager;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -20,12 +21,15 @@ import java.io.IOException;
 public class EventServerSocket {
 
 
-    private final GameExecutorCollection collection;
-    private final ServerIntroLayer serverIntro;
+    private static final GameExecutorCollection collection = new GameExecutorCollection();
+    private static final ServerIntroLayer serverIntro = new ServerIntroLayer();
     
     public EventServerSocket() {
-        collection = new GameExecutorCollection();
-        serverIntro = new ServerIntroLayer();
+        synchronized (serverIntro) {
+            if (serverIntro.getGameManager() == null) {
+                serverIntro.setGameManager(new GameManager());
+            }
+        }
     }
 
     @OnOpen

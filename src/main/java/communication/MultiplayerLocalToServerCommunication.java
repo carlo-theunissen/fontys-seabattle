@@ -1,7 +1,6 @@
 package communication;
 
 import models.Hit;
-import org.eclipse.jetty.websocket.api.annotations.*;
 
 import javax.websocket.*;
 import java.io.IOException;
@@ -61,7 +60,7 @@ public class MultiplayerLocalToServerCommunication extends BaseCommunication imp
                 //server will never send us a ready
                 break;
             case Start:
-                getLocalExecutor().GameReady(communicationPackage.getData());
+                getLocalExecutor().GameStart(communicationPackage.getData());
                 break;
             case Fire:
                 //server does not send us a fire

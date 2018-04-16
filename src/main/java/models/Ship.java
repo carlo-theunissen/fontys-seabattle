@@ -9,6 +9,7 @@ public class Ship {
     private int Y;
 
     public Ship(ShipType type){
+        this.shipStatus = ShipStatus.Invalid;
         this.type = type;
     }
 

@@ -81,7 +81,8 @@ public class GameExecutor {
     }
 
 	/**
-	 * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
+     *
+	 * TODO: Check als het spel al gestart is
      * -- IS DONE --
 	 * @param ship
 	 */
@@ -105,6 +106,7 @@ public class GameExecutor {
             }
         }
 
+        ship.setStatus(ShipStatus.Alive);
 	    for(Ship temp : shipGrid.getShips()){
 	        if(temp.hashCode() == ship.hashCode()){
 	            RemoveShip(temp);
@@ -189,7 +191,7 @@ public class GameExecutor {
     }
 
 
-    public void GameReady(String opponentName){
+    public void GameStart(String opponentName){
         GUIExecutor.gameReady(opponentName);
     }
 
@@ -198,7 +200,7 @@ public class GameExecutor {
     }
 
     /**
-     * TODO: Check als je wel eerst "PlayerStart" heb aangeroepen en dat al de schepen wel geplaatst zijn
+     * TODO: Check als je wel eerst "PlayerReady" heb aangeroepen en dat al de schepen wel geplaatst zijn
      * -- IS DONE --
      */
     public void RequestFireReady() throws FireInvalidException, PlayerStartException {
@@ -214,13 +216,13 @@ public class GameExecutor {
 
     /**
      * Call this method when the player is ready to start
-     * TODO: Check als de playernaam wel geldig is en als je niet eerder "PlayerStart" hebt aangeroepen
+     * TODO: Check als de playernaam wel geldig is en als je niet eerder "PlayerReady" hebt aangeroepen
      * -- IS DONE --
      */
-    public void PlayerStart(String playerName) throws PlayerStartException {
+    public void PlayerReady(String playerName) throws PlayerStartException {
         if (!playerStartAccessed && !playerName.isEmpty()) {
             playerStartAccessed = true;
-            communication.sendPackage(new StartPackage(playerName));
+            communication.sendPackage(new ReadyPackage(playerName));
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else {

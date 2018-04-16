@@ -7,7 +7,6 @@ import game.IUIExecutor;
 import game.exceptions.FireInvalidException;
 import game.exceptions.PlayerNotTurnException;
 import game.exceptions.PlayerStartException;
-import helpers.CollideHelper;
 import models.*;
 
 import java.util.Collection;
@@ -55,7 +54,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
         try {
-            opponentPlayer.PlayerStart("AI");
+            opponentPlayer.PlayerReady("AI");
         } catch (PlayerStartException e) {
             enhancedGUI.showMessage(e.getMessage());
         }
@@ -70,7 +69,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         }
 
         try {
-            localPlayer.PlayerStart(name);
+            localPlayer.PlayerReady(name);
         } catch (PlayerStartException e) {
             e.printStackTrace();
         }

@@ -41,10 +41,10 @@ public class ServerIntroLayer {
                 executor.FireOpponent(fire);
                 break;
             case Start:
-                executor.GameReady(StartPackage.unserialize( communicationPackage.getData()));
+                executor.GameStart(StartPackage.unserialize( communicationPackage.getData()));
                 break;
             case Ready:
-                executor.PlayerStart(ReadyPackage.unserialize( communicationPackage.getData()));
+                executor.PlayerReady(ReadyPackage.unserialize( communicationPackage.getData()));
                 gameManager.registerPlayer(executor.getCommunication(), ReadyPackage.unserialize( communicationPackage.getData()));
                 break;
             case RequestFireReady:
@@ -69,4 +69,7 @@ public class ServerIntroLayer {
     }
 
 
+    public GameManager getGameManager() {
+        return gameManager;
+    }
 }
