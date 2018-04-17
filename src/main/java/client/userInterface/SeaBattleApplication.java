@@ -5,6 +5,7 @@
  */
 package client.userInterface;
 
+import game.exceptions.PlayerNotTurnException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -828,22 +829,27 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
             // Game is in playing mode
            // Paint temp = squaresTargetArea[x][y].getFill();
          //   squaresTargetArea[x][y].setFill(Color.YELLOW);
-            if (playersTurn()) {
+            if (playersTurn() || true) {
                 // It is this player's turn
                 // Player fires a shot at the selected target area
-                ShotType resultPlayer = game.fireShotPlayer(playerNr,x,y);
-                if (resultPlayer.equals(ShotType.SUNK)) {
-                    showMessage("PlaceShip of " + opponentName + " is sunk");
-                }
-                if (resultPlayer.equals(ShotType.ALLSUNK)) {
-                    showMessage("Winner: " + playerName + ".\nPress Start new game to continue");
-                    buttonStartNewGame.setDisable(false);
-                    gameEnded = true;
-                }
-                // Opponent's turn
-                switchTurn();
-                if (singlePlayerMode) {
-                    ShotType resultOpponent = game.fireShotOpponent(playerNr);
+                try {
+                    ShotType resultPlayer = game.fireShotPlayer(playerNr, x, y);
+
+                    if (resultPlayer.equals(ShotType.SUNK)) {
+                        showMessage("PlaceShip of " + opponentName + " is sunk");
+                    }
+                    if (resultPlayer.equals(ShotType.ALLSUNK)) {
+                        showMessage("Winner: " + playerName + ".\nPress Start new game to continue");
+                        buttonStartNewGame.setDisable(false);
+                        gameEnded = true;
+                    }
+                    // Opponent's turn
+                    switchTurn();
+                    if (singlePlayerMode) {
+                        ShotType resultOpponent = game.fireShotOpponent(playerNr);
+                    }
+                } catch (Exception e){
+                    showMessage("Oeps er is iets mis gegaan!");
                 }
 
 
