@@ -1,4 +1,4 @@
-package restServer.Shared;
+package server.Shared;
 
 public class ScoreResponse {
 

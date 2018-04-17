@@ -1,4 +1,4 @@
-package websocketServer;
+package server;
 
 
 import gameLogic.GameManager;
@@ -38,6 +38,12 @@ public class EventServerSocket {
         System.out.println("CONNECT!");
         try {
             collection.createNewExecutor(session);
+            ServerStatusContainer.setConnected(ServerStatusContainer.getConnected() + 1);
+
+            if(ServerStatusContainer.getConnected() == 2){
+                ServerStatusContainer.setStatus(ServerStatusContainer.ServerStatus.CLOSED);
+            }
+
         } catch (Exception e) {
             try {
                 session.close();

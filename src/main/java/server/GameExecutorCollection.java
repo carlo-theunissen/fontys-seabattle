@@ -1,4 +1,4 @@
-package websocketServer;
+package server;
 
 import client.userInterface.EmptySeaBattleGUI;
 import communication.MultiplayerServerToLocalCommunication;

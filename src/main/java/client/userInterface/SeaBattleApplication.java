@@ -768,7 +768,6 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
             if (!success) {
                 showMessage("Cannot place ship");
             } else {
-                showMessage("Success");
                 System.out.println(playerNr);
                 System.out.println(shipType);
                 System.out.println(bowX);

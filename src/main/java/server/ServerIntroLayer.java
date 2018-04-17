@@ -1,4 +1,4 @@
-package websocketServer;
+package server;
 
 import communication.*;
 import gameLogic.IGameExecutor;
