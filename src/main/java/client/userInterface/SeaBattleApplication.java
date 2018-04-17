@@ -634,10 +634,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         });
     }
 
-    /**
-     * Register the name of the player.
-     */
-    private void registerPlayer() {
+    private void StartGame(){
         BaseGame game_t;
         singlePlayerMode = true;
 
@@ -654,6 +651,12 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         game_t.setGUIExecutor(gui);
         game = game_t;
         playerName = textFieldPlayerName.getText();
+    }
+    /**
+     * Register the name of the player.
+     */
+    private void registerPlayer() {
+        StartGame();
         if ("".equals(playerName) || playerName == null) {
             showMessage("Enter your name before registering");
         }
@@ -814,6 +817,14 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
                 alert.showAndWait();
             }
         });
+    }
+
+    @Override
+    public void gameEnded() {
+        StartGame();
+        buttonStartNewGame.setDisable(false);
+
+
     }
 
     /**

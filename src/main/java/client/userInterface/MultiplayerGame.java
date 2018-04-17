@@ -42,9 +42,4 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
         }
         return 0;
     }
-// TODO Implementeren
-    @Override
-    public boolean startNewGame(int playerNr) {
-        return false;
-    }
 }

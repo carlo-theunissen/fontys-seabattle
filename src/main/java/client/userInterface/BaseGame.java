@@ -140,6 +140,7 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public boolean startNewGame(int playerNr) {
+        removeAllShips(0);
 
         return true;
     }
