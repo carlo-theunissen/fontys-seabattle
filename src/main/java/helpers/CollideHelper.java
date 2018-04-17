@@ -1,6 +1,6 @@
 package helpers;
 
-import game.ShipGrid;
+import gameLogic.ShipGrid;
 import models.Orientation;
 import models.Ship;
 

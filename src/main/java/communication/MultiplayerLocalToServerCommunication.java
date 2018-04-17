@@ -14,7 +14,7 @@ public class MultiplayerLocalToServerCommunication extends BaseCommunication imp
     public MultiplayerLocalToServerCommunication() throws IOException, DeploymentException {
         helper = new MultiplayerSerialHelper();
 
-        URI uri = URI.create("ws://localhost:8080/game/");
+        URI uri = URI.create("ws://localhost:8080/gameLogic/");
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         session = container.connectToServer(new EventClientSocket(),uri);
     }

@@ -1,7 +1,8 @@
 package communication;
 
-import game.GameExecutor;
+
+import gameLogic.IGameExecutor;
 
 public interface ICommunication  extends PackageCommunication{
-    void setLocalExecutor(GameExecutor localExecutor);
+    void setLocalExecutor(IGameExecutor localExecutor);
 }

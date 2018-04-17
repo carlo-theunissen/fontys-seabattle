@@ -1,10 +1,10 @@
 package client.userInterface;
 
 import communication.MultiplayerLocalToServerCommunication;
-import game.GameExecutor;
-import game.IUIExecutor;
-import game.exceptions.PlayerStartException;
-import models.ShotType;
+import gameLogic.GameExecutor;
+import gameLogic.IGameExecutor;
+import gameLogic.IUIExecutor;
+import gameLogic.exceptions.PlayerStartException;
 
 import javax.websocket.DeploymentException;
 import java.io.IOException;
@@ -29,8 +29,8 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     @Override
-    public GameExecutor getPlayer(int playerNr) {
-    return localPlayer;
+    public IGameExecutor getPlayer(int playerNr) {
+        return localPlayer;
     }
 
     @Override

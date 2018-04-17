@@ -1,7 +1,6 @@
-package game;
+package gameLogic;
 
 import communication.FireReady;
-import communication.ICommunication;
 import communication.PackageCommunication;
 import communication.StartPackage;
 

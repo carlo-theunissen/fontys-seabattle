@@ -5,7 +5,6 @@
  */
 package client.userInterface;
 
-import game.exceptions.PlayerNotTurnException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -31,7 +30,7 @@ import models.ShotType;
 import models.SquareState;
 
 /**
- * Main application of the sea battle game.
+ * Main application of the sea battle gameLogic.
  * @author Nico Kuijpers
  */
 public class SeaBattleApplication extends Application implements ISeaBattleEnhancedGUI {
@@ -60,7 +59,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
     // Squares for the target area
     private Rectangle[][] squaresTargetArea;
 
-    // Player's number (to be determined by the sea battle game)
+    // Player's number (to be determined by the sea battle gameLogic)
     int playerNr = 0;
 
     // Player's name
@@ -82,21 +81,21 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
     // Squares for the ocean area
     private Rectangle[][] squaresOceanArea;
 
-    // Sea battle game
+    // Sea battle gameLogic
     private ISeaBattleGame game;
 
-    // Flag to indicate whether game is in single-player or multiplayer mode
+    // Flag to indicate whether gameLogic is in single-player or multiplayer mode
     private boolean singlePlayerMode = true;
 
-    // Radio buttons to indicate whether game is in single-player or multiplayer mode
+    // Radio buttons to indicate whether gameLogic is in single-player or multiplayer mode
     private Label labelSingleMultiPlayer;
     private RadioButton radioSinglePlayer;
     private RadioButton radioMultiPlayer;
 
-    // Flag to indicate whether the game is in playing mode
+    // Flag to indicate whether the gameLogic is in playing mode
     private boolean playingMode = false;
 
-    // Flag to indicate that the game is endend
+    // Flag to indicate that the gameLogic is endend
     private boolean gameEnded = false;
 
     // Flag to indicate whether next ship should be placed horizontally or vertically
@@ -107,7 +106,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
     private RadioButton radioHorizontal;
     private RadioButton radioVertical;
 
-    // Buttons to register player, start the game, and place or remove ships
+    // Buttons to register player, start the gameLogic, and place or remove ships
     Button buttonRegisterPlayer;
     Button buttonPlaceAllShips;
     Button buttonRemoveAllShips;
@@ -235,9 +234,9 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         grid.add(textFieldPlayerName, 1, 4, 1, 2);
 
         // Radio buttons to choose between single-player and multi-player mode
-        labelSingleMultiPlayer = new Label("Play game in: ");
+        labelSingleMultiPlayer = new Label("Play gameLogic in: ");
         radioSinglePlayer = new RadioButton("single-player mode");
-        Tooltip tooltipSinglePlayer = new Tooltip("Play game in single-player mode");
+        Tooltip tooltipSinglePlayer = new Tooltip("Play gameLogic in single-player mode");
         radioSinglePlayer.setTooltip(tooltipSinglePlayer);
         radioSinglePlayer.setOnAction(new EventHandler() {
             @Override
@@ -246,7 +245,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
             }
         });
         radioMultiPlayer = new RadioButton("multi-player mode");
-        Tooltip tooltipMultiPlayer = new Tooltip("Play game in multi-player mode");
+        Tooltip tooltipMultiPlayer = new Tooltip("Play gameLogic in multi-player mode");
         radioMultiPlayer.setTooltip(tooltipMultiPlayer);
         radioMultiPlayer.setOnAction(new EventHandler() {
             @Override
@@ -321,11 +320,11 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         buttonReadyToPlay.setDisable(true);
         grid.add(buttonReadyToPlay, 1, 26, 1, 3);
 
-        // Button to start a new game
-        buttonStartNewGame = new Button("Start new game");
+        // Button to start a new gameLogic
+        buttonStartNewGame = new Button("Start new gameLogic");
         buttonStartNewGame.setMinWidth(BUTTONWIDTH);
         Tooltip tooltipStartNewGame =
-                new Tooltip("Press this button to start a new game");
+                new Tooltip("Press this button to start a new gameLogic");
         buttonStartNewGame.setTooltip(tooltipStartNewGame);
         buttonStartNewGame.setOnAction(new EventHandler() {
             @Override
@@ -459,7 +458,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         grid.add(buttonRemoveShip, 1, 68, 1, 3);
 
         // Define title and assign the scene for main window
-        primaryStage.setTitle("Sea battle: the game");
+        primaryStage.setTitle("Sea battle: the gameLogic");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -544,7 +543,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
             showMessage("PlaceShip of " + playerName + " is sunk");
         }
         if (shotType.equals(ShotType.ALLSUNK)) {
-            showMessage("Winner: " + opponentName + ".\nPress Start new game to continue");
+            showMessage("Winner: " + opponentName + ".\nPress Start new gameLogic to continue");
             buttonStartNewGame.setDisable(false);
             gameEnded = true;
         }
@@ -706,10 +705,10 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
     }
 
     /**
-     * Notify that the player is ready to start the game.
+     * Notify that the player is ready to start the gameLogic.
      */
     private void notifyWhenReady() {
-        // Notify that the player is ready is start the game.
+        // Notify that the player is ready is start the gameLogic.
         playingMode = game.notifyWhenReady(playerNr);
         if (playingMode) {
             labelHorizontalVertical.setDisable(true);
@@ -731,10 +730,10 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
     }
 
     /**
-     * Start a new game.
+     * Start a new gameLogic.
      */
     private void startNewGame() {
-        // The player wants to start a new game.
+        // The player wants to start a new gameLogic.
         boolean success = game.startNewGame(playerNr);
         if (success) {
             playingMode = false;
@@ -746,7 +745,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
             radioMultiPlayer.setDisable(false);
             buttonRegisterPlayer.setDisable(false);
         } else {
-            showMessage("Cannot start new game");
+            showMessage("Cannot start new gameLogic");
         }
     }
 
@@ -850,7 +849,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
                         showMessage("PlaceShip of " + opponentName + " is sunk");
                     }
                     if (resultPlayer.equals(ShotType.ALLSUNK)) {
-                        showMessage("Winner: " + playerName + ".\nPress Start new game to continue");
+                        showMessage("Winner: " + playerName + ".\nPress Start new gameLogic to continue");
                         buttonStartNewGame.setDisable(false);
                         gameEnded = true;
                     }
@@ -872,7 +871,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         }
         else {
             if (gameEnded) {
-                showMessage("Press Start new game");
+                showMessage("Press Start new gameLogic");
             }
             else {
                 showMessage("Select square in " + playerName + "\'s grid to place ships");
@@ -912,7 +911,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
      * Method to switch player's turn.
      * This method is synchronized because switchTurn() may be
      * called by the Java FX Application thread or by another thread
-     * handling communication with the game server.
+     * handling communication with the gameLogic server.
      */
     private synchronized void switchTurn() {
         playerTurn = 1 - playerTurn;
@@ -922,7 +921,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
      * Method to check whether it is this player's turn.
      * This method is synchronized because switchTurn() may be
      * called by the Java FX Application thread or another thread
-     * handling communication with the game server.
+     * handling communication with the gameLogic server.
      */
     private synchronized boolean playersTurn() {
         return playerNr == playerTurn;

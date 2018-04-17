@@ -1,15 +1,15 @@
 package communication;
 
-import game.GameExecutor;
+import gameLogic.IGameExecutor;
 
 abstract public class BaseCommunication {
-    private GameExecutor localExecutor;
+    private IGameExecutor localExecutor;
 
-    GameExecutor getLocalExecutor() {
+    IGameExecutor getLocalExecutor() {
         return localExecutor;
     }
 
-    public void setLocalExecutor(GameExecutor localExecutor) {
+    public void setLocalExecutor(IGameExecutor localExecutor) {
         this.localExecutor = localExecutor;
     }
 }

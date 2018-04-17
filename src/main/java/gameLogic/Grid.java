@@ -1,4 +1,4 @@
-package game;
+package gameLogic;
 
 import models.Hit;
 import models.Player;

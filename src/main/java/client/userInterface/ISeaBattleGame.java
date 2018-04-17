@@ -10,7 +10,7 @@ import models.ShipType;
 import models.ShotType;
 
 /**
- * Interface provided by the sea battle game to the graphical user interface.
+ * Interface provided by the sea battle gameLogic to the graphical user interface.
  * @author Nico Kuijpers
  */
 public interface ISeaBattleGame {
@@ -70,9 +70,9 @@ public interface ISeaBattleGame {
     public boolean removeAllShips(int playerNr);
 
     /**
-     * Notify that the player is ready to play the game, i.e., all ships have
+     * Notify that the player is ready to play the gameLogic, i.e., all ships have
      * been placed.
-     * @param playerNr identification of player who is ready to play the game
+     * @param playerNr identification of player who is ready to play the gameLogic
      * @return true if all ships have been placed, false otherwise.
      */
     public boolean notifyWhenReady(int playerNr);
@@ -107,10 +107,10 @@ public interface ISeaBattleGame {
     public ShotType fireShotOpponent(int playerNr);
     
     /**
-     * Start a new game.
+     * Start a new gameLogic.
      * Remove all ships and unregister the players.
      * @param playerNr
-     * @return true if a new game is started successfully
+     * @return true if a new gameLogic is started successfully
      */
     public boolean startNewGame(int playerNr);
 }

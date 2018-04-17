@@ -1,18 +1,18 @@
-package game;
+package gameLogic;
 
 import communication.*;
-import game.exceptions.*;
+import gameLogic.exceptions.*;
 import helpers.CollideHelper;
 import models.*;
 
 /**
- * GameExecutor keeps track of the state of the game, all actions done in here are final
+ * GameExecutor keeps track of the state of the gameLogic, all actions done in here are final
  */
-public class GameExecutor {
+public class GameExecutor implements IGameExecutor {
 
     private enum GameState {
         /**
-         * The game has started and the player is asked to fill in his name
+         * The gameLogic has started and the player is asked to fill in his name
          */
         STARTED,
         /**
@@ -71,22 +71,27 @@ public class GameExecutor {
         this.communication = communication;
         shipGrid = new ShipGrid();
         opponentGrid = new Grid();
+        currentState = GameState.STARTED;
     }
 
+    @Override
     public PackageCommunication getCommunication() {
         return communication;
     }
 
+    @Override
     public void setGUIExecutor(IUIExecutor GUIExecutor) {
         this.GUIExecutor = GUIExecutor;
     }
 
+    @Override
     public ShipGrid GetLocalGrid() {
         //prevent the grid being edited outside
         return new ImmortalShipGrid(shipGrid);
     }
 
 
+    @Override
     public void setGridSize(int width, int height) {
         shipGrid.setWidth(width);
         shipGrid.setHeight(height);
@@ -100,6 +105,7 @@ public class GameExecutor {
      * Removes a ship from the grid.
      * @param ship
      */
+    @Override
     public void RemoveShip(Ship ship) throws PlayerStartException, BoatInvalidException {
         if (currentState != GameState.EDIT_BOATS) {
             throw new PlayerStartException("Invalid state");
@@ -111,6 +117,7 @@ public class GameExecutor {
         }
     }
 
+    @Override
     public void PlaceShip(Ship ship) throws BoatInvalidException, PlayerStartException {
 
         if (currentState != GameState.EDIT_BOATS) {
@@ -147,6 +154,7 @@ public class GameExecutor {
      *
      * @param fire
      */
+    @Override
     public void OpponentFiresOnOurGrid(Fire fire) {
         currentState = GameState.PLAYER_FIRE;
         Ship ship = new CollideHelper().getShip(fire.getX(), fire.getY(), shipGrid);
@@ -178,6 +186,7 @@ public class GameExecutor {
     }
 
 
+    @Override
     public void FireOnGridOpponent(Fire fire) throws PlayerStartException, PlayerNotTurnException {
         if (currentState == GameState.OPPONENT_FIRE) {
             throw new PlayerNotTurnException();
@@ -199,6 +208,7 @@ public class GameExecutor {
      * We've fired on the grid of the opponent. In this method we get the result of that shot
      * @param hit
      */
+    @Override
     public void OpponentResponse(Hit hit) {
         opponentGrid.AddHit(hit);
         calculateWinner();
@@ -206,15 +216,17 @@ public class GameExecutor {
     }
 
     /**
-     * Start the game
+     * Start the gameLogic
      * @param opponentName
      */
+    @Override
     public void GameStart(String opponentName) {
         opponentPlayerName = opponentName;
         GUIExecutor.gameReady(opponentName);
     }
 
 
+    @Override
     public void StartFireState() {
         currentState = GameState.PLAYER_FIRE;
         GUIExecutor.fireReady();
@@ -224,6 +236,7 @@ public class GameExecutor {
      * TODO: Check als je wel eerst "PlayerReady" heb aangeroepen en dat al de schepen wel geplaatst zijn
      * -- IS DONE --
      */
+    @Override
     public void RequestFireState() throws FireInvalidException, PlayerStartException {
         if (currentState == GameState.EDIT_BOATS && shipGrid.getShips().size() == 5) {
             currentState = GameState.WAIT_OPPONENT_PLACED_BOATS;
@@ -238,6 +251,7 @@ public class GameExecutor {
     /**
      * Call this method when the player is ready to start
      */
+    @Override
     public void PlayerReady(String playerName) throws PlayerStartException {
         if (currentState == GameState.STARTED && !playerName.isEmpty()) {
             currentState = GameState.EDIT_BOATS;

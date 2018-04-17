@@ -9,7 +9,7 @@ import models.ShotType;
 import models.SquareState;
 
 /**
- * Interface provided by the graphical user interface of the sea battle game.
+ * Interface provided by the graphical user interface of the sea battle gameLogic.
  * @author Nico Kuijpers
  */
 public interface ISeaBattleGUI {

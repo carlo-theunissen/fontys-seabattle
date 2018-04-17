@@ -1,7 +1,8 @@
 package websocketServer;
 
-import game.GameExecutor;
-import game.GameManager;
+
+import gameLogic.GameManager;
+import gameLogic.IGameExecutor;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -46,7 +47,7 @@ public class EventServerSocket {
     @OnMessage
     public void onText(String message,Session session) {
         System.out.println(message);
-        GameExecutor executor = collection.getExecutor(session);
+        IGameExecutor executor = collection.getExecutor(session);
         serverIntro.postNewMessage(executor, collection.getOpponent(session), message);
     }
 

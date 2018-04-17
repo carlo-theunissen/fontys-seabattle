@@ -1,6 +1,6 @@
 package client.userInterface;
 
-import game.IUIExecutor;
+import gameLogic.IUIExecutor;
 import models.Hit;
 import models.Ship;
 import models.ShipType;

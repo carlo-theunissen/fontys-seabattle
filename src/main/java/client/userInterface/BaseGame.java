@@ -1,11 +1,12 @@
 package client.userInterface;
 
-import game.GameExecutor;
-import game.IUIExecutor;
-import game.exceptions.BoatInvalidException;
-import game.exceptions.FireInvalidException;
-import game.exceptions.PlayerNotTurnException;
-import game.exceptions.PlayerStartException;
+
+import gameLogic.IGameExecutor;
+import gameLogic.IUIExecutor;
+import gameLogic.exceptions.BoatInvalidException;
+import gameLogic.exceptions.FireInvalidException;
+import gameLogic.exceptions.PlayerNotTurnException;
+import gameLogic.exceptions.PlayerStartException;
 import helpers.CollideHelper;
 import models.*;
 
@@ -13,7 +14,7 @@ import java.util.Collection;
 
 public abstract class BaseGame implements ISeaBattleGame{
 
-    protected GameExecutor localPlayer;
+    protected IGameExecutor localPlayer;
     protected ISeaBattleEnhancedGUI enhancedGUI;
 
     public void setEnhancedGUI(ISeaBattleEnhancedGUI enhancedGUI) {
@@ -26,7 +27,7 @@ public abstract class BaseGame implements ISeaBattleGame{
         return 0;
     }
 
-    public abstract GameExecutor getPlayer(int playerNr);
+    public abstract IGameExecutor getPlayer(int playerNr);
 
     @Override
     public boolean placeShipsAutomatically(int playerNr) {
@@ -42,7 +43,7 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public boolean placeShip(int playerNr, ShipType shipType, int bowX, int bowY, boolean horizontal) {
-        GameExecutor player = getPlayer(playerNr);
+        IGameExecutor player = getPlayer(playerNr);
         Ship ship = new Ship(shipType);
         ship.setX(bowX);
         ship.setY(bowY);
@@ -62,12 +63,12 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public boolean removeShip(int playerNr, int posX, int posY) {
-        GameExecutor player = getPlayer(playerNr);
+        IGameExecutor player = getPlayer(playerNr);
         return removeShip(playerNr, (new CollideHelper()).getShip(posX, posY, player.GetLocalGrid()));
     }
 
     private boolean removeShip(int playerNr, Ship ship) {
-        GameExecutor player = getPlayer(playerNr);
+        IGameExecutor player = getPlayer(playerNr);
         if(ship != null){
             try {
                 player.RemoveShip(ship);
@@ -83,7 +84,7 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public boolean removeAllShips(int playerNr) {
-        GameExecutor player = getPlayer(playerNr);
+        IGameExecutor player = getPlayer(playerNr);
 
         Ship[] array = new Ship[player.GetLocalGrid().getShips().size()];
         int i = 0;
@@ -100,7 +101,7 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public boolean notifyWhenReady(int playerNr) {
-        GameExecutor player = getPlayer(playerNr);
+        IGameExecutor player = getPlayer(playerNr);
         Collection<Ship> ships = player.GetLocalGrid().getShips();
 
 
@@ -122,7 +123,7 @@ public abstract class BaseGame implements ISeaBattleGame{
 
     @Override
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
-        GameExecutor player = getPlayer(playerNr);
+        IGameExecutor player = getPlayer(playerNr);
         try {
             player.FireOnGridOpponent(new Fire(posX, posY));
         } catch (PlayerStartException e) {
