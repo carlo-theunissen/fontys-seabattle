@@ -73,8 +73,8 @@ public class GameExecutor {
 	    if(!playerStartAccessed){
 	        throw new PlayerStartException("Player is nog niet geregistreerd");
         }
-        if (!shipsReady){
-            throw new BoatInvalidException("Speler heeft nog niet alle schepen op de grid geplaatst");
+        if (shipsReady){
+            throw new BoatInvalidException("Speler is al ready kan geen schepen meer verwijderen");
         }
 
         if(shipGrid.removeShip(ship)){
