@@ -10,50 +10,83 @@ import models.*;
  */
 public class GameExecutor {
 
+    private enum GameState {
+        /**
+         * The game has started and the player is asked to fill in his name
+         */
+        STARTED,
+        /**
+         * Player can start placing or removing boats
+         */
+        EDIT_BOATS,
+
+        /**
+         * Player has placed all his boats and is now waiting for the opponent to finish
+         */
+        WAIT_OPPONENT_PLACED_BOATS,
+
+        /**
+         * It is now the player's turn to fire.
+         */
+        PLAYER_FIRE,
+
+        /**
+         * It is now the opponent's turn to fire
+         */
+        OPPONENT_FIRE,
+
+        /**
+         * Someone has won
+         */
+        WIN
+    }
+
     private IUIExecutor GUIExecutor;
     private PackageCommunication communication;
-    private boolean playerStartAccessed = false;
-    private boolean shipsReady = false;
-    private boolean isPlayerTurn = true;
-    private boolean winnerFound = false;
+    private GameState currentState;
+
+    /**
+     * The shipgrid is the grid from the local player.
+     * On this grid all ships are placed. But it also stores all the shots the opponent did on our grid
+     */
+    private ShipGrid shipGrid;
+
+    /**
+     * The opponentgrid is the
+     */
+    private Grid opponentGrid;
 
     private String localPlayerName;
     private String opponentPlayerName;
 
-    public GameExecutor(ICommunication communication){
+    public GameExecutor(ICommunication communication) {
         this.communication = communication;
         communication.setLocalExecutor(this);
-
         shipGrid = new ShipGrid();
         opponentGrid = new Grid();
     }
 
-    public GameExecutor(PackageCommunication communication){
+    public GameExecutor(PackageCommunication communication) {
         this.communication = communication;
-
         shipGrid = new ShipGrid();
         opponentGrid = new Grid();
     }
+
     public PackageCommunication getCommunication() {
         return communication;
     }
-
-    private ShipGrid shipGrid;
-    private Grid opponentGrid;
 
     public void setGUIExecutor(IUIExecutor GUIExecutor) {
         this.GUIExecutor = GUIExecutor;
     }
 
     public ShipGrid GetLocalGrid() {
-	    //prevent the grid being edited outside
-		return new ImmortalShipGrid(shipGrid);
-	}
-	public Grid GetopponentGrid(){
-        return opponentGrid;
+        //prevent the grid being edited outside
+        return new ImmortalShipGrid(shipGrid);
     }
 
-	public void setGridSize(int width, int height){
+
+    public void setGridSize(int width, int height) {
         shipGrid.setWidth(width);
         shipGrid.setHeight(height);
 
@@ -64,145 +97,125 @@ public class GameExecutor {
 
     /**
      * Removes a ship from the grid.
-     * TODO: let communication know about this
-     * TODO: Check als de player niet al heeft bevestigd dat hij klaar is met schepen plaatsen.
-     * -- IS DONE (Alex) --
      * @param ship
      */
-	public void RemoveShip(Ship ship) throws PlayerStartException, BoatInvalidException {
-	    if(!playerStartAccessed){
-	        throw new PlayerStartException("Player is nog niet geregistreerd");
-        }
-        if (shipsReady){
-            throw new BoatInvalidException("Speler is al ready kan geen schepen meer verwijderen");
+    public void RemoveShip(Ship ship) throws PlayerStartException, BoatInvalidException {
+        if (currentState != GameState.EDIT_BOATS) {
+            throw new PlayerStartException("Invalid state");
         }
 
-        if(shipGrid.removeShip(ship)){
-	        communication.sendPackage(new RemoveShipPackage(ship));
+        if (shipGrid.removeShip(ship)) {
+            communication.sendPackage(new RemoveShipPackage(ship));
             GUIExecutor.removeShipLocal(ship);
         }
     }
 
-	/**
-     *
-	 * TODO: Check als het spel al gestart is
-     * -- IS DONE --
-	 * @param ship
-	 */
-	public void PlaceShip(Ship ship) throws BoatInvalidException, PlayerStartException {
+    public void PlaceShip(Ship ship) throws BoatInvalidException, PlayerStartException {
 
-        if(!playerStartAccessed) {
-            throw new PlayerStartException("Player is nog niet geregistreerd");
+        if (currentState != GameState.EDIT_BOATS) {
+            throw new PlayerStartException("Invalid state");
         }
 
-        if (shipsReady){
-            throw new BoatInvalidException("speler heeft al al de schepen geplaatst");
+        if (ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength()) > shipGrid.getHeight()) {
+            throw new BoatInvalidException("Valt buiten het grid");
         }
 
-	    if(ship.getX() < 0 || ship.getY() < 0 || ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? ship.getLength() : 0) > shipGrid.getWidth() || ship.getY() + (ship.getOrientation() == Orientation.Horizontal ? 0 : ship.getLength() ) > shipGrid.getHeight() ){
-	        throw new BoatInvalidException("Valt buiten het grid");
-        }
-
-	    for(int i = 0; i < ship.getLength(); i++) {
-            if(new CollideHelper().getShip(ship.getX() +(ship.getOrientation() == Orientation.Horizontal ? i : 0), ship.getY() + i * (ship.getOrientation() == Orientation.Horizontal ? 0 : 1), shipGrid) != null){
+        for (int i = 0; i < ship.getLength(); i++) {
+            if (new CollideHelper().getShip(ship.getX() + (ship.getOrientation() == Orientation.Horizontal ? i : 0), ship.getY() + i * (ship.getOrientation() == Orientation.Horizontal ? 0 : 1), shipGrid) != null) {
                 throw new BoatInvalidException("Botst met iets");
             }
         }
 
         ship.setStatus(ShipStatus.Alive);
-	    for(Ship temp : shipGrid.getShips()){
-	        if(temp.hashCode() == ship.hashCode()){
-	            RemoveShip(temp);
-	            break;
+        for (Ship temp : shipGrid.getShips()) {
+            if (temp.hashCode() == ship.hashCode()) {
+                RemoveShip(temp);
+                break;
             }
         }
 
-
-        /* TODO: Hier gooit hij een java.lang.nullpointerexception wanneer ik de communication weghaal gaat hij wel
-        / gewoon door maar dan heb ik natuurlijk communicatie problemen.
-        */
         communication.sendPackage(new PlaceShipPackage(ship));
 
-		shipGrid.setShip(ship);
+        shipGrid.setShip(ship);
         GUIExecutor.placeShipLocal(ship);
-	}
+    }
 
     /**
      * Fire a shot on the local grid.
      * We should response with a hit
+     *
      * @param fire
      */
-	public void FireShot(Fire fire) {
-        isPlayerTurn = true;
-		Ship ship = new CollideHelper().getShip(fire.getX(), fire.getY(), shipGrid);
-		Hit hit = new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided);
+    public void OpponentFiresOnOurGrid(Fire fire) {
+        currentState = GameState.PLAYER_FIRE;
+        Ship ship = new CollideHelper().getShip(fire.getX(), fire.getY(), shipGrid);
+        Hit hit = new Hit(fire.getX(), fire.getY(), ship == null ? HitType.Miss : HitType.Collided);
         shipGrid.AddHit(hit);
 
-        if(ship != null) {
+        if (ship != null) {
             UpdateShipStatus(ship);
             hit.setSunk(ship.getStatus() == ShipStatus.Dead);
         }
 
-		communication.sendPackage(new HitPackage(hit));
+        communication.sendPackage(new HitPackage(hit));
         GUIExecutor.fireShotLocal(hit);
         calculateWinner();
+    }
 
-	}
-
-	private void UpdateShipStatus(Ship ship){
-	    int amountHit = 0;
-	    CollideHelper helper = new CollideHelper();
-        for(Hit hit : shipGrid.getHits()){
-            if(helper.getShip(hit.getX(), hit.getY(), shipGrid) == ship){
+    private void UpdateShipStatus(Ship ship) {
+        int amountHit = 0;
+        CollideHelper helper = new CollideHelper();
+        for (Hit hit : shipGrid.getHits()) {
+            if (helper.getShip(hit.getX(), hit.getY(), shipGrid) == ship) {
                 amountHit++;
             }
-            if(amountHit == ship.getLength()){
+            if (amountHit == ship.getLength()) {
                 ship.setStatus(ShipStatus.Dead);
                 return;
             }
         }
     }
 
-    /**
-     * Fire on the grid of the opponent
-     * @param fire
-     */
-	public boolean FireOpponent(Fire fire) throws PlayerStartException, PlayerNotTurnException {
-	    if(!playerStartAccessed) {
-	        throw new PlayerStartException("Player is nog niet geregistreerd");
-        }
-        if(!isPlayerTurn){
+
+    public void FireOnGridOpponent(Fire fire) throws PlayerStartException, PlayerNotTurnException {
+        if (currentState == GameState.OPPONENT_FIRE) {
             throw new PlayerNotTurnException();
+        }
+        if (currentState != GameState.PLAYER_FIRE) {
+            throw new PlayerStartException("Invalid state");
+
         }
         for (Hit hit : opponentGrid.getHits()) {
             if (hit.getX() == fire.getX() && hit.getY() == fire.getY()) {
-                return false;
+                return;
             }
         }
         communication.sendPackage(new FirePackage(fire));
-        isPlayerTurn = false;
-        return true;
+        currentState = GameState.OPPONENT_FIRE;
     }
 
     /**
-     * The response of the opponent
+     * We've fired on the grid of the opponent. In this method we get the result of that shot
      * @param hit
      */
-	public void FireResponse(Hit hit){
+    public void OpponentResponse(Hit hit) {
         opponentGrid.AddHit(hit);
         calculateWinner();
         GUIExecutor.fireShotOpponent(hit);
-
-
     }
 
-
-    public void GameStart(String opponentName){
-	    opponentPlayerName = opponentName;
+    /**
+     * Start the game
+     * @param opponentName
+     */
+    public void GameStart(String opponentName) {
+        opponentPlayerName = opponentName;
         GUIExecutor.gameReady(opponentName);
     }
 
-    public void FireReady(){
+
+    public void StartFireState() {
+        currentState = GameState.PLAYER_FIRE;
         GUIExecutor.fireReady();
     }
 
@@ -210,69 +223,61 @@ public class GameExecutor {
      * TODO: Check als je wel eerst "PlayerReady" heb aangeroepen en dat al de schepen wel geplaatst zijn
      * -- IS DONE --
      */
-    public void RequestFireReady() throws FireInvalidException, PlayerStartException {
-        if (playerStartAccessed && shipGrid.getShips().size() == 5) {
-            shipsReady = true;
+    public void RequestFireState() throws FireInvalidException, PlayerStartException {
+        if (currentState == GameState.EDIT_BOATS && shipGrid.getShips().size() == 5) {
+            currentState = GameState.WAIT_OPPONENT_PLACED_BOATS;
             communication.sendPackage(new RequestFireReady());
-        } else if (!playerStartAccessed){
-            throw new PlayerStartException("Player is nog niet geregistreerd");
+        } else if (currentState != GameState.EDIT_BOATS) {
+            throw new PlayerStartException("Invalid state");
         } else {
-           throw new FireInvalidException("Niet alle schepen zijn geplaatst");
+            throw new FireInvalidException("Niet alle schepen zijn geplaatst");
         }
     }
 
     /**
      * Call this method when the player is ready to start
-     * TODO: Check als de playernaam wel geldig is en als je niet eerder "PlayerReady" hebt aangeroepen
-     * -- IS DONE --
      */
     public void PlayerReady(String playerName) throws PlayerStartException {
-        if (!playerStartAccessed && !playerName.isEmpty()) {
-            playerStartAccessed = true;
+        if (currentState == GameState.STARTED && !playerName.isEmpty()) {
+            currentState = GameState.EDIT_BOATS;
             communication.sendPackage(new ReadyPackage(playerName));
             localPlayerName = playerName;
-        } else if (playerStartAccessed){
+        } else if (currentState != GameState.STARTED) {
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else {
             throw new PlayerStartException("Player is nog niet geregistreerd");
         }
     }
 
-    //todo: afhandlen
-    public void ServerException(GameException exception){
-        exception.getMessage();
-    }
 
-    private void calculateWinner(){
+    private void calculateWinner() {
         boolean localPlayerDead = true;
-        int totalPossibleHits = 5+4+3+3+2;
+        int totalPossibleHits = 5 + 4 + 3 + 3 + 2;
         int opponentHits = 0;
 
-        for(Ship ship : shipGrid.getShips()){
+        for (Ship ship : shipGrid.getShips()) {
 
 
-            if(ship.getStatus()  != ShipStatus.Dead){
+            if (ship.getStatus() != ShipStatus.Dead) {
                 localPlayerDead = false;//found a contradiction
                 break;
             }
         }
 
-        if(localPlayerDead){
-            winnerFound = true;
+        if (localPlayerDead) {
+            currentState = GameState.WIN;
             GUIExecutor.gameEnded(opponentPlayerName);
         }
 
-        for(Hit hit : opponentGrid.getHits()){
-            if(hit.getHitType() == HitType.Collided){
+        for (Hit hit : opponentGrid.getHits()) {
+            if (hit.getHitType() == HitType.Collided) {
                 opponentHits++;
             }
         }
 
-
-        if (opponentHits >= totalPossibleHits){
+        if (opponentHits >= totalPossibleHits) {
+            currentState = GameState.WIN;
             GUIExecutor.gameEnded(localPlayerName);
         }
-
-
     }
 }

@@ -25,7 +25,7 @@ public class SinglePlayerCommunication extends BaseCommunication implements ICom
                 break;
             case Fire:
                     Fire fire = FirePackage.unserialize(communicationPackage.getData());
-                    otherPlayer.FireShot(fire);
+                    otherPlayer.OpponentFiresOnOurGrid(fire);
                 break;
             case Start:
                     getLocalExecutor().GameStart(communicationPackage.getData());
@@ -37,11 +37,11 @@ public class SinglePlayerCommunication extends BaseCommunication implements ICom
                 gameManager.requestFireReady();
                 break;
             case FireReadyRespone:
-                otherPlayer.FireReady();
+                otherPlayer.StartFireState();
                 break;
             case HitResponse:
                 Hit hit = HitPackage.unserialize(communicationPackage.getData());
-                otherPlayer.FireResponse(hit);
+                otherPlayer.OpponentResponse(hit);
                 break;
         }
     }

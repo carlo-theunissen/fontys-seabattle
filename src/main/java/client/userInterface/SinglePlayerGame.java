@@ -9,8 +9,6 @@ import game.exceptions.PlayerNotTurnException;
 import game.exceptions.PlayerStartException;
 import models.*;
 
-import java.util.Collection;
-
 public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
     private GameExecutor opponentPlayer;
@@ -60,7 +58,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         }
         PlaceShipsAI();
         try {
-            opponentPlayer.RequestFireReady();
+            opponentPlayer.RequestFireState();
         } catch (FireInvalidException e) {
             String test = e.getMessage();
             enhancedGUI.showMessage(test);
@@ -106,7 +104,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
          // TODO: Check de return waarden van opponentPlayer.FireOpponent  als die "FALSE" is, kan je daar niet meer schieten
          // TODO: dus moet je een nieuwe x,y waarden pakken
         try {
-            opponentPlayer.FireOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
+            opponentPlayer.FireOnGridOpponent(new Fire((int)(Math.random()* 10), (int)(Math.random()* 10)));
         } catch (PlayerStartException e) {
             e.printStackTrace();
         } catch (PlayerNotTurnException e) {
