@@ -145,6 +145,7 @@ public class GameExecutor {
 
 		communication.sendPackage(new HitPackage(hit));
         GUIExecutor.fireShotLocal(hit);
+        calculateWinner();
 
 	}
 
@@ -189,7 +190,9 @@ public class GameExecutor {
      */
 	public void FireResponse(Hit hit){
         opponentGrid.AddHit(hit);
+        calculateWinner();
         GUIExecutor.fireShotOpponent(hit);
+
 
     }
 
