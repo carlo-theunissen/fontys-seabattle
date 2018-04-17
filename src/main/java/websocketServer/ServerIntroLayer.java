@@ -37,8 +37,8 @@ public class ServerIntroLayer {
             case Fire:
                 //vuur dit op de tegenstander
                 Fire fire = FirePackage.unserialize(communicationPackage.getData());
-                opponnentExecutor.FireShot(fire);
-                executor.FireOpponent(fire);
+                opponnentExecutor.OpponentFiresOnOurGrid(fire);
+                executor.FireOnGridOpponent(fire);
                 break;
             case Start:
                 executor.GameStart(StartPackage.unserialize( communicationPackage.getData()));
@@ -48,14 +48,14 @@ public class ServerIntroLayer {
                 gameManager.registerPlayer(executor.getCommunication(), ReadyPackage.unserialize( communicationPackage.getData()));
                 break;
             case RequestFireReady:
-                executor.RequestFireReady();
+                executor.RequestFireState();
                 gameManager.requestFireReady();
                 break;
             case FireReadyRespone:
                 break;
             case HitResponse:
                 Hit hit = HitPackage.unserialize(communicationPackage.getData());
-                executor.FireResponse(hit);
+                executor.OpponentResponse(hit);
                 break;
         }
     }

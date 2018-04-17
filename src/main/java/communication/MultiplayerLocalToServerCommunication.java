@@ -65,14 +65,14 @@ public class MultiplayerLocalToServerCommunication extends BaseCommunication imp
                 break;
             case Fire:
                 Fire fire = FirePackage.unserialize(communicationPackage.getData());
-                getLocalExecutor().FireShot(fire);
+                getLocalExecutor().OpponentFiresOnOurGrid(fire);
                 break;
             case HitResponse:
                 Hit hit = HitPackage.unserialize(communicationPackage.getData());
-                getLocalExecutor().FireResponse(hit);
+                getLocalExecutor().OpponentResponse(hit);
                 break;
             case FireReadyRespone:
-                getLocalExecutor().FireReady();
+                getLocalExecutor().StartFireState();
                 break;
             case RequestFireReady:
                 //request fire ready is sent to the client to us. We don't have to respond

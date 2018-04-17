@@ -108,7 +108,7 @@ public abstract class BaseGame implements ISeaBattleGame{
 
         if (ships.size() == 5){
             try {
-                player.RequestFireReady();
+                player.RequestFireState();
             } catch (FireInvalidException e) {
                 e.printStackTrace();
             } catch (PlayerStartException e) {
@@ -124,7 +124,7 @@ public abstract class BaseGame implements ISeaBattleGame{
     public ShotType fireShotPlayer(int playerNr, int posX, int posY) {
         GameExecutor player = getPlayer(playerNr);
         try {
-            player.FireOpponent(new Fire(posX, posY));
+            player.FireOnGridOpponent(new Fire(posX, posY));
         } catch (PlayerStartException e) {
             e.printStackTrace();
         } catch (PlayerNotTurnException e) {
