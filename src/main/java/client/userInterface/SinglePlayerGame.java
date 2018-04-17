@@ -114,10 +114,5 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         }
         return ShotType.MISSED;
     }
-// -TODO Alex implementeren
-    public boolean startNewGame(int playerNr) {
-
-        return true;
-    }
 
 }

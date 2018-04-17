@@ -85,7 +85,7 @@ public class SeaBattleGUI implements IUIExecutor {
     //tegenstander is geregistreerd, plaats nu al je boten
     @Override
     public void gameReady(String opponentName) {
-
+        resetUI();
     }
 
     //tegenstander en jij zijn klaar met boten plaatsen, begin met vuren
@@ -93,8 +93,22 @@ public class SeaBattleGUI implements IUIExecutor {
 
     }
 
+    public void resetUI(){
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j <10; j++){
+                battleGUI.showSquareOpponent(0, i, j, SquareState.WATER);
+                battleGUI.showSquarePlayer(0, i, j, SquareState.WATER);
+            }
+        }
+    }
+
     @Override
     public void gameEnded(String winner) {
+
+
+        resetUI();
+        battleGUI.gameEnded();
         battleGUI.showMessage(winner + " heeft gewonnen!");
+
     }
 }
