@@ -32,5 +32,5 @@ public interface IUIExecutor {
 
 	void fireReady();
 
-
+	void gameEnded(String winner);
 }

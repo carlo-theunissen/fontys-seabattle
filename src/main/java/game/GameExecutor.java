@@ -15,7 +15,10 @@ public class GameExecutor {
     private boolean playerStartAccessed = false;
     private boolean shipsReady = false;
     private boolean isPlayerTurn = true;
+    private boolean winnerFound = false;
 
+    private String localPlayerName;
+    private String opponentPlayerName;
 
     public GameExecutor(ICommunication communication){
         this.communication = communication;
@@ -192,6 +195,7 @@ public class GameExecutor {
 
 
     public void GameStart(String opponentName){
+	    opponentPlayerName = opponentName;
         GUIExecutor.gameReady(opponentName);
     }
 
@@ -223,6 +227,7 @@ public class GameExecutor {
         if (!playerStartAccessed && !playerName.isEmpty()) {
             playerStartAccessed = true;
             communication.sendPackage(new ReadyPackage(playerName));
+            localPlayerName = playerName;
         } else if (playerStartAccessed){
             throw new PlayerStartException("Playerstart is al een keer aangeroepen");
         } else {
@@ -233,5 +238,38 @@ public class GameExecutor {
     //todo: afhandlen
     public void ServerException(GameException exception){
         exception.getMessage();
+    }
+
+    private void calculateWinner(){
+        boolean localPlayerDead = true;
+        int totalPossibleHits = 0;
+        int opponentHits = 0;
+
+        for(Ship ship : shipGrid.getShips()){
+            totalPossibleHits += ship.getLength();
+
+            if(ship.getStatus()  != ShipStatus.Dead){
+                localPlayerDead = false;//found a contradiction
+                break;
+            }
+        }
+
+        if(localPlayerDead){
+            winnerFound = true;
+            GUIExecutor.gameEnded(opponentPlayerName);
+        }
+
+        for(Hit hit : opponentGrid.getHits()){
+            if(hit.getHitType() == HitType.Collided){
+                opponentHits++;
+            }
+        }
+
+
+        if (opponentHits >= totalPossibleHits){
+            GUIExecutor.gameEnded(localPlayerName);
+        }
+
+
     }
 }
