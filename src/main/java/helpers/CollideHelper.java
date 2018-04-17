@@ -13,7 +13,7 @@ public class CollideHelper {
                         return ship;
                     }
                 } else {
-                    if (ship.getX() == x && (ship.getY() + 1 == y)) {
+                    if (ship.getX() == x && (ship.getY() + i == y)) {
                         return ship;
                     }
                 }
