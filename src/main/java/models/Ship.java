@@ -9,6 +9,9 @@ public class Ship {
     private int Y;
 
     public Ship(ShipType type){
+        if(type == null){
+            throw new IllegalArgumentException();
+        }
         this.shipStatus = ShipStatus.Invalid;
         this.type = type;
     }
@@ -56,6 +59,9 @@ public class Ship {
     }
 
     public void setOrientation(Orientation orientation) {
+        if(orientation == null){
+            throw new IllegalArgumentException();
+        }
         this.orientation = orientation;
     }
 

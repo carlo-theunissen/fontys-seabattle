@@ -1,7 +1,6 @@
 package gameLogic;
 
 import models.Hit;
-import models.Player;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -9,7 +8,6 @@ import java.util.HashSet;
 
 public class Grid {
 
-	private models.Player Player;
 	private int Width;
 	private int Height;
 	private Collection<Hit> Hits;
@@ -19,15 +17,11 @@ public class Grid {
 	}
 
 	public Grid(Grid copy){
-		Player = copy.Player;
 		Width = copy.Width;
 		Height = copy.Height;
 		Hits = copy.Hits != null ? copy.Hits : new HashSet<Hit>();
 	}
 
-	public Player getPlayer() {
-		return Player;
-	}
 
 	public void setWidth(int value) {
 		Width = value;
