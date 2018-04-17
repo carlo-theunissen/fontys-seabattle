@@ -107,8 +107,9 @@ public class SeaBattleGUI implements IUIExecutor {
 
 
         resetUI();
-        battleGUI.gameEnded();
+
         battleGUI.showMessage(winner + " heeft gewonnen!");
+        battleGUI.gameEnded();
 
     }
 }

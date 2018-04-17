@@ -50,6 +50,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
         return player;
     }
 
+    // TODO: CARLO FIX DIT, INVALID STATE EXCEPTIONS NA JOUW COMMIT FIX NU PLS
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
         try {
             opponentPlayer.PlayerReady("AI");
