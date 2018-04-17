@@ -55,4 +55,9 @@ public class EmptySeaBattleGUI implements IUIExecutor {
     public void fireReady() {
 
     }
+
+    @Override
+    public void gameEnded(String winner) {
+
+    }
 }

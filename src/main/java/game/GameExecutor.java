@@ -245,11 +245,11 @@ public class GameExecutor {
 
     private void calculateWinner(){
         boolean localPlayerDead = true;
-        int totalPossibleHits = 0;
+        int totalPossibleHits = 5+4+3+3+2;
         int opponentHits = 0;
 
         for(Ship ship : shipGrid.getShips()){
-            totalPossibleHits += ship.getLength();
+
 
             if(ship.getStatus()  != ShipStatus.Dead){
                 localPlayerDead = false;//found a contradiction

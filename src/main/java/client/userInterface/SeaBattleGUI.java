@@ -8,8 +8,8 @@ import static models.HitType.Miss;
 
 public class SeaBattleGUI implements IUIExecutor {
 
-    private ISeaBattleGUI battleGUI;
-    public SeaBattleGUI(ISeaBattleGUI gui){
+    private ISeaBattleEnhancedGUI battleGUI;
+    public SeaBattleGUI(ISeaBattleEnhancedGUI gui){
         battleGUI = gui;
     }
 
@@ -91,5 +91,10 @@ public class SeaBattleGUI implements IUIExecutor {
     //tegenstander en jij zijn klaar met boten plaatsen, begin met vuren
     public void fireReady(){
 
+    }
+
+    @Override
+    public void gameEnded(String winner) {
+        battleGUI.showMessage(winner + " heeft gewonnen!");
     }
 }

@@ -116,6 +116,7 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     }
 // -TODO Alex implementeren
     public boolean startNewGame(int playerNr) {
+
         return true;
     }
 
