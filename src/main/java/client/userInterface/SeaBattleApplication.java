@@ -659,7 +659,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
         }
         else {
             labelPlayerName.setText(playerName + "\'s grid");
-            playerNr = game.registerPlayer(playerName, (ISeaBattleGUI) this, singlePlayerMode);
+            playerNr = game.registerPlayer(playerName,  this, singlePlayerMode);
             if (playerNr != -1) {
                 labelYourName.setDisable(true);
                 textFieldPlayerName.setDisable(true);
