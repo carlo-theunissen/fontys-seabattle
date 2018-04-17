@@ -63,6 +63,7 @@ public class GameExecutor {
         this.communication = communication;
         communication.setLocalExecutor(this);
         shipGrid = new ShipGrid();
+        currentState = GameState.STARTED;
         opponentGrid = new Grid();
     }
 
