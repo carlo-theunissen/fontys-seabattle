@@ -91,22 +91,7 @@ public class GameExecutorTest {
 
         Assert.assertEquals(1, executor.GetLocalGrid().ships.size());
 
-    }/*
-
-    void OpponentFiresOnOurGrid(Fire fire);
-
-    void FireOnGridOpponent(Fire fire) throws PlayerStartException, PlayerNotTurnException;
-
-    void OpponentResponse(Hit hit);
-
-    void GameStart(String opponentName);
-
-    void StartFireState();
-
-    void RequestFireState() throws FireInvalidException, PlayerStartException;
-
-    void PlayerReady(String playerName) throws PlayerStartException;
-*/
+    }
     private class CommunicationMock implements ICommunication{
 
         public CommunicationPackage lastPackage;
