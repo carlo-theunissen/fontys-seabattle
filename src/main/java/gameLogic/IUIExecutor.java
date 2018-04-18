@@ -5,10 +5,22 @@ import models.Hit;
 import models.Ship;
 import models.ShipType;
 
+/**
+ * De IUIExecutor is de communicatie tussen de front-end en de game logica.
+ * Alles wat gebeurt in de game logica wat zou getoond moeten worden bij de speler, gebeurt via deze interface
+ */
 public interface IUIExecutor {
 
-	void placeTempShipLocal(ShipType shipType, int bowX, int bowY, boolean horizontal);
+	/**
+	 * Plaats een schip op de grid van de lokale speler
+	 * @param ship
+	 */
 	void placeShipLocal(Ship ship);
+
+	/**
+	 * Verwijder een schip van het grid van de lokale speler
+	 * @param ship
+	 */
 	void removeShipLocal(Ship ship);
 
 	/**
@@ -18,19 +30,26 @@ public interface IUIExecutor {
 	void fireShotLocal(Hit hit);
 
 	/**
-	 * De tegenstander schiet op jou
+	 * De tegenstander heeft dit op jouw grid geschoten
 	 * @param hit
 	 */
 	void fireShotOpponent(Hit hit);
 
-	void fireTempShotOpponent(int posX, int posY);
-	void removeTempShotOpponent();
-
-	void removeTempShipLocal(int posX, int posY);
-
+	/**
+	 * Er is een tegenstander gevonden en het spel kan starten
+	 * @param opponentName
+	 */
 	void gameReady(String opponentName);
 
+	/**
+	 * De lokale speler en de tegenstander zijn klaar met het plaatsen van schepen
+	 * het schieten kan beginnen
+	 */
 	void fireReady();
 
+	/**
+	 * Het spel is gestopt omdat er iemand is gewonnen
+	 * @param winner
+	 */
 	void gameEnded(String winner);
 }
