@@ -855,7 +855,7 @@ public class SeaBattleApplication extends Application implements ISeaBattleEnhan
                     // Opponent's turn
                     switchTurn();
                     if (singlePlayerMode) {
-                        ShotType resultOpponent = game.fireShotOpponent(playerNr);
+                        game.fireShotOpponent(playerNr);
                     }
                 } catch (Exception e){
                     showMessage("Oeps er is iets mis gegaan!");

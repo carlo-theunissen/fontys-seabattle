@@ -116,6 +116,16 @@ public class Ship {
         return ship;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Ship){
+            Ship second = (Ship) obj;
+            return (second.getLength() == getLength() && second.getOrientation() == getOrientation() && second.getY() == getY() && second.getX() == getX() && second.getStatus() == getStatus());
+        }
+        return false;
+    }
+
     public void setStatus(ShipStatus status) {
         this.shipStatus = status;
     }
