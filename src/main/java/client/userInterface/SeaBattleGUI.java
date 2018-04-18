@@ -86,11 +86,12 @@ public class SeaBattleGUI implements IUIExecutor {
     @Override
     public void gameReady(String opponentName) {
         resetUI();
+        battleGUI.showMessage("Opponent found");
     }
 
     //tegenstander en jij zijn klaar met boten plaatsen, begin met vuren
     public void fireReady(){
-
+        battleGUI.showMessage("Start firing, the game has begun!");
     }
 
     public void resetUI(){
