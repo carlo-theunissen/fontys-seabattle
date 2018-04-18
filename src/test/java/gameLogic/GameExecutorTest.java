@@ -1,12 +1,8 @@
 package gameLogic;
 
+import communication.CommunicationAction;
 import communication.CommunicationPackage;
 import communication.ICommunication;
-import communication.PackageCommunication;
-import gameLogic.exceptions.BoatInvalidException;
-import gameLogic.exceptions.FireInvalidException;
-import gameLogic.exceptions.PlayerNotTurnException;
-import gameLogic.exceptions.PlayerStartException;
 import models.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,7 +55,7 @@ public class GameExecutorTest {
     }
 
     @Test
-    public void RemoveShip() throws PlayerStartException, BoatInvalidException {
+    public void RemoveShip() throws Exception {
 
         IGameExecutor executor = getExecutor();
         Ship ship = new Ship(ShipType.CRUISER);
@@ -73,11 +69,18 @@ public class GameExecutorTest {
         Assert.assertEquals(1, executor.GetLocalGrid().ships.size());
         executor.RemoveShip(ship);
         Assert.assertEquals(0, executor.GetLocalGrid().ships.size());
+
+        Assert.assertEquals(CommunicationAction.RemoveShip, communication.lastPackage.getAction());
+        Ship communicatedShip = Ship.unserialize( communication.lastPackage.getData());
+        Assert.assertEquals(ship, communicatedShip);
+
+        Assert.assertEquals("removeShipLocal", uiMock.lastMethodCalled);
+        Assert.assertEquals(ship, (Ship) uiMock.lastParameter);
     }
 
 
     @Test
-    public void PlaceShip() throws BoatInvalidException, PlayerStartException{
+    public void PlaceShip() throws Exception {
         IGameExecutor executor = getExecutor();
         Ship ship = new Ship(ShipType.CRUISER);
         ship.setOrientation(Orientation.Horizontal);
@@ -91,6 +94,12 @@ public class GameExecutorTest {
 
         Assert.assertEquals(1, executor.GetLocalGrid().ships.size());
 
+        Assert.assertEquals(CommunicationAction.PlaceShip, communication.lastPackage.getAction());
+        Ship communicatedShip = Ship.unserialize( communication.lastPackage.getData());
+        Assert.assertEquals(ship, communicatedShip);
+
+        Assert.assertEquals("placeShipLocal", uiMock.lastMethodCalled);
+        Assert.assertEquals(ship, (Ship) uiMock.lastParameter);
     }
     private class CommunicationMock implements ICommunication{
 
@@ -108,15 +117,19 @@ public class GameExecutorTest {
 
     private class UIMock implements IUIExecutor{
 
+        public String lastMethodCalled;
+        public Object lastParameter;
 
         @Override
         public void placeShipLocal(Ship ship) {
-
+            lastMethodCalled = "placeShipLocal";
+            lastParameter = ship;
         }
 
         @Override
         public void removeShipLocal(Ship ship) {
-
+            lastMethodCalled = "removeShipLocal";
+            lastParameter = ship;
         }
 
         @Override
