@@ -1,7 +1,8 @@
-package websocketServer;
+package server;
 
-import game.GameExecutor;
-import game.GameManager;
+
+import gameLogic.GameManager;
+import gameLogic.IGameExecutor;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -37,6 +38,12 @@ public class EventServerSocket {
         System.out.println("CONNECT!");
         try {
             collection.createNewExecutor(session);
+            ServerStatusContainer.setConnected(ServerStatusContainer.getConnected() + 1);
+
+            if(ServerStatusContainer.getConnected() == 2){
+                ServerStatusContainer.setStatus(ServerStatusContainer.ServerStatus.CLOSED);
+            }
+
         } catch (Exception e) {
             try {
                 session.close();
@@ -46,7 +53,7 @@ public class EventServerSocket {
     @OnMessage
     public void onText(String message,Session session) {
         System.out.println(message);
-        GameExecutor executor = collection.getExecutor(session);
+        IGameExecutor executor = collection.getExecutor(session);
         serverIntro.postNewMessage(executor, collection.getOpponent(session), message);
     }
 

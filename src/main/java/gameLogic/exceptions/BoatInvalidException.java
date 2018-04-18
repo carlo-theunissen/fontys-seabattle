@@ -1,4 +1,4 @@
-package game.exceptions;
+package gameLogic.exceptions;
 
 public class BoatInvalidException extends GameException {
     public BoatInvalidException(String text) {

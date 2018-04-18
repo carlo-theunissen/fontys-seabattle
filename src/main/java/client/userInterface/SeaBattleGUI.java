@@ -1,6 +1,6 @@
 package client.userInterface;
 
-import game.IUIExecutor;
+import gameLogic.IUIExecutor;
 import models.*;
 
 import static models.HitType.Collided;

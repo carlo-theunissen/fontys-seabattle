@@ -1,4 +1,4 @@
-package game.exceptions;
+package gameLogic.exceptions;
 
 public class FireInvalidException extends GameException {
     public FireInvalidException(String text) {

@@ -1,4 +1,4 @@
-package game.exceptions;
+package gameLogic.exceptions;
 
 public class PlayerNotTurnException extends GameException {
     public PlayerNotTurnException() {

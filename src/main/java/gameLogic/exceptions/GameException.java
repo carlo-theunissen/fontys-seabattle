@@ -1,4 +1,4 @@
-package game.exceptions;
+package gameLogic.exceptions;
 
 public abstract class GameException extends Exception {
     public GameException(String text) {

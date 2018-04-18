@@ -1,17 +1,18 @@
 package client.userInterface;
 
 import communication.SinglePlayerCommunication;
-import game.GameExecutor;
-import game.GameManager;
-import game.IUIExecutor;
-import game.exceptions.FireInvalidException;
-import game.exceptions.PlayerNotTurnException;
-import game.exceptions.PlayerStartException;
+import gameLogic.GameExecutor;
+import gameLogic.GameManager;
+import gameLogic.IGameExecutor;
+import gameLogic.IUIExecutor;
+import gameLogic.exceptions.FireInvalidException;
+import gameLogic.exceptions.PlayerNotTurnException;
+import gameLogic.exceptions.PlayerStartException;
 import models.*;
 
 public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
 
-    private GameExecutor opponentPlayer;
+    private IGameExecutor opponentPlayer;
 
     public void setGUIExecutor(IUIExecutor GUIExecutor) {
         opponentPlayer.setGUIExecutor( new EmptySeaBattleGUI() );
@@ -38,8 +39,8 @@ public class SinglePlayerGame extends BaseGame implements ISeaBattleGame {
     }
 
     @Override
-    public GameExecutor getPlayer(int playerNr){
-        GameExecutor player;
+    public IGameExecutor getPlayer(int playerNr){
+        IGameExecutor player;
         if (playerNr == 0) {
             player = localPlayer;
         } else if(playerNr == 1){

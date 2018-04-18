@@ -1,15 +1,15 @@
 package communication;
 
-import game.GameExecutor;
-import game.GameManager;
+import gameLogic.GameManager;
+import gameLogic.IGameExecutor;
 import models.Fire;
 import models.Hit;
 
 public class SinglePlayerCommunication extends BaseCommunication implements ICommunication {
-    private GameExecutor otherPlayer;
+    private IGameExecutor otherPlayer;
     private GameManager gameManager;
 
-    public void setOtherPlayer(GameExecutor otherPlayer) {
+    public void setOtherPlayer(IGameExecutor otherPlayer) {
         this.otherPlayer = otherPlayer;
     }
 

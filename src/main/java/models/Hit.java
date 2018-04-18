@@ -26,6 +26,9 @@ public class Hit {
 		this.sunk = sunk;
 	}
 	public Hit(int x, int y, HitType type){
+		if(x < 0 || y < 0 || type == null){
+			throw new IllegalArgumentException();
+		}
 		this.x = x;
 		this.y = y;
 		this.type = type;

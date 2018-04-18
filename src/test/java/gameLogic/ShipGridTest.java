@@ -1,4 +1,4 @@
-package game;
+package gameLogic;
 
 import models.Ship;
 import models.ShipType;
@@ -7,9 +7,6 @@ import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 
 import java.util.Collection;
-import java.util.HashSet;
-
-import static org.junit.Assert.*;
 
 public class ShipGridTest {
 

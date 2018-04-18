@@ -1,9 +1,9 @@
-package websocketServer;
+package server;
 
 import communication.*;
-import game.GameExecutor;
-import game.GameManager;
-import game.exceptions.GameException;
+import gameLogic.IGameExecutor;
+import gameLogic.GameManager;
+import gameLogic.exceptions.GameException;
 import models.Fire;
 import models.Hit;
 
@@ -19,7 +19,7 @@ public class ServerIntroLayer {
     }
 
 
-    public void postNewMessage(GameExecutor executor, GameExecutor opponnentExecutor, String data){
+    public void postNewMessage(IGameExecutor executor, IGameExecutor opponnentExecutor, String data){
         CommunicationPackage communcation = helper.unserializePackage(data);
         try {
             handleNewPackage(communcation, executor, opponnentExecutor);
@@ -29,7 +29,7 @@ public class ServerIntroLayer {
     }
 
 
-    private void handleNewPackage(CommunicationPackage communicationPackage, GameExecutor executor, GameExecutor opponnentExecutor) throws GameException {
+    private void handleNewPackage(CommunicationPackage communicationPackage, IGameExecutor executor, IGameExecutor opponnentExecutor) throws GameException {
         switch (communicationPackage.getAction()){
             case PlaceShip:
                 executor.PlaceShip(PlaceShipPackage.unserialize(communicationPackage.getData()));

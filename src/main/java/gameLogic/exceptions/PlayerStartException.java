@@ -1,4 +1,4 @@
-package game.exceptions;
+package gameLogic.exceptions;
 
 public class PlayerStartException extends GameException {
     public PlayerStartException(String text) {
