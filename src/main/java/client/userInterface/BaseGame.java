@@ -129,7 +129,7 @@ public abstract class BaseGame implements ISeaBattleGame{
         } catch (PlayerStartException e) {
             e.printStackTrace();
         } catch (PlayerNotTurnException e) {
-            e.printStackTrace();
+            enhancedGUI.showMessage("Its not your turn to shoot yet");
         }
         return ShotType.MISSED;
     }
