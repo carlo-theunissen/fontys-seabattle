@@ -37,6 +37,7 @@ public class MultiplayerGame extends BaseGame implements ISeaBattleGame {
     public int registerPlayer(String name, ISeaBattleGUI application, boolean singlePlayerMode) {
         try {
             localPlayer.PlayerReady(name);
+            enhancedGUI.showMessage("We're searching for an opponent");
         } catch (PlayerStartException e) {
             e.printStackTrace();
         }
