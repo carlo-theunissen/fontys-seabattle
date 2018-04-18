@@ -41,15 +41,17 @@ public class ServerIntroLayer {
                 executor.FireOnGridOpponent(fire);
                 break;
             case Start:
-                executor.GameStart(StartPackage.unserialize( communicationPackage.getData()));
+
                 break;
             case Ready:
                 executor.PlayerReady(ReadyPackage.unserialize( communicationPackage.getData()));
                 gameManager.registerPlayer(executor.getCommunication(), ReadyPackage.unserialize( communicationPackage.getData()));
+
                 break;
             case RequestFireReady:
                 executor.RequestFireState();
                 gameManager.requestFireReady();
+                executor.StartFireState();
                 break;
             case FireReadyRespone:
                 break;
