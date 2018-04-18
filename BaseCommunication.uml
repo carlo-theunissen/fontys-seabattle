@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>communication.BaseCommunication</OriginalElement>
+  <nodes>
+    <node x="0.0" y="2018.0">client.userInterface.SinglePlayerGame</node>
+    <node x="1815.0" y="1252.0">game.Grid</node>
+    <node x="1279.75" y="2455.0">websocketServer.EventServerSocket</node>
+    <node x="2429.0" y="2649.0">javax.ws.rs.Path</node>
+    <node x="2371.0" y="2944.0">models.Fire</node>
+    <node x="1098.5" y="1252.0">game.IUIExecutor</node>
+    <node x="0.0" y="2809.0">communication.FireReady</node>
+    <node x="1134.0" y="2944.0">websocketServer.GameExecutorCollection</node>
+    <node x="361.0" y="221.0">javafx.application.Application</node>
+    <node x="1806.0" y="1527.0">game.ShipGrid</node>
+    <node x="826.0" y="948.0">game.exceptions.PlayerStartException</node>
+    <node x="1518.9285714285716" y="776.0">models.ShipType</node>
+    <node x="1678.0" y="234.5">java.lang.Enum</node>
+    <node x="2091.0" y="2649.0">restServer.Shared.ScoreResponse</node>
+    <node x="0.0" y="3160.0">restServer.RestServer</node>
+    <node x="2561.0" y="2944.0">helpers.CollideHelper</node>
+    <node x="2015.25" y="2234.0">models.Hit</node>
+    <node x="0.0" y="2487.0">communication.SinglePlayerCommunication</node>
+    <node x="1811.0" y="1694.0">game.ImmortalShipGrid</node>
+    <node x="2888.0" y="2944.0">websocketServer.EventServer</node>
+    <node x="1045.0" y="2809.0">communication.StartPackage</node>
+    <node x="1556.0" y="2809.0">communication.RemoveShipPackage</node>
+    <node x="667.0" y="2944.0">game.GameManager</node>
+    <node x="2390.0" y="2762.0">restServer.ScoreService</node>
+    <node x="831.25" y="2347.0">communication.MultiplayerServerToLocalCommunication</node>
+    <node x="1257.0" y="948.0">game.exceptions.PlayerNotTurnException</node>
+    <node x="1357.9285714285716" y="776.0">models.SquareState</node>
+    <node x="2321.9285714285716" y="776.0">models.ShipStatus</node>
+    <node x="1248.25" y="2234.0">javax.websocket.server.ServerEndpoint</node>
+    <node x="1510.0" y="2944.0">models.Player</node>
+    <node x="1190.0756302521008" y="776.0">java.lang.Exception</node>
+    <node x="1218.5756302521008" y="13.5">java.io.Serializable</node>
+    <node x="207.0" y="1581.0">client.userInterface.BaseGame</node>
+    <node x="0.0" y="2944.0">websocketServer.ServerIntroLayer</node>
+    <node x="879.9999999999999" y="2649.0">communication.CommunicationPackage</node>
+    <node x="1675.25" y="2234.0">models.Ship</node>
+    <node x="392.0" y="2500.5">communication.MultiplayerLocalToServerCommunication</node>
+    <node x="866.575630252101" y="113.0">java.lang.Throwable</node>
+    <node x="871.0" y="1648.5">client.userInterface.EmptySeaBattleGUI</node>
+    <node x="1326.0" y="1635.0">client.userInterface.SeaBattleGUI</node>
+    <node x="2092.9285714285716" y="776.0">communication.CommunicationAction</node>
+    <node x="478.25" y="2360.5">communication.ICommunication</node>
+    <node x="9.75" y="2347.0">communication.BaseCommunication</node>
+    <node x="1660.9285714285716" y="776.0">models.HitType</node>
+    <node x="1310.0" y="2809.0">communication.HitPackage</node>
+    <node x="645.0" y="2234.0">communication.PackageCommunication</node>
+    <node x="1043.0" y="948.0">game.exceptions.FireInvalidException</node>
+    <node x="149.75" y="577.0">client.userInterface.SeaBattleApplication</node>
+    <node x="1497.0" y="948.0">game.exceptions.BoatInvalidException</node>
+    <node x="264.9999999999999" y="2809.0">communication.RequestFireReady</node>
+    <node x="1170.5756302521008" y="862.0">game.exceptions.GameException</node>
+    <node x="1949.9285714285716" y="776.0">models.ShotType</node>
+    <node x="2121.0" y="1252.0">game.GameExecutor</node>
+    <node x="207.0" y="1252.0">client.userInterface.ISeaBattleGame</node>
+    <node x="423.0" y="2045.0">client.userInterface.MultiplayerGame</node>
+    <node x="1793.9285714285716" y="776.0">models.Orientation</node>
+    <node x="529.9999999999999" y="2809.0">communication.FirePackage</node>
+    <node x="779.9999999999999" y="2809.0">communication.ReadyPackage</node>
+    <node x="0.0" y="0.0">client.userInterface.ISeaBattleGUI</node>
+    <node x="1822.75" y="0.0">java.lang.Comparable</node>
+    <node x="84.0" y="329.0">client.userInterface.ISeaBattleEnhancedGUI</node>
+    <node x="1779.0" y="2944.0">communication.MultiplayerSerialHelper</node>
+    <node x="1811.0" y="2809.0">communication.PlaceShipPackage</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="client.userInterface.EmptySeaBattleGUI" target="game.IUIExecutor">
+      <point x="0.0" y="-166.5" />
+      <point x="1088.5" y="1610.0" />
+      <point x="1207.25" y="1610.0" />
+      <point x="-108.75" y="166.5" />
+    </edge>
+    <edge source="game.exceptions.GameException" target="java.lang.Exception">
+      <point x="0.0" y="-18.0" />
+      <point x="0.0" y="18.0" />
+    </edge>
+    <edge source="game.exceptions.FireInvalidException" target="game.exceptions.GameException">
+      <point x="0.0" y="-18.0" />
+      <point x="1140.0" y="928.0" />
+      <point x="1232.4506302521008" y="928.0" />
+      <point x="-20.625" y="18.0" />
+    </edge>
+    <edge source="models.ShipStatus" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="2386.9285714285716" y="736.0" />
+      <point x="1979.7857142857142" y="736.0" />
+      <point x="139.28571428571422" y="180.0" />
+    </edge>
+    <edge source="models.Orientation" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="1861.9285714285716" y="756.0" />
+      <point x="1840.5" y="756.0" />
+      <point x="0.0" y="180.0" />
+    </edge>
+    <edge source="client.userInterface.ISeaBattleEnhancedGUI" target="client.userInterface.ISeaBattleGUI">
+      <point x="0.0" y="-45.0" />
+      <point x="0.0" y="85.5" />
+    </edge>
+    <edge source="game.ShipGrid" target="game.Grid">
+      <point x="0.0" y="-58.5" />
+      <point x="0.0" y="112.5" />
+    </edge>
+    <edge source="java.lang.Throwable" target="java.io.Serializable">
+      <point x="0.0" y="-301.5" />
+      <point x="-34.5" y="18.0" />
+    </edge>
+    <edge source="models.SquareState" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="1428.4285714285716" y="736.0" />
+      <point x="1701.2142857142858" y="736.0" />
+      <point x="-139.28571428571422" y="180.0" />
+    </edge>
+    <edge source="communication.FirePackage" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="644.9999999999999" y="2779.0" />
+      <point x="976.8749999999999" y="2779.0" />
+      <point x="-58.125" y="45.0" />
+    </edge>
+    <edge source="communication.SinglePlayerCommunication" target="communication.ICommunication">
+      <point x="93.0" y="-58.5" />
+      <point x="279.0" y="2467.0" />
+      <point x="561.5" y="2467.0" />
+      <point x="-83.25" y="31.5" />
+    </edge>
+    <edge source="communication.PlaceShipPackage" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="1928.5" y="2759.0" />
+      <point x="1170.625" y="2759.0" />
+      <point x="135.625" y="45.0" />
+    </edge>
+    <edge source="java.lang.Exception" target="java.lang.Throwable">
+      <point x="0.0" y="-18.0" />
+      <point x="0.0" y="301.5" />
+    </edge>
+    <edge source="java.lang.Enum" target="java.io.Serializable">
+      <point x="-81.25" y="-180.0" />
+      <point x="1759.25" y="88.0" />
+      <point x="1322.0756302521008" y="88.0" />
+      <point x="34.5" y="18.0" />
+    </edge>
+    <edge source="client.userInterface.SeaBattleApplication" target="javafx.application.Application">
+      <point x="121.0" y="-315.0" />
+      <point x="512.75" y="552.0" />
+      <point x="571.0" y="552.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="communication.SinglePlayerCommunication" target="communication.BaseCommunication">
+      <point x="-93.0" y="-58.5" />
+      <point x="-83.25" y="45.0" />
+    </edge>
+    <edge source="client.userInterface.MultiplayerGame" target="client.userInterface.ISeaBattleGame">
+      <point x="100.75" y="-58.5" />
+      <point x="725.25" y="1993.0" />
+      <point x="681.25" y="1993.0" />
+      <point x="681.25" y="1556.0" />
+      <point x="550.3333333333334" y="1556.0" />
+      <point x="137.33333333333337" y="139.5" />
+    </edge>
+    <edge source="models.HitType" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="1717.4285714285716" y="756.0" />
+      <point x="1794.0714285714284" y="756.0" />
+      <point x="-46.42857142857156" y="180.0" />
+    </edge>
+    <edge source="client.userInterface.BaseGame" target="client.userInterface.ISeaBattleGame">
+      <point x="0.0" y="-193.5" />
+      <point x="0.0" y="139.5" />
+    </edge>
+    <edge source="game.exceptions.PlayerNotTurnException" target="game.exceptions.GameException">
+      <point x="0.0" y="-18.0" />
+      <point x="1367.0" y="928.0" />
+      <point x="1273.7006302521008" y="928.0" />
+      <point x="20.625" y="18.0" />
+    </edge>
+    <edge source="communication.ReadyPackage" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="902.4999999999999" y="2789.0" />
+      <point x="1015.6249999999999" y="2789.0" />
+      <point x="-19.375" y="45.0" />
+    </edge>
+    <edge source="models.ShipType" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="1579.9285714285716" y="746.0" />
+      <point x="1747.642857142857" y="746.0" />
+      <point x="-92.85714285714289" y="180.0" />
+    </edge>
+    <edge source="models.ShotType" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="2011.4285714285716" y="756.0" />
+      <point x="1886.9285714285713" y="756.0" />
+      <point x="46.42857142857133" y="180.0" />
+    </edge>
+    <edge source="communication.StartPackage" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="1167.5" y="2789.0" />
+      <point x="1054.375" y="2789.0" />
+      <point x="19.375" y="45.0" />
+    </edge>
+    <edge source="communication.FireReady" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="122.5" y="2759.0" />
+      <point x="899.3749999999999" y="2759.0" />
+      <point x="-135.625" y="45.0" />
+    </edge>
+    <edge source="communication.RequestFireReady" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="387.4999999999999" y="2769.0" />
+      <point x="938.1249999999999" y="2769.0" />
+      <point x="-96.875" y="45.0" />
+    </edge>
+    <edge source="client.userInterface.SinglePlayerGame" target="client.userInterface.BaseGame">
+      <point x="100.75" y="-85.5" />
+      <point x="302.25" y="1993.0" />
+      <point x="310.0" y="1993.0" />
+      <point x="-103.0" y="193.5" />
+    </edge>
+    <edge source="java.lang.Enum" target="java.lang.Comparable">
+      <point x="81.25" y="-180.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="communication.ICommunication" target="communication.PackageCommunication">
+      <point x="0.0" y="-31.5" />
+      <point x="644.75" y="2322.0" />
+      <point x="738.0" y="2322.0" />
+      <point x="-93.0" y="31.5" />
+    </edge>
+    <edge source="client.userInterface.MultiplayerGame" target="client.userInterface.BaseGame">
+      <point x="-100.75" y="-58.5" />
+      <point x="523.75" y="1993.0" />
+      <point x="516.0" y="1993.0" />
+      <point x="103.0" y="193.5" />
+    </edge>
+    <edge source="communication.RemoveShipPackage" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="1673.5" y="2769.0" />
+      <point x="1131.875" y="2769.0" />
+      <point x="96.875" y="45.0" />
+    </edge>
+    <edge source="game.ImmortalShipGrid" target="game.ShipGrid">
+      <point x="0.0" y="-85.5" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="communication.MultiplayerLocalToServerCommunication" target="communication.BaseCommunication">
+      <point x="-112.0" y="-45.0" />
+      <point x="504.0" y="2457.0" />
+      <point x="259.5" y="2457.0" />
+      <point x="83.25" y="45.0" />
+    </edge>
+    <edge source="communication.HitPackage" target="communication.CommunicationPackage">
+      <point x="0.0" y="-45.0" />
+      <point x="1423.0" y="2779.0" />
+      <point x="1093.125" y="2779.0" />
+      <point x="58.125" y="45.0" />
+    </edge>
+    <edge source="game.exceptions.PlayerStartException" target="game.exceptions.GameException">
+      <point x="0.0" y="-18.0" />
+      <point x="924.5" y="918.0" />
+      <point x="1191.2006302521008" y="918.0" />
+      <point x="-61.875" y="18.0" />
+    </edge>
+    <edge source="client.userInterface.SeaBattleGUI" target="game.IUIExecutor">
+      <point x="0.0" y="-180.0" />
+      <point x="1543.5" y="1610.0" />
+      <point x="1424.75" y="1610.0" />
+      <point x="108.75" y="166.5" />
+    </edge>
+    <edge source="client.userInterface.SeaBattleApplication" target="client.userInterface.ISeaBattleEnhancedGUI">
+      <point x="-121.0" y="-315.0" />
+      <point x="270.75" y="552.0" />
+      <point x="212.5" y="552.0" />
+      <point x="0.0" y="45.0" />
+    </edge>
+    <edge source="client.userInterface.SinglePlayerGame" target="client.userInterface.ISeaBattleGame">
+      <point x="-100.75" y="-85.5" />
+      <point x="100.75" y="1993.0" />
+      <point x="144.75" y="1993.0" />
+      <point x="144.75" y="1556.0" />
+      <point x="275.66666666666663" y="1556.0" />
+      <point x="-137.33333333333337" y="139.5" />
+    </edge>
+    <edge source="websocketServer.EventServerSocket" target="javax.websocket.server.ServerEndpoint">
+      <point x="0.0" y="-72.0" />
+      <point x="0.0" y="85.5" />
+    </edge>
+    <edge source="communication.MultiplayerLocalToServerCommunication" target="communication.ICommunication">
+      <point x="112.0" y="-45.0" />
+      <point x="83.25" y="31.5" />
+    </edge>
+    <edge source="game.exceptions.BoatInvalidException" target="game.exceptions.GameException">
+      <point x="0.0" y="-18.0" />
+      <point x="1597.5" y="918.0" />
+      <point x="1314.9506302521008" y="918.0" />
+      <point x="61.875" y="18.0" />
+    </edge>
+    <edge source="communication.CommunicationAction" target="java.lang.Enum">
+      <point x="0.0" y="-18.0" />
+      <point x="2197.4285714285716" y="746.0" />
+      <point x="1933.357142857143" y="746.0" />
+      <point x="92.85714285714289" y="180.0" />
+    </edge>
+    <edge source="restServer.ScoreService" target="javax.ws.rs.Path">
+      <point x="0.0" y="-31.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="communication.MultiplayerServerToLocalCommunication" target="communication.PackageCommunication">
+      <point x="0.0" y="-45.0" />
+      <point x="1017.25" y="2322.0" />
+      <point x="924.0" y="2322.0" />
+      <point x="93.0" y="31.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5872905027932961" x="809.9690844233055" y="2558.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
