@@ -13,10 +13,6 @@ public class SeaBattleGUI implements IUIExecutor {
         battleGUI = gui;
     }
 
-    @Override
-    public void placeTempShipLocal(ShipType shipType, int bowX, int bowY, boolean horizontal) {
-
-    }
 
     @Override
     public void placeShipLocal(Ship ship) {
@@ -67,20 +63,6 @@ public class SeaBattleGUI implements IUIExecutor {
 
     }
 
-    @Override
-    public void fireTempShotOpponent(int posX, int posY) {
-
-    }
-
-    @Override
-    public void removeTempShotOpponent() {
-
-    }
-
-    @Override
-    public void removeTempShipLocal(int posX, int posY) {
-
-    }
 
     //tegenstander is geregistreerd, plaats nu al je boten
     @Override

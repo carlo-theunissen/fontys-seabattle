@@ -108,10 +108,6 @@ public class GameExecutorTest {
 
     private class UIMock implements IUIExecutor{
 
-        @Override
-        public void placeTempShipLocal(ShipType shipType, int bowX, int bowY, boolean horizontal) {
-
-        }
 
         @Override
         public void placeShipLocal(Ship ship) {
@@ -133,20 +129,6 @@ public class GameExecutorTest {
 
         }
 
-        @Override
-        public void fireTempShotOpponent(int posX, int posY) {
-
-        }
-
-        @Override
-        public void removeTempShotOpponent() {
-
-        }
-
-        @Override
-        public void removeTempShipLocal(int posX, int posY) {
-
-        }
 
         @Override
         public void gameReady(String opponentName) {
