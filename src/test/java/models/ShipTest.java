@@ -43,6 +43,36 @@ public class ShipTest {
         ship.setOrientation(null);
     }
 
+    @Test
+    public void ShipXTest(){
+        Ship ship = new Ship(ShipType.BATTLESHIP);
+        ship.setX(1);
+        Assert.assertEquals(1,ship.getX());
+    }
+
+    @Test
+    public void ShipYTest(){
+        Ship ship = new Ship(ShipType.BATTLESHIP);
+        ship.setY(1);
+        Assert.assertEquals(1,ship.getY());
+    }
+
+    @Test
+    public void StatusTest(){
+        Ship ship = new Ship(ShipType.BATTLESHIP);
+        ship.setStatus(ShipStatus.Alive);
+        Assert.assertEquals(ShipStatus.Alive, ship.getStatus());
+    }
+
+    @Test
+    public void ShipSizeTest(){
+        GetSizeOfShip(ShipType.BATTLESHIP);
+        GetSizeOfShip(ShipType.AIRCRAFTCARRIER);
+        GetSizeOfShip(ShipType.CRUISER);
+        GetSizeOfShip(ShipType.SUBMARINE);
+        GetSizeOfShip(ShipType.MINESWEEPER);
+    }
+
     @Theory
     public void GetSizeOfShip(ShipType shipType){
         Ship ship = new Ship(shipType);
@@ -57,7 +87,12 @@ public class ShipTest {
             case CRUISER:
                 Assert.assertEquals(3, ship.getLength());
                 break;
+            case SUBMARINE:
+                Assert.assertEquals(3, ship.getLength());
+                break;
             case MINESWEEPER:
+                Assert.assertEquals(2,ship.getLength());
+                break;
         }
 
     }
